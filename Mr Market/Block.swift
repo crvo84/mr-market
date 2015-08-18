@@ -43,6 +43,7 @@ class Block: SKSpriteNode
         blockNode = SKShapeNode(rectOfSize: size, cornerRadius: size.width * Geometry.BlockRelativeCornerRadius)
         blockNode!.fillColor = backgroundColor
         blockNode!.lineWidth = Geometry.BlockBorderWidth
+        blockNode!.strokeColor = Color.BlockBorder
         addChild(blockNode!)
         
         // item texture

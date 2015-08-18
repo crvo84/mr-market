@@ -7,8 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		733FFA831B7E3C95004B842E /* SparkParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA811B7E3C95004B842E /* SparkParticle.sks */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
+		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
+		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
+		73A9745E1B7F0CD500CACF04 /* Two Finger Johnny.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */; };
+		73A974621B82717400CACF04 /* SparkParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 73A974611B82717400CACF04 /* SparkParticle.sks */; };
+		73A974651B82B07900CACF04 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A974641B82B07900CACF04 /* Company.swift */; };
+		73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A974681B82BF2C00CACF04 /* Portfolio.swift */; };
+		73A9746B1B82C12800CACF04 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746A1B82C12800CACF04 /* Price.swift */; };
+		73A9746F1B82FB5100CACF04 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746E1B82FB5100CACF04 /* Market.swift */; };
 		73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D5F51B76912F009C7A9A /* AppDelegate.swift */; };
 		73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D5FD1B76912F009C7A9A /* Main.storyboard */; };
 		73F5D6011B76912F009C7A9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6001B76912F009C7A9A /* Images.xcassets */; };
@@ -33,8 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		733FFA811B7E3C95004B842E /* SparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SparkParticle.sks; sourceTree = "<group>"; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
+		73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Two Finger Johnny.mp3"; sourceTree = "<group>"; };
+		73A974611B82717400CACF04 /* SparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SparkParticle.sks; sourceTree = "<group>"; };
+		73A974641B82B07900CACF04 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		73A974681B82BF2C00CACF04 /* Portfolio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		73A9746A1B82C12800CACF04 /* Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
+		73A9746E1B82FB5100CACF04 /* Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 		73F5D5F01B76912F009C7A9A /* Mr Market.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mr Market.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73F5D5F41B76912F009C7A9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73F5D5F51B76912F009C7A9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,10 +87,31 @@
 		733FFA851B7E49BA004B842E /* Emitters */ = {
 			isa = PBXGroup;
 			children = (
-				733FFA811B7E3C95004B842E /* SparkParticle.sks */,
+				73A974611B82717400CACF04 /* SparkParticle.sks */,
 				733FFA821B7E3C95004B842E /* spark.png */,
 			);
 			name = Emitters;
+			sourceTree = "<group>";
+		};
+		73A974521B7EA4B200CACF04 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */,
+				73A974531B7EA4BB00CACF04 /* pop.wav */,
+				73A974551B7EA4F600CACF04 /* slam.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		73A974631B82B06100CACF04 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				73A9746E1B82FB5100CACF04 /* Market.swift */,
+				73A974641B82B07900CACF04 /* Company.swift */,
+				73A974681B82BF2C00CACF04 /* Portfolio.swift */,
+				73A9746A1B82C12800CACF04 /* Price.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		73F5D5E71B76912E009C7A9A = {
@@ -106,6 +141,7 @@
 				73F5D6211B76CACC009C7A9A /* SharedConstants.swift */,
 				73F5D6DF1B7C3890009C7A9A /* Scenes */,
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
+				73A974631B82B06100CACF04 /* Model */,
 				73F5D6001B76912F009C7A9A /* Images.xcassets */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
@@ -115,6 +151,7 @@
 		73F5D5F31B76912F009C7A9A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				73A974521B7EA4B200CACF04 /* Sounds */,
 				73F5D6231B76E648009C7A9A /* sprites.atlas */,
 				73F5D6021B76912F009C7A9A /* LaunchScreen.xib */,
 				73F5D5F41B76912F009C7A9A /* Info.plist */,
@@ -239,10 +276,13 @@
 			files = (
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
 				733FFA841B7E3C95004B842E /* spark.png in Resources */,
+				73A9745E1B7F0CD500CACF04 /* Two Finger Johnny.mp3 in Resources */,
 				73F5D6011B76912F009C7A9A /* Images.xcassets in Resources */,
+				73A974561B7EA4F600CACF04 /* slam.wav in Resources */,
 				73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */,
 				73F5D6241B76E648009C7A9A /* sprites.atlas in Resources */,
-				733FFA831B7E3C95004B842E /* SparkParticle.sks in Resources */,
+				73A974621B82717400CACF04 /* SparkParticle.sks in Resources */,
+				73A974541B7EA4BB00CACF04 /* pop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,10 +302,14 @@
 			files = (
 				73F5D6201B76CA2B009C7A9A /* MrMarket.swift in Sources */,
 				73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */,
+				73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */,
 				73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */,
 				73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */,
+				73A9746B1B82C12800CACF04 /* Price.swift in Sources */,
+				73A974651B82B07900CACF04 /* Company.swift in Sources */,
 				73F5D61C1B7691C7009C7A9A /* MarketGameViewController.swift in Sources */,
 				73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */,
+				73A9746F1B82FB5100CACF04 /* Market.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Mr Market/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -405,6 +450,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Mr Market/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
