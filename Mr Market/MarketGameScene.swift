@@ -68,12 +68,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         pausedLabelNode.horizontalAlignmentMode = .Center
         pausedLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
         pausedLabelNode.hidden = true
+        pausedLabelNode.zPosition = ZPosition.PausedLabel
         addChild(pausedLabelNode)
         
         // pause button
         pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
         pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
         pauseButtonNode.name = NodeName.PauseButton
+        pauseButtonNode.zPosition = ZPosition.PauseButton
         addChild(pauseButtonNode)
     }
     
@@ -85,6 +87,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         scoreLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
         scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         scoreLabelNode.position = CGPoint(x: size.width / 2.0 , y: size.height - Geometry.ScoreLabelUpperOffset)
+        scoreLabelNode.zPosition = ZPosition.ScoreLabel
         addChild(scoreLabelNode)
     }
     
@@ -143,6 +146,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     newBlock.position = CGPoint(x: blockX, y: blockY)
                     self.existingBlocks.append(newBlock)
                     self.addChild(newBlock)
+                    self.updateBlockColors()
                 }
                 
                 let waitAction = SKAction.waitForDuration(Time.BetweenBlocks)
@@ -152,13 +156,21 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             }
             
             let onePeriodAction = SKAction.sequence(oneBlockActions)
-            let onePeriodAndWaitAction = SKAction.sequence([onePeriodAction, SKAction.waitForDuration(Time.BetweenPeriods)])
+            let updateMrMarketAction = SKAction.runBlock{ self.mrMarket!.level = self.market!.newMarketLevel() }
+            let onePeriodAndWaitAction = SKAction.sequence([onePeriodAction, SKAction.waitForDuration(Time.BetweenPeriods), updateMrMarketAction])
             onePeriodActions.append(onePeriodAndWaitAction)
-            self.mrMarket?.level = self.market!.newMarketLevel()
         }
         
         generateBlocksAction = SKAction.sequence(onePeriodActions)
         runAction(generateBlocksAction)
+    }
+    
+    private func updateBlockColors() {
+        for block in existingBlocks {
+            if !block.isDescending {
+                block.updateColor()
+            }
+        }
     }
     
     private func audioSetup()
@@ -245,26 +257,31 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let location = touch.locationInNode(self)
         
         if let name = self.nodeAtPoint(location).name {
-            if name == NodeName.PauseButton { pause() }
+            if name == NodeName.PauseButton { pauseGame() }
         }
         
-        if let body = physicsWorld.bodyAtPoint(location) {
-            if let blockNode = body.node as? Block {
-                if blockNode.isDescending {
-                    runAction(popSoundAction)
-                    explosion(blockNode.position)
-                    deleteBlock(blockNode)
-                } else {
-                    deleteBlock(blockNode)
-                    // add cash sound
+        if !view!.paused {
+            if let body = physicsWorld.bodyAtPoint(location) {
+                if let blockNode = body.node as? Block {
+                    if blockNode.isDescending {
+                        runAction(popSoundAction)
+                        explosion(blockNode.position)
+                        deleteBlock(blockNode)
+                    } else {
+                        deleteBlock(blockNode)
+                        // add cash sound
+                    }
                 }
             }
         }
+
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
+        
+        updateBlockColors()
         
         if let blockA = nodeA as? Block {
             if let blockB = nodeB as? Block {
@@ -297,8 +314,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func pauseGame()
     {
-        pausedLabelNode.hidden = false
-        view!.paused = true
+        view!.paused = !view!.paused
+        pausedLabelNode.hidden = !view!.paused
     }
     
     

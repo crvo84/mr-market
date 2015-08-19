@@ -10,34 +10,20 @@ import Foundation
 
 class Market
 {
-    var level: Double // [0, 100]
+    var level: Int // [0, 15]
     var volatility: Double = 1.0
     var lastReturn: Double = 0.0
     
     
     init(volatility: Double) {
         self.volatility = volatility
-        self.level = Double(arc4random_uniform(100 + 1))
+        self.level = Int(arc4random_uniform(UInt32(MrMarket.Info.MaxLevel + 1)))
     }
     
-    func newMarketLevel() -> Double {
+    func newMarketLevel() -> Int {
         let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOptions.ProbabilityOfBreakingTrend
-        
-        let levelIncrease: Double
-        
-        if level < 50.0 {
-            // Boom
-            levelIncrease = continueTrend ? MarketOptions.LevelIncreaseBoom : (level == 0.0 ? MarketOptions.LevelIncreaseBurst : MarketOptions.LevelIncreaseBoom)
-        } else {
-            // Burst
-            if continueTrend {
-                levelIncrease = level == 100.0 ? MarketOptions.LevelIncreaseBoom : MarketOptions.LevelIncreaseBurst
-            } else {
-                levelIncrease = level == 50.0 ? MarketOptions.LevelIncreaseBoom : MarketOptions.LevelIncreaseBurst
-            }
-        }
 
-        var newLevel = level + levelIncrease
+        var newLevel = level + 1 // TODO: Add volatility here
         
         if newLevel > MrMarket.Info.MaxLevel {
             level = MrMarket.Info.MinLevel
@@ -46,14 +32,13 @@ class Market
         } else {
             level = newLevel
         }
-        
-        // TODO: sharper movements after level 50?
+        println("New Market Level")
 
         let randomLimit = (MarketOptions.MaxPercentReturn - MarketOptions.MinPercentReturn) * 10 + 1
         let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOptions.MinPercentReturn
         let randomReturn = randomPercentReturn / 100.0
         
-        lastReturn = level <= MrMarket.Info.TopBubbleLevel ? randomReturn : -randomReturn
+        lastReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOptions.BurstReturnFactor
         
         println("Market. Last Return: \(lastReturn), Level: \(level)")
         

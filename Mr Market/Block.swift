@@ -17,6 +17,12 @@ class Block: SKSpriteNode
     private var itemNode: SKSpriteNode?
     private var textNode: SKLabelNode?
     
+    private var currentReturn: Double {
+        get {
+            return price.company.currentPriceValue / price.value - 1.0
+        }
+    }
+    
     var backgroundColor: SKColor = Color.BlockDefault {
         didSet {
             blockNode?.fillColor = backgroundColor
@@ -58,7 +64,7 @@ class Block: SKSpriteNode
         blockNode!.addChild(itemNode!)
         
         // text node
-        textNode = SKLabelNode(fontNamed: "Verdana")
+        textNode = SKLabelNode(fontNamed: FontName.BlockText)
         textNode!.text = price.toString()
         textNode!.fontColor = textColor
         textNode!.fontSize = isIpad ? FontSize.BlockTextIpad : FontSize.BlockTextIphone
@@ -81,7 +87,26 @@ class Block: SKSpriteNode
         //        physicsBody?.collisionBitMask = 0
         
         zPosition = ZPosition.Block
-        
+    }
+    
+    func updateColor() {
+        var newColor: SKColor
+        if currentReturn > 0.1 {
+            newColor = SKColor(red: 0.45, green: 1.0, blue: 0.45, alpha: 1.0)
+        } else if currentReturn > 0.5 {
+            newColor = SKColor(red: 0.60, green: 1.0, blue: 0.60, alpha: 1.0)
+        } else if currentReturn > 0.0 {
+            newColor = SKColor(red: 0.75, green: 1.0, blue: 0.75, alpha: 1.0)
+        } else if currentReturn == 0.0 {
+            newColor = Color.BlockPurchased
+        } else if currentReturn > -0.05 {
+            newColor = SKColor(red: 1.0, green: 0.75, blue: 0.75, alpha: 1.0)
+        } else if currentReturn > -0.1 {
+            newColor = SKColor(red: 1.0, green: 0.60, blue: 0.60, alpha: 1.0)
+        } else {
+            newColor = SKColor(red: 1.0, green: 0.45, blue: 0.45, alpha: 1.0)
+        }
+        backgroundColor = newColor
     }
     
     func disappear()

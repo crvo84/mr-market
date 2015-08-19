@@ -73,9 +73,6 @@ struct FontName {
 struct Texture {
     static let blockImageNamePrefix = "blockImage"
     static let numberOfBlockImages = 11
-    static let numberOfMrMarketFaces: Double = 16
-    static let numberOfMrMarketBoomFaces: Double = 12
-    static let numberOfMrMarketBurstFaces: Double = 4
 }
 
 struct Category {
@@ -101,6 +98,9 @@ struct Physics {
 struct ZPosition {
     static let Exposion: CGFloat = 6
     static let MrMarket: CGFloat = 5
+    static let ScoreLabel: CGFloat = 5
+    static let PauseButton: CGFloat = 5
+    static let PausedLabel: CGFloat = 6
     static let Block: CGFloat = 4
 }
 
@@ -119,7 +119,6 @@ struct CompanyInfo {
     static let MaxInitialPriceInteger: UInt32 = 25
     static let MinInitialPriceInteger: UInt32 = 1
     static let MaxDecimals: Int = 1
-//    static let TransactionAmount: Double = 100.0
 }
 
 struct GameOptions {
@@ -130,12 +129,10 @@ struct GameOptions {
 }
 
 struct MarketOptions {
-    static let ProbabilityOfBreakingTrend: Double = 0.10
-    static let LevelIncreaseBoom: Double = 50.0 / Texture.numberOfMrMarketBoomFaces
-    static let LevelIncreaseBurst: Double = 50.0 / Texture.numberOfMrMarketBurstFaces
-    static let FasterLevelBurstFactor: Double = 2.0
+    static let ProbabilityOfBreakingTrend: Double = 0.0
     static let MaxPercentReturn: Double = 5
     static let MinPercentReturn: Double = 5
+    static let BurstReturnFactor: Double = 1.5
 }
 
 struct NodeName {

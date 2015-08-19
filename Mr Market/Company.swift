@@ -26,10 +26,7 @@ class Company: NSObject
     func newPriceWithMarketReturn(marketReturn: Double) -> Price
     {
         // Add random deviation to the company beta
-
         let betaDeviation = (Double(arc4random_uniform(CompanyInfo.BetaMaxPercentDeviation * 2 + 1)) - Double(CompanyInfo.BetaMaxPercentDeviation)) / 100.0
-        let marketReturnTEST = marketReturn
-        let betaTEST = beta
         let companyReturn = marketReturn * beta * (1 + betaDeviation)
         currentPriceValue *= (1 + companyReturn)
         
