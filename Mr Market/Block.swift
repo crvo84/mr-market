@@ -12,6 +12,7 @@ import SpriteKit
 class Block: SKSpriteNode
 {
     let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
+    let price: Price
     private var blockNode: SKShapeNode?
     private var itemNode: SKSpriteNode?
     private var textNode: SKLabelNode?
@@ -36,7 +37,9 @@ class Block: SKSpriteNode
         }
     }
     
-    init(itemTexture: SKTexture!, infoText: String, size: CGSize) {
+    init(price: Price, itemTexture: SKTexture!, size: CGSize) {
+        self.price = price
+        
         super.init(texture: nil, color: SKColor.clearColor(), size: size)
         
         // block
@@ -56,7 +59,7 @@ class Block: SKSpriteNode
         
         // text node
         textNode = SKLabelNode(fontNamed: "Verdana")
-        textNode!.text = infoText
+        textNode!.text = price.toString()
         textNode!.fontColor = textColor
         textNode!.fontSize = isIpad ? FontSize.BlockTextIpad : FontSize.BlockTextIphone
         textNode!.horizontalAlignmentMode = .Left

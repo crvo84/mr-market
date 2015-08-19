@@ -14,6 +14,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Device
     let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     
+    // Pause
+    let pausedLabelNode = SKLabelNode(text: "Paused")
+    let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
+    
+    // Score
+    let scoreLabelNode = SKLabelNode(text: "$0.0")
+    
     // Audio
     private var backgroundMusicPlayer: AVAudioPlayer!
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
@@ -22,27 +29,63 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Texture
     private let textureAtlas = SKTextureAtlas(named: Filename.SpritesAtlas)
     
-    // Mr Market
-    private var mrMarketNode: MrMarket?
+    // Market
+    private var mrMarket: MrMarket?
+    private var market: Market?
+    private var companies: [Company]?
+    private let portfolio = Portfolio()
     
     // Blocks
+    private var existingBlocks: [Block] = []
     private var generateBlocksAction: SKAction?
 
-    // Game variables
+    // Game variables (may increase on higher levels)
     var numberOfCompanies = GameOptions.NumberOfCompanies
     var numberOfPeriods = GameOptions.Periods
     var marketVolatility = GameOptions.MarketVolatility
     var gameSpeed = GameOptions.Speed
-//    var market: Market = Market(
     
     override func didMoveToView(view: SKView) {
         userInteractionEnabled = true
         backgroundColor = Color.MainBackground
-
+        
+        pauseGameSetup()
+        scoreLabelSetup()
         physicsWorldSetup()
-        createMrMarket()
-        generateBlocks()
+        createMarket()
 //        audioSetup()
+        generateBlocks()
+    }
+    
+    // TODO: define shared constants
+    private func pauseGameSetup()
+    {
+        // paused label
+        pausedLabelNode.fontName = FontName.PausedLabel
+        pausedLabelNode.fontColor = Color.PausedLabel
+        pausedLabelNode.fontSize = isIpad ? FontSize.PausedLabelIpad : FontSize.PausedLabelIphone
+        pausedLabelNode.verticalAlignmentMode = .Center
+        pausedLabelNode.horizontalAlignmentMode = .Center
+        pausedLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+        pausedLabelNode.hidden = true
+        addChild(pausedLabelNode)
+        
+        // pause button
+        pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
+        pauseButtonNode.name = NodeName.PauseButton
+        addChild(pauseButtonNode)
+    }
+    
+    private func scoreLabelSetup()
+    {
+        scoreLabelNode.fontName = FontName.ScoreLabel
+        scoreLabelNode.fontColor = Color.ScoreLabel
+        scoreLabelNode.fontSize = isIpad ? FontSize.ScoreLabelIpad : FontSize.ScoreLabelIphone
+        scoreLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
+        scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        scoreLabelNode.position = CGPoint(x: size.width / 2.0 , y: size.height - Geometry.ScoreLabelUpperOffset)
+        addChild(scoreLabelNode)
     }
     
     private func physicsWorldSetup()
@@ -56,50 +99,65 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         physicsBody?.restitution = Physics.BlockRestitution
     }
     
-    private func createMrMarket()
+    private func createMarket()
     {
+        market = Market(volatility: marketVolatility)
+        companies = Company.generateCompanies(numberOfCompanies)
+        
         // add mr market
         let mrMarketWidth: CGFloat = size.width * Geometry.MrMarketRelativeWidth
         let mrMarketHeight: CGFloat = mrMarketWidth / Geometry.MrMarketAspectRatio
-        mrMarketNode = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: 0.0)
-        mrMarketNode?.anchorPoint = CGPoint(x: 0.0, y: 1.0)
-        mrMarketNode!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketTopOffset)
-        mrMarketNode!.name = "mrMarket"
-        addChild(mrMarketNode!)
+        mrMarket = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: market!.level)
+        mrMarket?.anchorPoint = CGPoint(x: 0.0, y: 1.0)
+        mrMarket!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketTopOffset)
+        mrMarket!.name = NodeName.MrMarket
+        addChild(mrMarket!)
     }
+
     
     private func generateBlocks()
     {
-        // creating blocks
         // block size
         let blockWidth = (size.width - Geometry.BlockHorizontalSeparation * (Geometry.BlocksPerLine + 1)) / Geometry.BlocksPerLine
         //        let blockHeight = blockWidth * Geometry.BlockRelativeHeight
         let blockHeight = size.height / Geometry.BlocksPerColumn
         let blockSize = CGSize(width: blockWidth, height: blockHeight)
-        let addNewBlock = SKAction.runBlock { 
+        
+
+        var onePeriodActions: [SKAction] = []
+        for i in 0..<numberOfPeriods {
             
-            // select item texture
-            let randomItemIndex = arc4random_uniform(UInt32(Texture.numberOfBlockImages)) // Random number between 0 and n-1
-            let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(randomItemIndex)")
+            var oneBlockActions: [SKAction] = []
+            for j in 0..<self.companies!.count {
+                let oneBlockAction = SKAction.runBlock { [unowned self] in
+                    
+                    let company = self.companies![j]
+                    let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
+                    let price = company.newPriceWithMarketReturn(self.market!.lastReturn)
+                    
+                    let newBlock = Block(price: price, itemTexture: itemTexture, size: blockSize)
+                    //random position
+                    let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
+                    let blockX = (Geometry.BlockHorizontalSeparation + blockWidth / 2.0) + randomBlockPosition * (blockWidth + Geometry.BlockHorizontalSeparation)
+                    let blockY = self.size.height + blockHeight / 2.0
+                    newBlock.position = CGPoint(x: blockX, y: blockY)
+                    self.existingBlocks.append(newBlock)
+                    self.addChild(newBlock)
+                }
+                
+                let waitAction = SKAction.waitForDuration(Time.BetweenBlocks)
+                
+                let oneBlockAndWaitAction = SKAction.sequence([oneBlockAction, waitAction])
+                oneBlockActions.append(oneBlockAndWaitAction)
+            }
             
-            // create block
-            let randomLimit: UInt32 = CompanyInfo.MaxInitialPriceInteger - CompanyInfo.MinInitialPriceInteger + 1
-            let priceInteger = Double(arc4random_uniform(randomLimit) + CompanyInfo.MinInitialPriceInteger)
-            let randomPrice = priceInteger + Double(arc4random_uniform(10)) / 10.0
-            let priceStr = String(format: "$%.1f", randomPrice)
-            let block = Block(itemTexture: itemTexture, infoText: priceStr, size: blockSize)
-            
-            // random position
-            let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
-            let blockX = (Geometry.BlockHorizontalSeparation + blockWidth / 2.0) + randomBlockPosition * (blockWidth + Geometry.BlockHorizontalSeparation)
-            let blockY = self.size.height + blockHeight / 2.0
-            block.position = CGPoint(x: blockX, y: blockY)
-            self.addChild(block)
-            
-            self.mrMarketNode?.level++
+            let onePeriodAction = SKAction.sequence(oneBlockActions)
+            let onePeriodAndWaitAction = SKAction.sequence([onePeriodAction, SKAction.waitForDuration(Time.BetweenPeriods)])
+            onePeriodActions.append(onePeriodAndWaitAction)
+            self.mrMarket?.level = self.market!.newMarketLevel()
         }
-        let waitAction = SKAction.waitForDuration(Time.BetweenBlocks)
-        generateBlocksAction = SKAction.repeatActionForever(SKAction.sequence([addNewBlock, waitAction]))
+        
+        generateBlocksAction = SKAction.sequence(onePeriodActions)
         runAction(generateBlocksAction)
     }
     
@@ -157,7 +215,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func gameOver()
     {
         removeAllActions()
-        shakeNode(mrMarketNode!)
+        shakeNode(mrMarket!)
     }
     
     func explosion(position: CGPoint)
@@ -173,20 +231,31 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
     }
 
+    private func deleteBlock(block: Block) {
+        if let index = find(existingBlocks, block) {
+            portfolio.sellPrice(block.price)
+            scoreLabelNode.text = portfolio.cashToString()
+            existingBlocks.removeAtIndex(index)
+            block.disappear()
+        }
+    }
 
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         let touch = touches.first as! UITouch
         let location = touch.locationInNode(self)
         
+        if let name = self.nodeAtPoint(location).name {
+            if name == NodeName.PauseButton { pause() }
+        }
+        
         if let body = physicsWorld.bodyAtPoint(location) {
             if let blockNode = body.node as? Block {
                 if blockNode.isDescending {
-//                    runAction(popSoundAction)
+                    runAction(popSoundAction)
                     explosion(blockNode.position)
-                    blockNode.disappear()
-                    // add explosion sound
+                    deleteBlock(blockNode)
                 } else {
-                    blockNode.disappear()
+                    deleteBlock(blockNode)
                     // add cash sound
                 }
             }
@@ -201,7 +270,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             if let blockB = nodeB as? Block {
                 // blockA collided with blockB
                 if !blockA.isDescending || !blockB.isDescending {
-//                    runAction(slamSoundAction)
+                    if blockA.isDescending { portfolio.buyPrice(blockA.price) }
+                    if blockB.isDescending { portfolio.buyPrice(blockB.price) }
+                    runAction(slamSoundAction)
                     blockA.isDescending = false
                     blockB.isDescending = false
                     if blockA.position.y + blockA.size.height / 2.0 > size.height || blockB.position.y + blockB.size.height / 2.0 > size.height {
@@ -210,19 +281,25 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 }
             } else {
                 // blockA collided with floor
-//                runAction(slamSoundAction)
+                portfolio.buyPrice(blockA.price)
+                runAction(slamSoundAction)
                 blockA.isDescending = false
             }
         } else {
             // blockB collided with floor
             if let blockB = nodeB as? Block {
-//                runAction(slamSoundAction)
+                portfolio.buyPrice(blockB.price)
+                runAction(slamSoundAction)
                 blockB.isDescending = false
             }
         }
     }
     
-
+    private func pauseGame()
+    {
+        pausedLabelNode.hidden = false
+        view!.paused = true
+    }
     
     
     

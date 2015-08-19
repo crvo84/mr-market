@@ -22,7 +22,21 @@ class Market
     
     func newMarketLevel() -> Double {
         let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOptions.ProbabilityOfBreakingTrend
-        let levelIncrease = continueTrend ? MarketOptions.LevelIncrease : -MarketOptions.LevelIncrease
+        
+        let levelIncrease: Double
+        
+        if level < 50.0 {
+            // Boom
+            levelIncrease = continueTrend ? MarketOptions.LevelIncreaseBoom : (level == 0.0 ? MarketOptions.LevelIncreaseBurst : MarketOptions.LevelIncreaseBoom)
+        } else {
+            // Burst
+            if continueTrend {
+                levelIncrease = level == 100.0 ? MarketOptions.LevelIncreaseBoom : MarketOptions.LevelIncreaseBurst
+            } else {
+                levelIncrease = level == 50.0 ? MarketOptions.LevelIncreaseBoom : MarketOptions.LevelIncreaseBurst
+            }
+        }
+
         var newLevel = level + levelIncrease
         
         if newLevel > MrMarket.Info.MaxLevel {
@@ -33,9 +47,15 @@ class Market
             level = newLevel
         }
         
-        let randomReturn: Double = Double(arc4random_uniform(MarketOptions.MaxPercentReturn * 10 + 1)) / 10 * volatility
+        // TODO: sharper movements after level 50?
+
+        let randomLimit = (MarketOptions.MaxPercentReturn - MarketOptions.MinPercentReturn) * 10 + 1
+        let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOptions.MinPercentReturn
+        let randomReturn = randomPercentReturn / 100.0
         
         lastReturn = level <= MrMarket.Info.TopBubbleLevel ? randomReturn : -randomReturn
+        
+        println("Market. Last Return: \(lastReturn), Level: \(level)")
         
         return level
     }

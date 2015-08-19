@@ -17,4 +17,8 @@ class Price: NSObject
         self.company = company
         self.value = value
     }
+    
+    func toString() -> String {
+       return String(format: "$%.1f", value)
+    }
 }

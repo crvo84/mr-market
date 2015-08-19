@@ -11,21 +11,30 @@ import Foundation
 class Portfolio
 {
     private var prices: [Price] = []
-    private var cash: Double = 0.0
-    
+    var cash: Double = 0.0
     
     func buyPrice(price: Price) {
-        prices.append(price)
+        let index = find(prices, price)
+        if index == nil {
+            prices.append(price)
+            println("Block purchased")
+        }
     }
     
     func sellPrice(priceToSell: Price) {
         if let index = find(prices, priceToSell) {
 //            cash += (priceToSell.company.currentPrice / priceToSell.value - 1) * CompanyInfo.TransactionAmount
-            cash += priceToSell.company.currentPrice - priceToSell.value
+            cash += priceToSell.company.currentPriceValue - priceToSell.value
             prices.removeAtIndex(index)
             if cash <= 0.0 { cash = 0.0 }
+            println("Block Sold. Portfolio cash: \(cash)")
         }
     }
+    
+    func cashToString() -> String {
+        return String(format: "$%.1f", cash)
+    }
+    
 }
 
 

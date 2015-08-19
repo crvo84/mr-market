@@ -10,7 +10,7 @@ import Foundation
 
 class Company: NSObject
 {
-    var currentPrice: Double
+    var currentPriceValue: Double
     var name: String
     private var beta: Double
     
@@ -20,17 +20,22 @@ class Company: NSObject
         self.beta = beta
         let randomLimit: UInt32 = CompanyInfo.MaxInitialPriceInteger - CompanyInfo.MinInitialPriceInteger + 1
         let priceInteger = Double(arc4random_uniform(randomLimit) + CompanyInfo.MinInitialPriceInteger)
-        self.currentPrice = priceInteger + Double(arc4random_uniform(10)) / 10.0
-        
-        println("Company: " + name + ", Beta: \(beta), Price: \(currentPrice)")
+        self.currentPriceValue = priceInteger + Double(arc4random_uniform(10)) / 10.0
     }
     
-    func newPriceWithMarketReturn(marketReturn: Double) -> Double
+    func newPriceWithMarketReturn(marketReturn: Double) -> Price
     {
         // Add random deviation to the company beta
-        let betaDeviation = Double(arc4random_uniform(CompanyInfo.BetaMaxPercentDeviation * 2 + 1) - CompanyInfo.BetaMaxPercentDeviation) / 100.0
-        currentPrice = marketReturn * beta * (1 + betaDeviation)
-        return currentPrice
+
+        let betaDeviation = (Double(arc4random_uniform(CompanyInfo.BetaMaxPercentDeviation * 2 + 1)) - Double(CompanyInfo.BetaMaxPercentDeviation)) / 100.0
+        let marketReturnTEST = marketReturn
+        let betaTEST = beta
+        let companyReturn = marketReturn * beta * (1 + betaDeviation)
+        currentPriceValue *= (1 + companyReturn)
+        
+        println("Company: " + name + ", Beta: \(beta), Price: \(currentPriceValue)")
+        
+        return Price(company: self, value: currentPriceValue)
     }
     
     class func generateCompanies(numberOfCompanies: Int) -> [Company] {

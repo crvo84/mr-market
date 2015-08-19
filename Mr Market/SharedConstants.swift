@@ -16,6 +16,7 @@ struct Filename {
     static let PopSound = "pop.wav"
     static let SlamSound = "slam.wav"
     static let BackgroundMusic = "Two Finger Johnny.mp3"
+    static let PauseButton = "pause"
 }
 
 struct Geometry {
@@ -35,6 +36,13 @@ struct Geometry {
     static let BlockTextLeftOffset: CGFloat = 4.0 // From item node
     static let BlockTextVerticalOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
+    
+    // pause button
+    static let PauseButtonRightOffset: CGFloat = 10.0
+    static let PauseButtonUpperOffset: CGFloat = 10.0
+    
+    // score label
+    static let ScoreLabelUpperOffset: CGFloat = 10.0
 }
 
 struct Color {
@@ -43,16 +51,31 @@ struct Color {
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor.blackColor()
     static let BlockPurchased = SKColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.0)
+    static let ScoreLabel = SKColor.lightGrayColor()
+    static let PausedLabel = SKColor.lightGrayColor()
 }
 
 struct FontSize {
     static let BlockTextIphone: CGFloat = 15
     static let BlockTextIpad: CGFloat = 30
+    static let ScoreLabelIphone: CGFloat = 20
+    static let ScoreLabelIpad: CGFloat = 40
+    static let PausedLabelIphone: CGFloat = 40
+    static let PausedLabelIpad: CGFloat = 80
+}
+
+struct FontName {
+    static let BlockText = "Arial"
+    static let ScoreLabel = "Arial"
+    static let PausedLabel = "Arial"
 }
 
 struct Texture {
     static let blockImageNamePrefix = "blockImage"
     static let numberOfBlockImages = 11
+    static let numberOfMrMarketFaces: Double = 16
+    static let numberOfMrMarketBoomFaces: Double = 12
+    static let numberOfMrMarketBurstFaces: Double = 4
 }
 
 struct Category {
@@ -61,7 +84,8 @@ struct Category {
 }
 
 struct Time {
-    static let BetweenBlocks = 2.0 / Double(GameOptions.Speed)
+    static let BetweenBlocks = 3.0 / Double(GameOptions.Speed)
+    static let BetweenPeriods = Time.BetweenBlocks * 2
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
@@ -89,7 +113,7 @@ struct Shake {
 }
 
 struct CompanyInfo {
-    static let MaxBeta: Double = 10.0
+    static let MaxBeta: Double = 2
     static let MinBeta: Double = 0.5
     static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50%
     static let MaxInitialPriceInteger: UInt32 = 25
@@ -99,7 +123,7 @@ struct CompanyInfo {
 }
 
 struct GameOptions {
-    static let Periods: Int = 5
+    static let Periods: Int = 50
     static let NumberOfCompanies: Int = 2
     static let Speed: CGFloat = 1.0
     static let MarketVolatility: Double = 1.0
@@ -107,12 +131,17 @@ struct GameOptions {
 
 struct MarketOptions {
     static let ProbabilityOfBreakingTrend: Double = 0.10
-    static let LevelIncrease: Double = 2.0 // can be how many level units to change mr market face
+    static let LevelIncreaseBoom: Double = 50.0 / Texture.numberOfMrMarketBoomFaces
+    static let LevelIncreaseBurst: Double = 50.0 / Texture.numberOfMrMarketBurstFaces
     static let FasterLevelBurstFactor: Double = 2.0
-    static let MaxPercentReturn: UInt32 = 3
+    static let MaxPercentReturn: Double = 5
+    static let MinPercentReturn: Double = 5
 }
 
-
+struct NodeName {
+    static let MrMarket = "mrMarket"
+    static let PauseButton = "pause"
+}
 
 
 
