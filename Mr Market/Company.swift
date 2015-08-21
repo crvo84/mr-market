@@ -43,12 +43,27 @@ class Company: NSObject
         let betaDiff = (CompanyInfo.MaxBeta - CompanyInfo.MinBeta) / Double(numberOfCompanies - 1)
         
         for i in 0..<numberOfCompanies {
-            let beta = CompanyInfo.MinBeta + Double(i) * betaDiff
+            
+            let beta = numberOfCompanies > 1 ? CompanyInfo.MinBeta + Double(i) * betaDiff : 1.0
+
             let name = Texture.blockImageNamePrefix + "\(i)"
             companies.append(Company(uniqueName: name, beta: beta))
         }
         
         return companies
+    }
+    
+    class func newCompanyForIndex(index: Int) -> Company?
+    {
+        var company: Company?
+        
+        if index < Texture.numberOfBlockImages {
+            let name = Texture.blockImageNamePrefix + "\(index)"
+            let randomLimit = UInt32(CompanyInfo.MaxBeta - CompanyInfo.MinBeta + 1)
+            let beta = Double(arc4random_uniform(randomLimit)) + CompanyInfo.MinBeta
+            company = Company(uniqueName: name, beta: beta)
+        }
+        return company
     }
 
     

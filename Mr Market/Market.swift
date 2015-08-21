@@ -15,15 +15,15 @@ class Market
     var lastReturn: Double = 0.0
     
     
-    init(volatility: Double) {
-        self.volatility = volatility
-        self.level = Int(arc4random_uniform(UInt32(MrMarket.Info.MaxLevel + 1)))
+    init(initialLevel: Int) {
+//        self.level = Int(arc4random_uniform(UInt32(MrMarket.Info.MaxLevel + 1)))
+        self.level = initialLevel
     }
     
     func newMarketLevel() -> Int {
-        let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOptions.ProbabilityOfBreakingTrend
+        let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOption.ProbabilityOfBreakingTrend
 
-        var newLevel = level + 1 // TODO: Add volatility here
+        var newLevel = level + 1
         
         if newLevel > MrMarket.Info.MaxLevel {
             level = MrMarket.Info.MinLevel
@@ -34,11 +34,11 @@ class Market
         }
         println("New Market Level")
 
-        let randomLimit = (MarketOptions.MaxPercentReturn - MarketOptions.MinPercentReturn) * 10 + 1
-        let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOptions.MinPercentReturn
+        let randomLimit = (MarketOption.MaxPercentReturn - MarketOption.MinPercentReturn) * 10 + 1
+        let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOption.MinPercentReturn
         let randomReturn = randomPercentReturn / 100.0
         
-        lastReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOptions.BurstReturnFactor
+        lastReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOption.BurstReturnFactor
         
         println("Market. Last Return: \(lastReturn), Level: \(level)")
         

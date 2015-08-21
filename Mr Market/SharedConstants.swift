@@ -17,6 +17,8 @@ struct Filename {
     static let SlamSound = "slam.wav"
     static let BackgroundMusic = "Two Finger Johnny.mp3"
     static let PauseButton = "pause"
+    static let MusicOn = "musicOn"
+    static let MusicOff = "musicOff"
 }
 
 struct Geometry {
@@ -53,6 +55,7 @@ struct Color {
     static let BlockPurchased = SKColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.0)
     static let ScoreLabel = SKColor.lightGrayColor()
     static let PausedLabel = SKColor.lightGrayColor()
+    static let LevelLabel = SKColor.lightGrayColor()
 }
 
 struct FontSize {
@@ -62,12 +65,15 @@ struct FontSize {
     static let ScoreLabelIpad: CGFloat = 40
     static let PausedLabelIphone: CGFloat = 40
     static let PausedLabelIpad: CGFloat = 80
+    static let LevelLabelIphone: CGFloat = 40
+    static let LevelLabelIpad: CGFloat = 80
 }
 
 struct FontName {
     static let BlockText = "Arial"
     static let ScoreLabel = "Arial"
     static let PausedLabel = "Arial"
+    static let LevelLabel = "Arial"
 }
 
 struct Texture {
@@ -81,11 +87,13 @@ struct Category {
 }
 
 struct Time {
-    static let BetweenBlocks = 3.0 / Double(GameOptions.Speed)
+    static let BetweenBlocks = 3.0 / Double(GameOption.Speed) // TODO: update gamespeed on each label?
     static let BetweenPeriods = Time.BetweenBlocks * 2
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
+    static let LevelLabelOnScreen = 2.0
+    static let LevelLabelFadeOut = 0.6
 }
 
 struct Physics {
@@ -101,6 +109,7 @@ struct ZPosition {
     static let ScoreLabel: CGFloat = 5
     static let PauseButton: CGFloat = 5
     static let PausedLabel: CGFloat = 6
+    static let LevelLabel: CGFloat = 6
     static let Block: CGFloat = 4
 }
 
@@ -121,14 +130,21 @@ struct CompanyInfo {
     static let MaxDecimals: Int = 1
 }
 
-struct GameOptions {
-    static let Periods: Int = 50
+struct GameOption {
+    static let Periods: Int = 2 // min 16 for complete market cycle
+    static let PeriodsIncrease: Int = 1
+    static let MaxPeriods: Int = 20
     static let NumberOfCompanies: Int = 2
+    static let NumberOfCompaniesIncrease: Int = 1
     static let Speed: CGFloat = 1.0
-    static let MarketVolatility: Double = 1.0
+    static let SpeedIncrease: CGFloat = 0.2
+    static let MusicRateIncrease: Float = 0
+    static let TransactionAmount: Double = 1000000.0
+    static let InitialMarketLevel: Int = 0
+    static let InitialMarketLevelIncrease: Int = 2
 }
 
-struct MarketOptions {
+struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.0
     static let MaxPercentReturn: Double = 5
     static let MinPercentReturn: Double = 5
@@ -140,9 +156,13 @@ struct NodeName {
     static let PauseButton = "pause"
 }
 
+struct UserDefaultsKey {
+    static let musicOn = "musicOn"
+}
 
-
-
+struct UserDefaults {
+    static let musicOn = true
+}
 
 
 

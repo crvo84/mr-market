@@ -9,20 +9,25 @@
 import SpriteKit
 import AVFoundation
 
+// Global but private (Works like a static variable in objective-c). To avoid a "wall of sound" or many copies of the same music
+private var backgroundMusicPlayer: AVAudioPlayer!
+
 class MarketGameScene: SKScene, SKPhysicsContactDelegate
 {
     // Device
     let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     
+    // Level label
+    let levelLabelNode = SKLabelNode(fontNamed: FontName.LevelLabel)
+    
     // Pause
-    let pausedLabelNode = SKLabelNode(text: "Paused")
+    let pausedLabelNode = SKLabelNode(fontNamed: FontName.PausedLabel)
     let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
     
     // Score
-    let scoreLabelNode = SKLabelNode(text: "$0.0")
+    let scoreLabelNode = SKLabelNode(fontNamed: FontName.ScoreLabel)
     
     // Audio
-    private var backgroundMusicPlayer: AVAudioPlayer!
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
 
@@ -40,35 +45,63 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private var generateBlocksAction: SKAction?
 
     // Game variables (may increase on higher levels)
-    var numberOfCompanies = GameOptions.NumberOfCompanies
-    var numberOfPeriods = GameOptions.Periods
-    var marketVolatility = GameOptions.MarketVolatility
-    var gameSpeed = GameOptions.Speed
+    var gameLevel: Int = 1
+    private var numberOfCompanies: Int = GameOption.NumberOfCompanies
+    private var numberOfPeriods: Int = GameOption.Periods
+    private var gameSpeed: CGFloat = GameOption.Speed
     
     override func didMoveToView(view: SKView) {
         userInteractionEnabled = true
         backgroundColor = Color.MainBackground
-        
+        gameLevelVariablesSetup()
         pauseGameSetup()
         scoreLabelSetup()
         physicsWorldSetup()
-        createMarket()
-//        audioSetup()
-        generateBlocks()
+        marketSetup()
+        audioSetup()
+        levelLabelSetup()
+        
+        let onScreenLevelLabelAction = SKAction.waitForDuration(Time.LevelLabelOnScreen)
+        let fadeOutLevelLabelAction = SKAction.fadeOutWithDuration(Time.LevelLabelFadeOut)
+        let removeLevelLabelAction = SKAction.removeFromParent()
+        levelLabelNode.runAction(SKAction.sequence([onScreenLevelLabelAction, fadeOutLevelLabelAction, removeLevelLabelAction]))
+        let startGameAction = SKAction.runBlock { self.generateBlocks() }
+        self.runAction(SKAction.sequence([SKAction.waitForDuration(Time.LevelLabelOnScreen), startGameAction]))
     }
     
-    // TODO: define shared constants
+    private func gameLevelVariablesSetup() {
+        numberOfCompanies = GameOption.NumberOfCompanies + GameOption.NumberOfCompaniesIncrease * (gameLevel - 1)
+        if numberOfCompanies > Texture.numberOfBlockImages { numberOfCompanies = Texture.numberOfBlockImages }
+        
+        numberOfPeriods = GameOption.Periods + GameOption.PeriodsIncrease * (gameLevel - 1)
+        if numberOfPeriods > GameOption.MaxPeriods { numberOfPeriods = GameOption.MaxPeriods }
+        
+        gameSpeed = GameOption.Speed + GameOption.SpeedIncrease * CGFloat(gameLevel - 1)
+    }
+    
+    private func levelLabelSetup()
+    {
+        levelLabelNode.text = "Level \(gameLevel)"
+        levelLabelNode.fontColor = Color.LevelLabel
+        levelLabelNode.fontSize = isIpad ? FontSize.LevelLabelIpad : FontSize.LevelLabelIphone
+        levelLabelNode.verticalAlignmentMode = .Center
+        levelLabelNode.horizontalAlignmentMode = .Center
+        levelLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+        levelLabelNode.zPosition = ZPosition.LevelLabel
+        addChild(levelLabelNode)
+    }
+    
     private func pauseGameSetup()
     {
         // paused label
-        pausedLabelNode.fontName = FontName.PausedLabel
+        pausedLabelNode.text = "Paused"
         pausedLabelNode.fontColor = Color.PausedLabel
         pausedLabelNode.fontSize = isIpad ? FontSize.PausedLabelIpad : FontSize.PausedLabelIphone
         pausedLabelNode.verticalAlignmentMode = .Center
         pausedLabelNode.horizontalAlignmentMode = .Center
         pausedLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-        pausedLabelNode.hidden = true
         pausedLabelNode.zPosition = ZPosition.PausedLabel
+        pausedLabelNode.hidden = true
         addChild(pausedLabelNode)
         
         // pause button
@@ -81,7 +114,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func scoreLabelSetup()
     {
-        scoreLabelNode.fontName = FontName.ScoreLabel
+        scoreLabelNode.text = portfolio.cashToString()
         scoreLabelNode.fontColor = Color.ScoreLabel
         scoreLabelNode.fontSize = isIpad ? FontSize.ScoreLabelIpad : FontSize.ScoreLabelIphone
         scoreLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
@@ -102,9 +135,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         physicsBody?.restitution = Physics.BlockRestitution
     }
     
-    private func createMarket()
+    private func marketSetup()
     {
-        market = Market(volatility: marketVolatility)
+        let initialMarketLevel = GameOption.InitialMarketLevel + (gameLevel - 1) * GameOption.InitialMarketLevelIncrease
+        market = Market(initialLevel: 0)
         companies = Company.generateCompanies(numberOfCompanies)
         
         // add mr market
@@ -116,7 +150,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         mrMarket!.name = NodeName.MrMarket
         addChild(mrMarket!)
     }
-
+    
     
     private func generateBlocks()
     {
@@ -161,6 +195,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             onePeriodActions.append(onePeriodAndWaitAction)
         }
         
+        onePeriodActions.append(SKAction.runBlock{ self.finishedGame() })
+        
         generateBlocksAction = SKAction.sequence(onePeriodActions)
         runAction(generateBlocksAction)
     }
@@ -180,9 +216,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             if let backgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.BackgroundMusic, withExtension: nil) {
                 backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error: nil)
                 backgroundMusicPlayer.numberOfLoops = -1
+                backgroundMusicPlayer.enableRate = true
             }
         }
-        if !backgroundMusicPlayer.playing {
+        let newMusicRateTEST = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
+        backgroundMusicPlayer.rate = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
+        let musicOn = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.musicOn)
+        if !backgroundMusicPlayer.playing && musicOn {
             backgroundMusicPlayer.play()
         }
     }
@@ -224,12 +264,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         node.runAction(shakeSequence, withKey: Shake.Key)
     }
     
-    private func gameOver()
-    {
-        removeAllActions()
-        shakeNode(mrMarket!)
-    }
-    
     func explosion(position: CGPoint)
     {
         var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
@@ -257,10 +291,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let location = touch.locationInNode(self)
         
         if let name = self.nodeAtPoint(location).name {
-            if name == NodeName.PauseButton { pauseGame() }
-        }
-        
-        if !view!.paused {
+            switch name {
+            case NodeName.PauseButton:
+                pauseButtonPressed()
+            default:
+                break
+            }
+        } else if !view!.paused {
             if let body = physicsWorld.bodyAtPoint(location) {
                 if let blockNode = body.node as? Block {
                     if blockNode.isDescending {
@@ -274,7 +311,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
         }
-
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -312,10 +348,47 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    private func pauseGame()
+    private func transitionToNextLevel()
     {
-        view!.paused = !view!.paused
-        pausedLabelNode.hidden = !view!.paused
+        let nextLevelTransition = SKTransition.crossFadeWithDuration(1.0)
+        let nextLevelScene = MarketGameScene(size: size)
+        nextLevelScene.gameLevel = gameLevel + 1
+        nextLevelScene.portfolio.cash = portfolio.cash
+        view?.presentScene(nextLevelScene, transition: nextLevelTransition)
+    }
+    
+    private func finishedGame()
+    {
+        for var i = existingBlocks.count - 1; i >= 0; i-- {
+            let block = existingBlocks[i]
+            deleteBlock(block)
+        }
+        // Transition to next level
+        transitionToNextLevel()
+    }
+    
+    private func gameOver()
+    {
+        removeAllActions()
+        shakeNode(mrMarket!)
+        // TODO: game over sound here
+        explodeAllBlocks()
+        // Present game over node or scene
+    }
+    
+    private func explodeAllBlocks() {
+        for var i = existingBlocks.count - 1; i >= 0; i-- {
+            let block = existingBlocks[i]
+            explosion(block.position)
+            deleteBlock(block)
+        }
+    }
+    
+    private func pauseButtonPressed()
+    {
+        // Pause action
+        // Show Pause node
+        
     }
     
     

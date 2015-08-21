@@ -23,8 +23,8 @@ class Portfolio
     
     func sellPrice(priceToSell: Price) {
         if let index = find(prices, priceToSell) {
-//            cash += (priceToSell.company.currentPrice / priceToSell.value - 1) * CompanyInfo.TransactionAmount
-            cash += priceToSell.company.currentPriceValue - priceToSell.value
+            cash += (priceToSell.company.currentPriceValue / priceToSell.value - 1) * GameOption.TransactionAmount
+//            cash += priceToSell.company.currentPriceValue - priceToSell.value
             prices.removeAtIndex(index)
             if cash <= 0.0 { cash = 0.0 }
             println("Block Sold. Portfolio cash: \(cash)")

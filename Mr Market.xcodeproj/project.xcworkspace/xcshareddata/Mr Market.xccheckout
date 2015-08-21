@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>9FC602E5-05DB-40E3-842C-5E063A186C0C</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Mr Market</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B42C2A7BD3B8FFAB2CC92E0B12F92CB16E784BEA</key>
 		<string>https://github.com/crvo84/mr-market.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Mr Market.xcodeproj</string>
+	<string>Mr Market.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B42C2A7BD3B8FFAB2CC92E0B12F92CB16E784BEA</key>
