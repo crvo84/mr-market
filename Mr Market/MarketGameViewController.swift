@@ -24,6 +24,7 @@ class MarketGameViewController: UIViewController
             // Create and configure scene
             scene = MarketGameScene(size: view.bounds.size)
             scene.scaleMode = .AspectFill
+            scene.marketGameViewController = self
             
             // Show the scene
             skView.presentScene(scene)

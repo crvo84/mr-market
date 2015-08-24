@@ -32,7 +32,15 @@ class Portfolio
     }
     
     func cashToString() -> String {
-        return String(format: "$%.1f", cash)
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.maximumFractionDigits = 1
+        numberFormatter.locale = NSLocale(localeIdentifier: "en_US")
+        numberFormatter.numberStyle = .CurrencyStyle
+//        return String(format: "$%.1f", cash)
+        if let cashString = numberFormatter.stringFromNumber(NSNumber(double: cash)) {
+            return cashString
+        }
+        return ""
     }
     
 }

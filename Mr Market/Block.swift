@@ -11,7 +11,7 @@ import SpriteKit
 
 class Block: SKSpriteNode
 {
-    let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
+    private let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     let price: Price
     private var blockNode: SKShapeNode?
     private var itemNode: SKSpriteNode?

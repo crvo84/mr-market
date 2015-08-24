@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dbB-kk-FeK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dbB-kk-FeK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -40,13 +40,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWj-0a-FuR">
-                                <rect key="frame" x="456" y="544" width="128" height="48"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="128" id="7ks-lZ-EMW"/>
-                                    <constraint firstAttribute="height" constant="48" id="xmW-cG-dH1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <rect key="frame" x="499" y="541" width="85" height="51"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="About">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,7 +63,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="play" modalTransitionStyle="crossDissolve" id="1Rs-Ut-lkw"/>
+                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="Start Game" modalTransitionStyle="crossDissolve" id="1Rs-Ut-lkw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbf-Pm-9KC">
@@ -104,7 +99,6 @@
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="centerXWithinMargins" multiplier="0.7" id="J9z-WE-0BG"/>
                             <constraint firstAttribute="centerY" secondItem="4Rg-Ao-9wg" secondAttribute="centerY" id="MQl-SQ-j97"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" constant="399" id="Pz6-zH-0jl"/>
-                            <constraint firstItem="gWj-0a-FuR" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="TEA-XQ-eDx"/>
                             <constraint firstAttribute="centerX" secondItem="aN0-YL-z1k" secondAttribute="centerX" id="YCk-5N-VTS"/>
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="height" secondItem="aN0-YL-z1k" secondAttribute="height" id="bvr-U6-H9U"/>
                             <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="4Rg-Ao-9wg" secondAttribute="bottom" constant="8" symbolic="YES" id="fbv-vW-qre"/>
@@ -112,11 +106,12 @@
                             <constraint firstItem="k4s-64-CvO" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="h2v-hy-Hsq"/>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="top" secondItem="6hL-6d-Pcf" secondAttribute="bottom" constant="8" symbolic="YES" id="i0U-c6-PLm"/>
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" id="iig-zV-TSj"/>
+                            <constraint firstItem="gWj-0a-FuR" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="lN3-60-bhS"/>
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="top" secondItem="aN0-YL-z1k" secondAttribute="bottom" constant="8" symbolic="YES" id="mVr-Xx-Wzg"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="width" secondItem="rbf-Pm-9KC" secondAttribute="width" id="ong-W0-QhL"/>
-                            <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="gWj-0a-FuR" secondAttribute="bottom" constant="8" symbolic="YES" id="qUp-jq-hb5"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="top" secondItem="k4s-64-CvO" secondAttribute="bottom" constant="26" id="tpT-HG-4Qq"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" id="u2S-E0-8nX"/>
+                            <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="gWj-0a-FuR" secondAttribute="bottom" constant="8" symbolic="YES" id="vhi-Vf-r2U"/>
                             <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="ez4-Mq-2yQ" secondAttribute="bottom" constant="8" symbolic="YES" id="yhc-WU-R7w"/>
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="height" secondItem="rbf-Pm-9KC" secondAttribute="height" id="zl8-Um-pNv"/>
                         </constraints>
@@ -153,8 +148,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.37238123280000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="hn7-cg-gZ0" kind="unwind" identifier="Quit Game" unwindAction="unwindToInitialViewController:" id="U8k-pI-QaW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <exit id="hn7-cg-gZ0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1077" y="86"/>
         </scene>

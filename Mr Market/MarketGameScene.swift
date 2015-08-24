@@ -14,22 +14,39 @@ private var backgroundMusicPlayer: AVAudioPlayer!
 
 class MarketGameScene: SKScene, SKPhysicsContactDelegate
 {
+    // View Controller
+    weak var marketGameViewController: MarketGameViewController?
+    
     // Device
-    let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
+    private let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     
     // Level label
-    let levelLabelNode = SKLabelNode(fontNamed: FontName.LevelLabel)
+    private let levelLabelNode = SKLabelNode(fontNamed: FontName.LevelLabel)
     
     // Pause
-    let pausedLabelNode = SKLabelNode(fontNamed: FontName.PausedLabel)
-    let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
+    private var isGamePaused = false
+    private let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
+    private var pauseNode: PauseNode?
     
     // Score
-    let scoreLabelNode = SKLabelNode(fontNamed: FontName.ScoreLabel)
+    private let scoreLabelNode = SKLabelNode(fontNamed: FontName.ScoreLabel)
     
     // Audio
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
+    private var musicOn: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.musicOn)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.musicOn)
+            if newValue {
+                if !backgroundMusicPlayer.playing { backgroundMusicPlayer.play() }
+            } else {
+                if backgroundMusicPlayer.playing { backgroundMusicPlayer.stop() }
+            }
+        }
+    }
 
     // Texture
     private let textureAtlas = SKTextureAtlas(named: Filename.SpritesAtlas)
@@ -53,6 +70,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     override func didMoveToView(view: SKView) {
         userInteractionEnabled = true
         backgroundColor = Color.MainBackground
+        registerAppTransitionObservers()
         gameLevelVariablesSetup()
         pauseGameSetup()
         scoreLabelSetup()
@@ -69,6 +87,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         self.runAction(SKAction.sequence([SKAction.waitForDuration(Time.LevelLabelOnScreen), startGameAction]))
     }
     
+    // MARK: Setup functions
     private func gameLevelVariablesSetup() {
         numberOfCompanies = GameOption.NumberOfCompanies + GameOption.NumberOfCompaniesIncrease * (gameLevel - 1)
         if numberOfCompanies > Texture.numberOfBlockImages { numberOfCompanies = Texture.numberOfBlockImages }
@@ -81,7 +100,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func levelLabelSetup()
     {
-        levelLabelNode.text = "Level \(gameLevel)"
+        levelLabelNode.text = Text.Level + " \(gameLevel)"
         levelLabelNode.fontColor = Color.LevelLabel
         levelLabelNode.fontSize = isIpad ? FontSize.LevelLabelIpad : FontSize.LevelLabelIphone
         levelLabelNode.verticalAlignmentMode = .Center
@@ -93,17 +112,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func pauseGameSetup()
     {
-        // paused label
-        pausedLabelNode.text = "Paused"
-        pausedLabelNode.fontColor = Color.PausedLabel
-        pausedLabelNode.fontSize = isIpad ? FontSize.PausedLabelIpad : FontSize.PausedLabelIphone
-        pausedLabelNode.verticalAlignmentMode = .Center
-        pausedLabelNode.horizontalAlignmentMode = .Center
-        pausedLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-        pausedLabelNode.zPosition = ZPosition.PausedLabel
-        pausedLabelNode.hidden = true
-        addChild(pausedLabelNode)
-        
         // pause button
         pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
         pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
@@ -201,14 +209,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         runAction(generateBlocksAction)
     }
     
-    private func updateBlockColors() {
-        for block in existingBlocks {
-            if !block.isDescending {
-                block.updateColor()
-            }
-        }
-    }
-    
     private func audioSetup()
     {
         // setup background music
@@ -221,12 +221,12 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
         let newMusicRateTEST = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
         backgroundMusicPlayer.rate = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
-        let musicOn = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.musicOn)
         if !backgroundMusicPlayer.playing && musicOn {
             backgroundMusicPlayer.play()
         }
     }
     
+    // MARK: UI Effects
     private func shakeNode(node: SKNode)
     {
         // Cancel any existing shake actions
@@ -264,7 +264,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         node.runAction(shakeSequence, withKey: Shake.Key)
     }
     
-    func explosion(position: CGPoint)
+    private func explosion(position: CGPoint)
     {
         var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
 
@@ -276,43 +276,16 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
     }
-
-    private func deleteBlock(block: Block) {
-        if let index = find(existingBlocks, block) {
-            portfolio.sellPrice(block.price)
-            scoreLabelNode.text = portfolio.cashToString()
-            existingBlocks.removeAtIndex(index)
-            block.disappear()
-        }
-    }
-
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
-        let location = touch.locationInNode(self)
-        
-        if let name = self.nodeAtPoint(location).name {
-            switch name {
-            case NodeName.PauseButton:
-                pauseButtonPressed()
-            default:
-                break
-            }
-        } else if !view!.paused {
-            if let body = physicsWorld.bodyAtPoint(location) {
-                if let blockNode = body.node as? Block {
-                    if blockNode.isDescending {
-                        runAction(popSoundAction)
-                        explosion(blockNode.position)
-                        deleteBlock(blockNode)
-                    } else {
-                        deleteBlock(blockNode)
-                        // add cash sound
-                    }
-                }
+    
+    private func updateBlockColors() {
+        for block in existingBlocks {
+            if !block.isDescending {
+                block.updateColor()
             }
         }
     }
     
+    // MARK: Physics contact
     func didBeginContact(contact: SKPhysicsContact) {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
@@ -348,6 +321,67 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
+    // MARK: User Interaction
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        let touch = touches.first as! UITouch
+        let location = touch.locationInNode(self)
+        
+        if let name = self.nodeAtPoint(location).name {
+            switch name {
+                
+            case NodeName.PauseButton:
+                if !isGamePaused {
+                    pauseGame()
+                }
+                
+            case NodeName.ContinueButton:
+                if isGamePaused {
+                    unpauseGame()
+                }
+                
+            case NodeName.RestartButton:
+                // Create and configure new scene
+                let newGameScene = MarketGameScene(size: size)
+                newGameScene.scaleMode = .AspectFill
+                newGameScene.marketGameViewController = marketGameViewController
+                // Transition
+                let newGameTransition = SKTransition.crossFadeWithDuration(1.0)
+                view?.presentScene(newGameScene, transition: newGameTransition)
+        
+            case NodeName.QuitButton:
+                if marketGameViewController != nil {
+                    marketGameViewController!.performSegueWithIdentifier(SegueId.QuitGame, sender: marketGameViewController!)
+                }
+                
+            default:
+                break
+            }
+        } else if !view!.paused {
+            if let body = physicsWorld.bodyAtPoint(location) {
+                if let blockNode = body.node as? Block {
+                    if blockNode.isDescending {
+                        runAction(popSoundAction)
+                        explosion(blockNode.position)
+                        deleteBlock(blockNode)
+                    } else {
+                        deleteBlock(blockNode)
+                        // add cash sound
+                    }
+                }
+            }
+        }
+    }
+    
+    private func deleteBlock(block: Block) {
+        if let index = find(existingBlocks, block) {
+            portfolio.sellPrice(block.price)
+            scoreLabelNode.text = portfolio.cashToString()
+            existingBlocks.removeAtIndex(index)
+            block.disappear()
+        }
+    }
+    
+    // MARK: Game Finished
     private func transitionToNextLevel()
     {
         let nextLevelTransition = SKTransition.crossFadeWithDuration(1.0)
@@ -384,12 +418,90 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    private func pauseButtonPressed()
-    {
-        // Pause action
-        // Show Pause node
-        
+    // MARK: Pause/Unpause
+    private func pauseGame() {
+        isGamePaused = true
+        paused = true
+        if backgroundMusicPlayer.playing {
+            backgroundMusicPlayer.pause()
+        }
+        // Display pause screen etc
+        if pauseNode == nil {
+            pauseButtonNode.hidden = true
+            pauseNode = PauseNode(size: size)
+            pauseNode!.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+            pauseNode!.zPosition = ZPosition.pauseNode
+            addChild(pauseNode!)
+        }
     }
+    
+    private func unpauseGame() {
+        isGamePaused = false
+        paused = false
+        if !backgroundMusicPlayer.playing && musicOn {
+            backgroundMusicPlayer.play()
+        }
+        // Hide pause screen etc
+        pauseNode?.removeFromParent()
+        pauseNode = nil
+        pauseButtonNode.hidden = false
+    }
+    
+    private func registerAppTransitionObservers() {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        
+        notificationCenter.addObserver(self, selector: "applicationWillResignActive", name:UIApplicationWillResignActiveNotification , object: nil)
+        
+        notificationCenter.addObserver(self, selector: "applicationDidBecomeActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: "applicationDidEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: "applicationWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+    }
+    
+    func applicationWillResignActive() {
+        if !isGamePaused { // Pause the game if necessary
+            pauseGame()
+        }
+    }
+    
+    func applicationDidBecomeActive() {
+        self.view?.paused = false //Unpause SKView. This is safe to call even if the view is not paused.
+        if isGamePaused {
+            paused = true
+        }
+    }
+    
+    func applicationDidEnterBackground() {
+        backgroundMusicPlayer.stop()
+        self.view?.paused = true
+    }
+    
+    // Unpausing the view automatically unpauses the scene (and the physics simulation). Therefore, we must manually pause the scene again, if the game is supposed to be in a paused state.
+    func applicationWillEnterForeground() {
+        self.view?.paused = false //Unpause SKView. This is safe to call even if the view is not paused.
+        if isGamePaused {
+            paused = true
+        }
+    }
+    
+    
+    // MARK: Deallocation
+    override func willMoveFromView(view: SKView) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

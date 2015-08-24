@@ -33,4 +33,9 @@ class InitialViewController: UIViewController {
         defaults.setBool(!musicOn, forKey: UserDefaultsKey.musicOn)
         updateUI()
     }
+    
+    @IBAction func unwindToInitialViewController(segue: UIStoryboardSegue)
+    {
+        
+    }
 }

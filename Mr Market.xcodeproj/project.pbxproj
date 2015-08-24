@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A5D1B8789E700D2BA22 /* PauseNode.swift */; };
+		73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A611B87AF4B00D2BA22 /* ButtonNode.swift */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
 		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73206A5D1B8789E700D2BA22 /* PauseNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseNode.swift; sourceTree = "<group>"; };
+		73206A611B87AF4B00D2BA22 /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
@@ -190,8 +194,10 @@
 		73F5D6DE1B7C387E009C7A9A /* SpriteNodes */ = {
 			isa = PBXGroup;
 			children = (
+				73206A5D1B8789E700D2BA22 /* PauseNode.swift */,
 				73F5D61F1B76CA2B009C7A9A /* MrMarket.swift */,
 				73F5D6DC1B7C3877009C7A9A /* Block.swift */,
+				73206A611B87AF4B00D2BA22 /* ButtonNode.swift */,
 				733FFA851B7E49BA004B842E /* Emitters */,
 			);
 			name = SpriteNodes;
@@ -313,6 +319,7 @@
 			files = (
 				73F5D6201B76CA2B009C7A9A /* MrMarket.swift in Sources */,
 				73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */,
+				73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */,
 				73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */,
 				73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */,
 				73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */,
@@ -322,6 +329,7 @@
 				73F5D61C1B7691C7009C7A9A /* MarketGameViewController.swift in Sources */,
 				73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */,
 				73A9746F1B82FB5100CACF04 /* Market.swift in Sources */,
+				73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

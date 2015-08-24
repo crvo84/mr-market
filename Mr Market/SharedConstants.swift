@@ -42,29 +42,60 @@ struct Geometry {
     // pause button
     static let PauseButtonRightOffset: CGFloat = 10.0
     static let PauseButtonUpperOffset: CGFloat = 10.0
-    
+    // pause node
+    static let PauseNodeRelativeHeight: CGFloat = 0.8 // Relative to scene height
+    static let PauseNodeRelativeWidth: CGFloat = 0.8 // Relative to scene width
+    static let PauseNodeRelativeCornerRadius: CGFloat = 0.05 // Relative to pause node width
+    static let PauseNodeBorderWidth: CGFloat = 0.0
+    // pause node buttons
+    static let PauseNodeLargeButtonRelativeWidth: CGFloat = 0.80
+    static let PauseNodeButtonRelativeHeight: CGFloat = 1/8
+    static let PauseNodeSmallButtonHorizontalSeparation: CGFloat = 8
+    static let PauseNodeButtonVerticalSeparation: CGFloat = 8
+    static let PauseNodeMusicOnOffButtonOffset: CGFloat = 10
+    static let PauseNodeButtonBorderWidth: CGFloat = 0.0
+    static let PauseNodeButtonRelativeCorderRadius: CGFloat = 0.0 // Relative to large button width
+    // paused label
+    static let PausedLabelUpperOffset: CGFloat = 15.0
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
 }
 
 struct Color {
     static let MainBackground = SKColor(red: 0.0/255.0, green: 64.0/255.0, blue: 96.0/255.0, alpha: 1.0)
+    // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor.blackColor()
     static let BlockPurchased = SKColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.0)
+    // score label
     static let ScoreLabel = SKColor.lightGrayColor()
-    static let PausedLabel = SKColor.lightGrayColor()
+    // level label
     static let LevelLabel = SKColor.lightGrayColor()
+    // pause
+    static let PausedLabel = SKColor.lightGrayColor()
+    static let PauseNodeBackground = SKColor.darkGrayColor()
+    static let PauseNodeBorder = Color.PauseNodeBackground
+    static let PauseNodeButton = SKColor.lightGrayColor()
+    static let PauseNodeButtonBorder = Color.PauseNodeButton
+    static let PauseNodeButtonText = SKColor.darkGrayColor()
 }
 
 struct FontSize {
+    // block
     static let BlockTextIphone: CGFloat = 15
     static let BlockTextIpad: CGFloat = 30
+    // score
     static let ScoreLabelIphone: CGFloat = 20
     static let ScoreLabelIpad: CGFloat = 40
+    // pause
     static let PausedLabelIphone: CGFloat = 40
     static let PausedLabelIpad: CGFloat = 80
+    static let PauseNodeLargeButtonIphone: CGFloat = 40
+    static let PauseNodeLargeButtonIpad: CGFloat = 20
+    static let PauseNodeSmallButtonIphone: CGFloat = 30
+    static let PauseNodeSmallButtonIpad: CGFloat = 15
+    // level
     static let LevelLabelIphone: CGFloat = 40
     static let LevelLabelIpad: CGFloat = 80
 }
@@ -73,6 +104,7 @@ struct FontName {
     static let BlockText = "Arial"
     static let ScoreLabel = "Arial"
     static let PausedLabel = "Arial"
+    static let PauseNodeButtons = "Arial"
     static let LevelLabel = "Arial"
 }
 
@@ -87,7 +119,7 @@ struct Category {
 }
 
 struct Time {
-    static let BetweenBlocks = 3.0 / Double(GameOption.Speed) // TODO: update gamespeed on each label?
+    static let BetweenBlocks = 3.0 / Double(GameOption.Speed) // TODO: update gamespeed on each level?
     static let BetweenPeriods = Time.BetweenBlocks * 2
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
@@ -111,6 +143,7 @@ struct ZPosition {
     static let PausedLabel: CGFloat = 6
     static let LevelLabel: CGFloat = 6
     static let Block: CGFloat = 4
+    static let pauseNode: CGFloat = 7
 }
 
 
@@ -152,8 +185,11 @@ struct MarketOption {
 }
 
 struct NodeName {
-    static let MrMarket = "mrMarket"
-    static let PauseButton = "pause"
+    static let MrMarket = "mrMarketNode"
+    static let PauseButton = "pauseButton"
+    static let ContinueButton = "continueButton"
+    static let RestartButton = "restartButton"
+    static let QuitButton = "quitButton"
 }
 
 struct UserDefaultsKey {
@@ -165,9 +201,21 @@ struct UserDefaults {
 }
 
 
+struct Text {
+    static let Level = "Level"
+    static let Paused = "Paused"
+    static let Continue = "Continue"
+    static let Restart = "Restart"
+    static let Quit = "Quit"
+    static let Score = "Score"
+    static let Best = "Best"
+    static let TryAgain = "Try again"
+}
 
-
-
+struct SegueId {
+    static let StartGame = "Start Game"
+    static let QuitGame = "Quit Game"
+}
 
 
 
