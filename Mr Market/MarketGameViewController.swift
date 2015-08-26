@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameKit
 
 class MarketGameViewController: UIViewController
 {
@@ -43,6 +44,8 @@ class MarketGameViewController: UIViewController
         }
     }
     
+    // UIActivity View Controller
+    
     func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
         var sharingItems = [AnyObject]()
         
@@ -59,6 +62,28 @@ class MarketGameViewController: UIViewController
         let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
+    
+    // Game Center
+    
+    func reportScoreForCash(cash: Double) {
+        let score = GKScore(leaderboardIdentifier: GameCenter.LeaderboardId)
+        score.value = Int64(cash)
+        
+        GKScore.reportScores([score], withCompletionHandler: { (error) -> Void in
+            if error != nil {
+                println("Failed to report score: \(error)")
+            } else {
+                println("Successfully logged score!")
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     

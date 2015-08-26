@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // MARK: User Defaults
     private func userDefaultsSetup() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey(UserDefaultsKey.MusicOn) == nil {
@@ -49,7 +50,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if defaults.objectForKey(UserDefaultsKey.BestScore) == nil {
             defaults.setDouble(UserDefaults.BestScore, forKey: UserDefaultsKey.BestScore)
         }
+        if defaults.objectForKey(UserDefaultsKey.AdsRemoved) == nil {
+            defaults.setBool(UserDefaults.AdsRemoved, forKey: UserDefaultsKey.AdsRemoved)
+        }
     }
+    
+
+
+    
+    
+    
 
 }
 

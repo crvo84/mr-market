@@ -356,6 +356,11 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     UIApplication.sharedApplication().openURL(ratingURL!)
                 }
                 
+            case NodeName.RemoveAdsButton:
+                if marketGameViewController != nil {
+                    marketGameViewController!.performSegueWithIdentifier(SegueId.RemoveAds, sender: marketGameViewController!)
+                }
+                
             default:
                 break
             }
@@ -400,6 +405,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             self.pauseButtonNode.hidden = true
             self.scoreLabelNode.hidden = true
             if self.gameOverNode == nil {
+                
                 let defaults = NSUserDefaults.standardUserDefaults()
                 let newScore = self.game.cash
                 var bestScore = defaults.doubleForKey(UserDefaultsKey.BestScore)
@@ -407,7 +413,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     defaults.setDouble(newScore, forKey: UserDefaultsKey.BestScore)
                     bestScore = newScore
                 }
-    
+                self.marketGameViewController!.reportScoreForCash(newScore)
+                
                 self.gameOverNode = GameOverNode(size: self.size, score: Price.cashString(newScore)!, bestScore: Price.cashString(bestScore)!, musicOn: self.isMusicOn)
                 self.gameOverNode!.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0)
                 self.gameOverNode!.zPosition = ZPosition.GameOverNode

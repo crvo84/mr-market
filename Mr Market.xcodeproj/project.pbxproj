@@ -14,6 +14,8 @@
 		73206A681B8C066700D2BA22 /* hopping-along.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73206A671B8C066700D2BA22 /* hopping-along.mp3 */; };
 		73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */; };
 		73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73206A6B1B8D65C800D2BA22 /* Images.xcassets */; };
+		73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6D1B8D849700D2BA22 /* GameKit.framework */; };
+		73206A701B8DAA0500D2BA22 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
 		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
@@ -53,6 +55,8 @@
 		73206A671B8C066700D2BA22 /* hopping-along.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "hopping-along.mp3"; sourceTree = "<group>"; };
 		73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		73206A6B1B8D65C800D2BA22 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		73206A6D1B8D849700D2BA22 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */,
+				73206A701B8DAA0500D2BA22 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +146,7 @@
 		73F5D5E71B76912E009C7A9A = {
 			isa = PBXGroup;
 			children = (
+				73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */,
 				73F5D5F21B76912F009C7A9A /* Mr Market */,
 				73F5D60C1B76912F009C7A9A /* Mr MarketTests */,
 				73F5D5F11B76912F009C7A9A /* Products */,
@@ -165,6 +172,7 @@
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
 				73A974631B82B06100CACF04 /* Model */,
 				73E1C3F01B8641CD00B3B57A /* Controller */,
+				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
 			path = "Mr Market";
@@ -173,8 +181,8 @@
 		73F5D5F31B76912F009C7A9A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				73206A6D1B8D849700D2BA22 /* GameKit.framework */,
 				73A974521B7EA4B200CACF04 /* Sounds */,
-				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
 				73F5D6231B76E648009C7A9A /* sprites.atlas */,
 				73F5D6021B76912F009C7A9A /* LaunchScreen.xib */,
 				73F5D5F41B76912F009C7A9A /* Info.plist */,
@@ -269,6 +277,15 @@
 				TargetAttributes = {
 					73F5D5EF1B76912F009C7A9A = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 9F26XL4W94;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					73F5D6081B76912F009C7A9A = {
 						CreatedOnToolsVersion = 6.4;
@@ -470,10 +487,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mr Market/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -481,10 +501,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mr Market/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

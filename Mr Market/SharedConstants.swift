@@ -248,11 +248,13 @@ struct NodeName {
 struct UserDefaultsKey {
     static let MusicOn = "musicOn"
     static let BestScore = "bestScore"
+    static let AdsRemoved = "adsRemoved"
 }
 
 struct UserDefaults {
     static let MusicOn = true
     static let BestScore: Double = 0.0
+    static let AdsRemoved = false
 }
 
 
@@ -275,7 +277,23 @@ struct URLString {
 struct SegueId {
     static let StartGame = "Start Game"
     static let QuitGame = "Quit Game"
+    static let RemoveAds = "Remove Ads"
 }
+
+struct GameCenter {
+    static let LeaderboardId = "Mr_Market_001"
+}
+
+struct InAppPurchase {
+    static let RemoveAdsProductId = "MrMarketRemoveAds"
+}
+
+
+
+
+
+
+
 
 
 

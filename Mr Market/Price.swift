@@ -19,12 +19,16 @@ class Price: NSObject
     }
     
     func toString() -> String {
-        return Price.cashString(value)!
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.maximumFractionDigits = 1
+        numberFormatter.locale = NSLocale(localeIdentifier: "en_US")
+        numberFormatter.numberStyle = .CurrencyStyle
+        return numberFormatter.stringFromNumber(NSNumber(double: value))!
     }
     
     class func cashString(cash: Double) -> String? {
         let numberFormatter = NSNumberFormatter()
-        numberFormatter.maximumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 2
         numberFormatter.locale = NSLocale(localeIdentifier: "en_US")
         numberFormatter.numberStyle = .CurrencyStyle
         if let cashString = numberFormatter.stringFromNumber(NSNumber(double: cash)) {
