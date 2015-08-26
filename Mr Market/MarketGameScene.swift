@@ -17,6 +17,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // View Controller
     weak var marketGameViewController: MarketGameViewController?
     
+    // bottom offset (Must be set before scene is presented)
+    var adBottomOffset: CGFloat = 0.0
+    
     // MrMarketGame
     private let game = MrMarketGame()
     
@@ -39,17 +42,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
     private var isMusicOn: Bool {
-        get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn)
-        }
-        set {
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.MusicOn)
-            if newValue && !isGamePaused {
-                if !backgroundMusicPlayer.playing { backgroundMusicPlayer.play() }
-            } else {
-                if backgroundMusicPlayer.playing { backgroundMusicPlayer.stop() }
-            }
-        }
+        get { return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn) }
+        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.MusicOn) }
     }
     
     // Speed
@@ -137,7 +131,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         physicsWorld.gravity = CGVector(dx: 0.0, dy: Physics.Gravity)
         physicsWorld.speed = gameSpeed
         // create floor physics body
-        physicsBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: 0.0, y: 0.0), toPoint: CGPoint(x: size.width, y: 0.0))
+        physicsBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: 0.0, y: adBottomOffset), toPoint: CGPoint(x: size.width, y: adBottomOffset))
         physicsBody?.restitution = Physics.BlockRestitution
     }
     
@@ -315,20 +309,20 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             switch name {
                 
             case NodeName.PauseButton:
-                if !isGamePaused {
-                    pauseGame()
-                }
+                pauseGame()
                 
             case NodeName.ContinueButton:
-                if isGamePaused {
-                    unpauseGame()
-                }
+                unpauseGame()
 
             case NodeName.RestartButton:
+                // Retart game music
+                backgroundMusicPlayer.stop()
+                backgroundMusicPlayer.currentTime = 0
                 // Create and configure new scene
                 let newGameScene = MarketGameScene(size: size)
                 newGameScene.scaleMode = .AspectFill
                 newGameScene.marketGameViewController = marketGameViewController
+                newGameScene.adBottomOffset = adBottomOffset
                 // Transition
                 let newGameTransition = SKTransition.crossFadeWithDuration(1.0)
                 view?.presentScene(newGameScene, transition: newGameTransition)
@@ -398,6 +392,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         shakeNode(mrMarket!)
         // TODO: game over sound here
         explodeAllBlocks()
+        backgroundMusicPlayer.stop()
+        backgroundMusicPlayer.currentTime = 0
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {
@@ -435,7 +431,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     // MARK: Pause/Unpause
-    private func pauseGame() {
+    func pauseGame() {
+        if isGamePaused { return }
         isGamePaused = true
         paused = true
         if backgroundMusicPlayer.playing {
@@ -451,7 +448,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    private func unpauseGame() {
+    func unpauseGame() {
+        if !isGamePaused { return }
         isGamePaused = false
         paused = false
         if !backgroundMusicPlayer.playing && isMusicOn {
@@ -462,6 +460,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         pauseNode = nil
         pauseButtonNode.hidden = false
     }
+
     
     private func registerAppTransitionObservers() {
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -509,19 +508,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    func stopGameMusic() {
-        if backgroundMusicPlayer != nil {
-            backgroundMusicPlayer.stop()
-            backgroundMusicPlayer = nil
-        }
-    }
-    
-    
-    
-    
-    
-    
+
     
     
 }

@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         userDefaultsSetup()
+        
+        UIViewController.prepareInterstitialAds()
+
         return true
     }
 
@@ -50,8 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if defaults.objectForKey(UserDefaultsKey.BestScore) == nil {
             defaults.setDouble(UserDefaults.BestScore, forKey: UserDefaultsKey.BestScore)
         }
-        if defaults.objectForKey(UserDefaultsKey.AdsRemoved) == nil {
-            defaults.setBool(UserDefaults.AdsRemoved, forKey: UserDefaultsKey.AdsRemoved)
+        if defaults.objectForKey(UserDefaultsKey.ShowAds) == nil {
+            defaults.setBool(UserDefaults.ShowAds, forKey: UserDefaultsKey.ShowAds)
         }
     }
     

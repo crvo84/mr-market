@@ -15,7 +15,6 @@
 		73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */; };
 		73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73206A6B1B8D65C800D2BA22 /* Images.xcassets */; };
 		73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6D1B8D849700D2BA22 /* GameKit.framework */; };
-		73206A701B8DAA0500D2BA22 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
 		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
@@ -35,6 +34,8 @@
 		73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6211B76CACC009C7A9A /* SharedConstants.swift */; };
 		73F5D6241B76E648009C7A9A /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6231B76E648009C7A9A /* sprites.atlas */; };
 		73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6DC1B7C3877009C7A9A /* Block.swift */; };
+		73F81A341B8E24FA00CDF9CF /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F81A321B8E249000CDF9CF /* iAd.framework */; };
+		73F81A351B8E250000CDF9CF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		73F5D6211B76CACC009C7A9A /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		73F5D6231B76E648009C7A9A /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		73F5D6DC1B7C3877009C7A9A /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		73F81A321B8E249000CDF9CF /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +90,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */,
-				73206A701B8DAA0500D2BA22 /* StoreKit.framework in Frameworks */,
+				73F81A341B8E24FA00CDF9CF /* iAd.framework in Frameworks */,
+				73F81A351B8E250000CDF9CF /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +149,6 @@
 		73F5D5E71B76912E009C7A9A = {
 			isa = PBXGroup;
 			children = (
-				73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */,
 				73F5D5F21B76912F009C7A9A /* Mr Market */,
 				73F5D60C1B76912F009C7A9A /* Mr MarketTests */,
 				73F5D5F11B76912F009C7A9A /* Products */,
@@ -181,6 +183,8 @@
 		73F5D5F31B76912F009C7A9A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				73F81A321B8E249000CDF9CF /* iAd.framework */,
+				73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */,
 				73206A6D1B8D849700D2BA22 /* GameKit.framework */,
 				73A974521B7EA4B200CACF04 /* Sounds */,
 				73F5D6231B76E648009C7A9A /* sprites.atlas */,

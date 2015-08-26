@@ -110,12 +110,12 @@ class GameOverNode: SKSpriteNode {
         bestScoreLabel!.position = CGPoint(x: 0.0, y: labelsMiddlePointY - Geometry.GameOverNodeScoreLabelsVerticalSeparation)
         backgroundNode!.addChild(bestScoreLabel!)
         
-        // MUSIC ON/OFF NODE
-        musicOnOffButton = SKSpriteNode(imageNamed: musicOn ? Filename.MusicOn : Filename.MusicOff)
-        musicOnOffButton!.position = CGPoint(x: -size.width / 2.0 + Geometry.PausedMusicOnOffNodeLeftOffset, y: -size.height / 2.0 + Geometry.PausedMusicOnOffNodeLowerOffset)
-        musicOnOffButton!.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        musicOnOffButton!.name = NodeName.MusicOnOff
-        backgroundNode!.addChild(musicOnOffButton!)
+//        // MUSIC ON/OFF NODE
+//        musicOnOffButton = SKSpriteNode(imageNamed: musicOn ? Filename.MusicOn : Filename.MusicOff)
+//        musicOnOffButton!.position = CGPoint(x: -size.width / 2.0 + Geometry.PausedMusicOnOffNodeLeftOffset, y: -size.height / 2.0 + Geometry.PausedMusicOnOffNodeLowerOffset)
+//        musicOnOffButton!.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+//        musicOnOffButton!.name = NodeName.MusicOnOff
+//        backgroundNode!.addChild(musicOnOffButton!)
     
     }
 

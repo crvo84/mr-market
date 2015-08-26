@@ -8,45 +8,66 @@
 
 import SpriteKit
 import GameKit
+import iAd
 
-class MarketGameViewController: UIViewController
+class MarketGameViewController: UIViewController, ADBannerViewDelegate
 {
-    var scene: MarketGameScene?
+    // iAd Banner
+    var adBanner: ADBannerView?
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
+
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // ad banner setup
+        if NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.ShowAds) {
+            adBanner = ADBannerView(frame: CGRectZero)
+            adBanner!.delegate = self
+            adBanner!.frame = CGRectMake(0.0, view.frame.size.height - adBanner!.frame.size.height, adBanner!.frame.size.width, adBanner!.frame.size.height)
+            adBanner!.backgroundColor = Color.AdBannerBackground
+            view.addSubview(adBanner!)
+            
+            // TODO: Add "Mr Market" label to show if ad is not available
+        }
+
         // Configure de main view
         if let skView = view as? SKView {
             skView.showsFPS = true
             
             // Create and configure scene
-            scene = MarketGameScene(size: view.bounds.size)
-            scene!.scaleMode = .AspectFill
-            scene!.marketGameViewController = self
+            var scene = MarketGameScene(size: skView.bounds.size)
+            scene.scaleMode = .AspectFill
+            scene.marketGameViewController = self
+            
+            if adBanner != nil {
+                scene.adBottomOffset = adBanner!.frame.height
+            }
             
             // Show the scene
-            skView.presentScene(scene!)
+            skView.presentScene(scene)
         }
+
     }
+
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if let segueId = segue.identifier {
-            switch segueId {
-            case SegueId.QuitGame:
-                fallthrough
-            case SegueId.RemoveAds:
-                scene?.stopGameMusic()
-            default:
-                break
-            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        if let segueId = segue.identifier {
+//            switch segueId {
+//            case SegueId.QuitGame:
+//                fallthrough
+//            case SegueId.RemoveAds:
+//                scene?.stopGameMusic()
+//            default:
+//                break
+//            }
+//        }
+//    }
     
-    // UIActivity View Controller
+    // MARK: UIActivity View Controller
     
     func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
         var sharingItems = [AnyObject]()
@@ -65,7 +86,7 @@ class MarketGameViewController: UIViewController
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
-    // Game Center
+    // MARK: Game Center
     
     func reportScoreForCash(cash: Double) {
         let score = GKScore(leaderboardIdentifier: GameCenter.LeaderboardId)
@@ -79,13 +100,37 @@ class MarketGameViewController: UIViewController
             }
         })
     }
+
+    // MARK: iAd
+    /* Ad Banner View Delegate */
     
+    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+        /* whatever you need */
+        if let skView = view as? SKView {
+            if let gameScene = skView.scene as? MarketGameScene {
+                gameScene.pauseGame()
+            }
+        }
+        
+        return true
+    }
     
+//    func bannerViewActionDidFinish(banner: ADBannerView!) {
+//        /* whatever you need */
+//    }
     
+//    func bannerViewDidLoadAd(banner: ADBannerView!) {
+//        banner.hidden = false
+//    }
     
+//    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+//        /* whatever you need */
+//        banner.hidden = true
+//    }
     
-    
-    
+//    func bannerViewWillLoadAd(banner: ADBannerView!) {
+//        /* whatever you need */
+//    }
     
     
     

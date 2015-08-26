@@ -16,10 +16,16 @@ private var backgroundMusicPlayer: AVAudioPlayer!
 
 class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
     
+    // Game Center
     var isGameCenterEnabled = false
     
+    // iAd
+
+    
+    // In-App Purchases
     var product: SKProduct?
     
+    // Background music
     private var musicOn: Bool {
         get {
             return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn)
@@ -34,10 +40,18 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        interstitialPresentationPolicy = .Manual
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         authenticatePlayer()
+        
+        canDisplayBannerAds = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.ShowAds)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,6 +59,12 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
         
         audioSetup()
         updateUI()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        requestInterstitialAdPresentation()
     }
     
     // MARK: Setup
@@ -159,5 +179,21 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
         
     }
 
+    // MARK: iAd
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

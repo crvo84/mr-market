@@ -113,6 +113,9 @@ struct Color {
     static let GameOverNodeSmallButtonBorder = Color.GameOverNodeSmallButton
     static let GameOverNodeLargeButtonText = SKColor.darkGrayColor()
     static let GameOverNodeSmallButtonText = SKColor.darkGrayColor()
+    
+    // iAd
+    static let AdBannerBackground = SKColor(red: 0.0/255.0, green: 32.0/255.0, blue: 48.0/255.0, alpha: 1.0)
 }
 
 struct FontSize {
@@ -219,7 +222,7 @@ struct GameOption {
     static let PeriodsMax: Int = 30
     static let NumberOfCompaniesInitial: Int = 2
     static let NumberOfCompaniesIncrease: Int = 1
-    static let SpeedInitial: CGFloat = 1000.0
+    static let SpeedInitial: CGFloat = 20.0
     static let SpeedIncrease: CGFloat = 0.2
     static let TransactionAmountInitial: Double = 100.0
     static let TransactionAmountIncrease: Double = 100.0
@@ -248,15 +251,14 @@ struct NodeName {
 struct UserDefaultsKey {
     static let MusicOn = "musicOn"
     static let BestScore = "bestScore"
-    static let AdsRemoved = "adsRemoved"
+    static let ShowAds = "showAds"
 }
 
 struct UserDefaults {
     static let MusicOn = true
     static let BestScore: Double = 0.0
-    static let AdsRemoved = false
+    static let ShowAds = true
 }
-
 
 struct Text {
     static let Level = "Level"
@@ -275,6 +277,7 @@ struct URLString {
 }
 
 struct SegueId {
+    static let InitialScreen = "Initial Screen"
     static let StartGame = "Start Game"
     static let QuitGame = "Quit Game"
     static let RemoveAds = "Remove Ads"
