@@ -37,6 +37,8 @@ class MarketGameViewController: UIViewController
         if let segueId = segue.identifier {
             switch segueId {
             case SegueId.QuitGame:
+                fallthrough
+            case SegueId.RemoveAds:
                 scene?.stopGameMusic()
             default:
                 break

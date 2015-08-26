@@ -156,7 +156,7 @@
                     </view>
                     <connections>
                         <segue destination="hn7-cg-gZ0" kind="unwind" identifier="Quit Game" unwindAction="unwindToInitialViewController:" id="U8k-pI-QaW"/>
-                        <segue destination="hn7-cg-gZ0" kind="unwind" identifier="Remove Ads" unwindAction="unwindToInitialViewController:" id="bsa-YW-V2H"/>
+                        <segue destination="hn7-cg-gZ0" kind="unwind" identifier="Remove Ads" unwindAction="unwindToInitialViewController:" id="zEO-Ic-YHs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

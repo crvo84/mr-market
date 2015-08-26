@@ -503,7 +503,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     // MARK: Deallocation
     override func willMoveFromView(view: SKView) {
-        NSNotificationCenter.defaultCenter().removeObserver(view)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     deinit {
@@ -511,8 +511,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     func stopGameMusic() {
-        backgroundMusicPlayer.stop()
-        backgroundMusicPlayer = nil
+        if backgroundMusicPlayer != nil {
+            backgroundMusicPlayer.stop()
+            backgroundMusicPlayer = nil
+        }
     }
     
     
