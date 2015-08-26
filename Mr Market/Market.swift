@@ -12,7 +12,7 @@ class Market
 {
     var level: Int // [0, 15]
     var volatility: Double = 1.0
-    var lastReturn: Double = 0.0
+    var latestReturn: Double = 0.0
     
     
     init(initialLevel: Int) {
@@ -38,9 +38,9 @@ class Market
         let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOption.MinPercentReturn
         let randomReturn = randomPercentReturn / 100.0
         
-        lastReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOption.BurstReturnFactor
+        latestReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOption.BurstReturnFactor
         
-        println("Market. Last Return: \(lastReturn), Level: \(level)")
+        println("Market. Latest Return: \(latestReturn), Level: \(level)")
         
         return level
     }

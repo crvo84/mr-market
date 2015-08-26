@@ -10,7 +10,7 @@ import SpriteKit
 
 class MarketGameViewController: UIViewController
 {
-    var scene: MarketGameScene!
+    var scene: MarketGameScene?
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -23,11 +23,44 @@ class MarketGameViewController: UIViewController
             
             // Create and configure scene
             scene = MarketGameScene(size: view.bounds.size)
-            scene.scaleMode = .AspectFill
-            scene.marketGameViewController = self
+            scene!.scaleMode = .AspectFill
+            scene!.marketGameViewController = self
             
             // Show the scene
-            skView.presentScene(scene)
+            skView.presentScene(scene!)
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let segueId = segue.identifier {
+            switch segueId {
+            case SegueId.QuitGame:
+                scene?.stopGameMusic()
+            default:
+                break
+            }
+        }
+    }
+    
+    func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
+        var sharingItems = [AnyObject]()
+        
+        if let text = sharingText {
+            sharingItems.append(text)
+        }
+        if let image = sharingImage {
+            sharingItems.append(image)
+        }
+        if let url = sharingURL {
+            sharingItems.append(url)
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+    
+    
+    
+    
 }

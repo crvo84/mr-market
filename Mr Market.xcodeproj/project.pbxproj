@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A5D1B8789E700D2BA22 /* PauseNode.swift */; };
 		73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A611B87AF4B00D2BA22 /* ButtonNode.swift */; };
+		73206A641B8BA15200D2BA22 /* MrMarketGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A631B8BA15200D2BA22 /* MrMarketGame.swift */; };
+		73206A661B8C066100D2BA22 /* ping-pong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73206A651B8C066100D2BA22 /* ping-pong.mp3 */; };
+		73206A681B8C066700D2BA22 /* hopping-along.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73206A671B8C066700D2BA22 /* hopping-along.mp3 */; };
+		73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */; };
+		73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73206A6B1B8D65C800D2BA22 /* Images.xcassets */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
 		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
-		73A9745E1B7F0CD500CACF04 /* Two Finger Johnny.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */; };
 		73A974621B82717400CACF04 /* SparkParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 73A974611B82717400CACF04 /* SparkParticle.sks */; };
 		73A974651B82B07900CACF04 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A974641B82B07900CACF04 /* Company.swift */; };
 		73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A974681B82BF2C00CACF04 /* Portfolio.swift */; };
@@ -21,7 +25,6 @@
 		73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */; };
 		73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D5F51B76912F009C7A9A /* AppDelegate.swift */; };
 		73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D5FD1B76912F009C7A9A /* Main.storyboard */; };
-		73F5D6011B76912F009C7A9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6001B76912F009C7A9A /* Images.xcassets */; };
 		73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6021B76912F009C7A9A /* LaunchScreen.xib */; };
 		73F5D6101B76912F009C7A9A /* Mr_MarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D60F1B76912F009C7A9A /* Mr_MarketTests.swift */; };
 		73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6191B76918F009C7A9A /* MarketGameScene.swift */; };
@@ -45,10 +48,14 @@
 /* Begin PBXFileReference section */
 		73206A5D1B8789E700D2BA22 /* PauseNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseNode.swift; sourceTree = "<group>"; };
 		73206A611B87AF4B00D2BA22 /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
+		73206A631B8BA15200D2BA22 /* MrMarketGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrMarketGame.swift; sourceTree = "<group>"; };
+		73206A651B8C066100D2BA22 /* ping-pong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ping-pong.mp3"; sourceTree = "<group>"; };
+		73206A671B8C066700D2BA22 /* hopping-along.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "hopping-along.mp3"; sourceTree = "<group>"; };
+		73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
+		73206A6B1B8D65C800D2BA22 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
-		73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Two Finger Johnny.mp3"; sourceTree = "<group>"; };
 		73A974611B82717400CACF04 /* SparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SparkParticle.sks; sourceTree = "<group>"; };
 		73A974641B82B07900CACF04 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		73A974681B82BF2C00CACF04 /* Portfolio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
@@ -59,7 +66,6 @@
 		73F5D5F41B76912F009C7A9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73F5D5F51B76912F009C7A9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73F5D5FE1B76912F009C7A9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		73F5D6001B76912F009C7A9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		73F5D6031B76912F009C7A9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		73F5D6091B76912F009C7A9A /* Mr MarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mr MarketTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73F5D60E1B76912F009C7A9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +108,8 @@
 		73A974521B7EA4B200CACF04 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				73A9745D1B7F0CD500CACF04 /* Two Finger Johnny.mp3 */,
+				73206A671B8C066700D2BA22 /* hopping-along.mp3 */,
+				73206A651B8C066100D2BA22 /* ping-pong.mp3 */,
 				73A974531B7EA4BB00CACF04 /* pop.wav */,
 				73A974551B7EA4F600CACF04 /* slam.wav */,
 			);
@@ -112,6 +119,7 @@
 		73A974631B82B06100CACF04 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				73206A631B8BA15200D2BA22 /* MrMarketGame.swift */,
 				73A9746E1B82FB5100CACF04 /* Market.swift */,
 				73A974641B82B07900CACF04 /* Company.swift */,
 				73A974681B82BF2C00CACF04 /* Portfolio.swift */,
@@ -157,7 +165,6 @@
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
 				73A974631B82B06100CACF04 /* Model */,
 				73E1C3F01B8641CD00B3B57A /* Controller */,
-				73F5D6001B76912F009C7A9A /* Images.xcassets */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
 			path = "Mr Market";
@@ -167,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				73A974521B7EA4B200CACF04 /* Sounds */,
+				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
 				73F5D6231B76E648009C7A9A /* sprites.atlas */,
 				73F5D6021B76912F009C7A9A /* LaunchScreen.xib */,
 				73F5D5F41B76912F009C7A9A /* Info.plist */,
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				73206A5D1B8789E700D2BA22 /* PauseNode.swift */,
+				73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */,
 				73F5D61F1B76CA2B009C7A9A /* MrMarket.swift */,
 				73F5D6DC1B7C3877009C7A9A /* Block.swift */,
 				73206A611B87AF4B00D2BA22 /* ButtonNode.swift */,
@@ -292,12 +301,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
+				73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */,
 				733FFA841B7E3C95004B842E /* spark.png in Resources */,
-				73A9745E1B7F0CD500CACF04 /* Two Finger Johnny.mp3 in Resources */,
-				73F5D6011B76912F009C7A9A /* Images.xcassets in Resources */,
+				73206A681B8C066700D2BA22 /* hopping-along.mp3 in Resources */,
 				73A974561B7EA4F600CACF04 /* slam.wav in Resources */,
 				73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */,
 				73F5D6241B76E648009C7A9A /* sprites.atlas in Resources */,
+				73206A661B8C066100D2BA22 /* ping-pong.mp3 in Resources */,
 				73A974621B82717400CACF04 /* SparkParticle.sks in Resources */,
 				73A974541B7EA4BB00CACF04 /* pop.wav in Resources */,
 			);
@@ -325,11 +335,13 @@
 				73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */,
 				73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */,
 				73A9746B1B82C12800CACF04 /* Price.swift in Sources */,
+				73206A641B8BA15200D2BA22 /* MrMarketGame.swift in Sources */,
 				73A974651B82B07900CACF04 /* Company.swift in Sources */,
 				73F5D61C1B7691C7009C7A9A /* MarketGameViewController.swift in Sources */,
 				73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */,
 				73A9746F1B82FB5100CACF04 /* Market.swift in Sources */,
 				73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */,
+				73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

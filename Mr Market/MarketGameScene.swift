@@ -17,16 +17,20 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // View Controller
     weak var marketGameViewController: MarketGameViewController?
     
+    // MrMarketGame
+    private let game = MrMarketGame()
+    
     // Device
     private let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     
-    // Level label
-    private let levelLabelNode = SKLabelNode(fontNamed: FontName.LevelLabel)
-    
     // Pause
     private var isGamePaused = false
+    private var isGameOver = false
     private let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
     private var pauseNode: PauseNode?
+    
+    // Game Over
+    private var gameOverNode: GameOverNode?
     
     // Score
     private let scoreLabelNode = SKLabelNode(fontNamed: FontName.ScoreLabel)
@@ -34,82 +38,76 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Audio
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
-    private var musicOn: Bool {
+    private var isMusicOn: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.musicOn)
+            return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn)
         }
         set {
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.musicOn)
-            if newValue {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.MusicOn)
+            if newValue && !isGamePaused {
                 if !backgroundMusicPlayer.playing { backgroundMusicPlayer.play() }
             } else {
                 if backgroundMusicPlayer.playing { backgroundMusicPlayer.stop() }
             }
         }
     }
+    
+    // Speed
+    private var gameSpeed: CGFloat {
+        get {
+            return GameOption.SpeedInitial + GameOption.SpeedIncrease * CGFloat(game.gameLevel - 1)
+        }
+    }
+    
+    private var timeBetweenBlocks: Double {
+        return Time.BetweenBlocksForInitialSpeed / Double(gameSpeed)
+    }
+    
+    private var timeBetweenPeriods: Double {
+        return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed)
+    }
+    
 
     // Texture
     private let textureAtlas = SKTextureAtlas(named: Filename.SpritesAtlas)
     
     // Market
     private var mrMarket: MrMarket?
-    private var market: Market?
-    private var companies: [Company]?
-    private let portfolio = Portfolio()
-    
+
     // Blocks
     private var existingBlocks: [Block] = []
-    private var generateBlocksAction: SKAction?
-
-    // Game variables (may increase on higher levels)
-    var gameLevel: Int = 1
-    private var numberOfCompanies: Int = GameOption.NumberOfCompanies
-    private var numberOfPeriods: Int = GameOption.Periods
-    private var gameSpeed: CGFloat = GameOption.Speed
+    private var blockSize: CGSize {
+        // block size
+        let blockWidth = (size.width - Geometry.BlockHorizontalSeparation * (Geometry.BlocksPerLine + 1)) / Geometry.BlocksPerLine
+        return CGSize(width: blockWidth, height: size.height / Geometry.BlocksPerColumn)
+    }
     
     override func didMoveToView(view: SKView) {
         userInteractionEnabled = true
         backgroundColor = Color.MainBackground
         registerAppTransitionObservers()
-        gameLevelVariablesSetup()
         pauseGameSetup()
         scoreLabelSetup()
         physicsWorldSetup()
-        marketSetup()
+        mrMarketSetup()
         audioSetup()
-        levelLabelSetup()
-        
-        let onScreenLevelLabelAction = SKAction.waitForDuration(Time.LevelLabelOnScreen)
-        let fadeOutLevelLabelAction = SKAction.fadeOutWithDuration(Time.LevelLabelFadeOut)
-        let removeLevelLabelAction = SKAction.removeFromParent()
-        levelLabelNode.runAction(SKAction.sequence([onScreenLevelLabelAction, fadeOutLevelLabelAction, removeLevelLabelAction]))
-        let startGameAction = SKAction.runBlock { self.generateBlocks() }
-        self.runAction(SKAction.sequence([SKAction.waitForDuration(Time.LevelLabelOnScreen), startGameAction]))
+
+        performOneLevelActions()
+    }
+    
+    
+    private func performOneLevelActions()
+    {
+        let currentLevelAction = SKAction.sequence(generateCurrentLevelActions())
+        let recursionAction = SKAction.runBlock {
+            self.game.gameLevel++
+            self.physicsWorld.speed = self.gameSpeed
+            self.performOneLevelActions()
+        }
+        runAction(SKAction.sequence([currentLevelAction, recursionAction]))
     }
     
     // MARK: Setup functions
-    private func gameLevelVariablesSetup() {
-        numberOfCompanies = GameOption.NumberOfCompanies + GameOption.NumberOfCompaniesIncrease * (gameLevel - 1)
-        if numberOfCompanies > Texture.numberOfBlockImages { numberOfCompanies = Texture.numberOfBlockImages }
-        
-        numberOfPeriods = GameOption.Periods + GameOption.PeriodsIncrease * (gameLevel - 1)
-        if numberOfPeriods > GameOption.MaxPeriods { numberOfPeriods = GameOption.MaxPeriods }
-        
-        gameSpeed = GameOption.Speed + GameOption.SpeedIncrease * CGFloat(gameLevel - 1)
-    }
-    
-    private func levelLabelSetup()
-    {
-        levelLabelNode.text = Text.Level + " \(gameLevel)"
-        levelLabelNode.fontColor = Color.LevelLabel
-        levelLabelNode.fontSize = isIpad ? FontSize.LevelLabelIpad : FontSize.LevelLabelIphone
-        levelLabelNode.verticalAlignmentMode = .Center
-        levelLabelNode.horizontalAlignmentMode = .Center
-        levelLabelNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-        levelLabelNode.zPosition = ZPosition.LevelLabel
-        addChild(levelLabelNode)
-    }
-    
     private func pauseGameSetup()
     {
         // pause button
@@ -122,7 +120,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func scoreLabelSetup()
     {
-        scoreLabelNode.text = portfolio.cashToString()
+        scoreLabelNode.text = Price.cashString(game.cash)!
         scoreLabelNode.fontColor = Color.ScoreLabel
         scoreLabelNode.fontSize = isIpad ? FontSize.ScoreLabelIpad : FontSize.ScoreLabelIphone
         scoreLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
@@ -137,76 +135,65 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // set up physics world
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: Physics.Gravity)
-        physicsWorld.speed = self.gameSpeed
+        physicsWorld.speed = gameSpeed
         // create floor physics body
         physicsBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: 0.0, y: 0.0), toPoint: CGPoint(x: size.width, y: 0.0))
         physicsBody?.restitution = Physics.BlockRestitution
     }
     
-    private func marketSetup()
+    private func mrMarketSetup()
     {
-        let initialMarketLevel = GameOption.InitialMarketLevel + (gameLevel - 1) * GameOption.InitialMarketLevelIncrease
-        market = Market(initialLevel: 0)
-        companies = Company.generateCompanies(numberOfCompanies)
-        
         // add mr market
         let mrMarketWidth: CGFloat = size.width * Geometry.MrMarketRelativeWidth
         let mrMarketHeight: CGFloat = mrMarketWidth / Geometry.MrMarketAspectRatio
-        mrMarket = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: market!.level)
+        mrMarket = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: game.market.level)
         mrMarket?.anchorPoint = CGPoint(x: 0.0, y: 1.0)
         mrMarket!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketTopOffset)
         mrMarket!.name = NodeName.MrMarket
+        mrMarket!.level = game.market.level
         addChild(mrMarket!)
     }
     
     
-    private func generateBlocks()
+    private func generateCurrentLevelActions() -> [SKAction]
     {
-        // block size
-        let blockWidth = (size.width - Geometry.BlockHorizontalSeparation * (Geometry.BlocksPerLine + 1)) / Geometry.BlocksPerLine
-        //        let blockHeight = blockWidth * Geometry.BlockRelativeHeight
-        let blockHeight = size.height / Geometry.BlocksPerColumn
-        let blockSize = CGSize(width: blockWidth, height: blockHeight)
+        let numberOfPeriods = game.numberOfPeriods
+        let numberOfCompanies = game.companies.count
         
-
-        var onePeriodActions: [SKAction] = []
+        var result: [SKAction] = []
+        
         for i in 0..<numberOfPeriods {
             
-            var oneBlockActions: [SKAction] = []
-            for j in 0..<self.companies!.count {
+            for j in 0..<numberOfCompanies {
+                
                 let oneBlockAction = SKAction.runBlock { [unowned self] in
                     
-                    let company = self.companies![j]
+                    let company = self.game.companies[j]
                     let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
-                    let price = company.newPriceWithMarketReturn(self.market!.lastReturn)
+                    let price = company.newPriceWithMarketReturn(self.game.market.latestReturn)
                     
-                    let newBlock = Block(price: price, itemTexture: itemTexture, size: blockSize)
+                    let newBlock = Block(price: price, itemTexture: itemTexture, size: self.blockSize)
                     //random position
                     let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
-                    let blockX = (Geometry.BlockHorizontalSeparation + blockWidth / 2.0) + randomBlockPosition * (blockWidth + Geometry.BlockHorizontalSeparation)
-                    let blockY = self.size.height + blockHeight / 2.0
+                    let blockX = (Geometry.BlockHorizontalSeparation + self.blockSize.width / 2.0) + randomBlockPosition * (self.blockSize.width + Geometry.BlockHorizontalSeparation)
+                    let blockY = self.size.height + self.blockSize.height / 2.0
                     newBlock.position = CGPoint(x: blockX, y: blockY)
                     self.existingBlocks.append(newBlock)
                     self.addChild(newBlock)
                     self.updateBlockColors()
                 }
                 
-                let waitAction = SKAction.waitForDuration(Time.BetweenBlocks)
+                let waitAction = SKAction.waitForDuration(timeBetweenBlocks)
                 
-                let oneBlockAndWaitAction = SKAction.sequence([oneBlockAction, waitAction])
-                oneBlockActions.append(oneBlockAndWaitAction)
+                result.append(oneBlockAction)
+                result.append(waitAction)
             }
-            
-            let onePeriodAction = SKAction.sequence(oneBlockActions)
-            let updateMrMarketAction = SKAction.runBlock{ self.mrMarket!.level = self.market!.newMarketLevel() }
-            let onePeriodAndWaitAction = SKAction.sequence([onePeriodAction, SKAction.waitForDuration(Time.BetweenPeriods), updateMrMarketAction])
-            onePeriodActions.append(onePeriodAndWaitAction)
+            result.append(SKAction.waitForDuration(timeBetweenPeriods))
+            result.append(SKAction.runBlock{
+                    self.mrMarket!.level = self.game.market.newMarketLevel()
+                })
         }
-        
-        onePeriodActions.append(SKAction.runBlock{ self.finishedGame() })
-        
-        generateBlocksAction = SKAction.sequence(onePeriodActions)
-        runAction(generateBlocksAction)
+        return result
     }
     
     private func audioSetup()
@@ -216,12 +203,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             if let backgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.BackgroundMusic, withExtension: nil) {
                 backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error: nil)
                 backgroundMusicPlayer.numberOfLoops = -1
-                backgroundMusicPlayer.enableRate = true
             }
         }
-        let newMusicRateTEST = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
-        backgroundMusicPlayer.rate = 1.0 + Float(gameLevel - 1) * GameOption.MusicRateIncrease
-        if !backgroundMusicPlayer.playing && musicOn {
+        if !backgroundMusicPlayer.playing && isMusicOn {
             backgroundMusicPlayer.play()
         }
     }
@@ -296,8 +280,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             if let blockB = nodeB as? Block {
                 // blockA collided with blockB
                 if !blockA.isDescending || !blockB.isDescending {
-                    if blockA.isDescending { portfolio.buyPrice(blockA.price) }
-                    if blockB.isDescending { portfolio.buyPrice(blockB.price) }
+                    if blockA.isDescending { game.portfolio.buyPrice(blockA.price) }
+                    if blockB.isDescending { game.portfolio.buyPrice(blockB.price) }
                     runAction(slamSoundAction)
                     blockA.isDescending = false
                     blockB.isDescending = false
@@ -307,14 +291,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 }
             } else {
                 // blockA collided with floor
-                portfolio.buyPrice(blockA.price)
+                game.portfolio.buyPrice(blockA.price)
                 runAction(slamSoundAction)
                 blockA.isDescending = false
             }
         } else {
             // blockB collided with floor
             if let blockB = nodeB as? Block {
-                portfolio.buyPrice(blockB.price)
+                game.portfolio.buyPrice(blockB.price)
                 runAction(slamSoundAction)
                 blockB.isDescending = false
             }
@@ -326,7 +310,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let touch = touches.first as! UITouch
         let location = touch.locationInNode(self)
         
-        if let name = self.nodeAtPoint(location).name {
+        let touchedNode = self.nodeAtPoint(location)
+        if let name = touchedNode.name {
             switch name {
                 
             case NodeName.PauseButton:
@@ -338,7 +323,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 if isGamePaused {
                     unpauseGame()
                 }
-                
+
             case NodeName.RestartButton:
                 // Create and configure new scene
                 let newGameScene = MarketGameScene(size: size)
@@ -347,10 +332,28 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 // Transition
                 let newGameTransition = SKTransition.crossFadeWithDuration(1.0)
                 view?.presentScene(newGameScene, transition: newGameTransition)
-        
+                
             case NodeName.QuitButton:
                 if marketGameViewController != nil {
                     marketGameViewController!.performSegueWithIdentifier(SegueId.QuitGame, sender: marketGameViewController!)
+                }
+                
+            case NodeName.MusicOnOff:
+                isMusicOn = !isMusicOn
+                if let musicOnOffNode = touchedNode as? SKSpriteNode {
+                    musicOnOffNode.texture = SKTexture(imageNamed: isMusicOn ? Filename.MusicOn : Filename.MusicOff)
+                }
+                
+            case NodeName.ShareButton:
+                let sharingText = "I got " + Price.cashString(game.cash)! + " from Mr. Market!! Can you beat me?"
+                let sharingURL = NSURL(string: URLString.AppStoreDownload)
+                // TODO: sharingImage
+                marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: nil, sharingURL: sharingURL)
+                
+            case NodeName.RateButton:
+                let ratingURL = NSURL(string: URLString.AppStoreRate)
+                if ratingURL != nil {
+                    UIApplication.sharedApplication().openURL(ratingURL!)
                 }
                 
             default:
@@ -371,35 +374,18 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             }
         }
     }
+
     
     private func deleteBlock(block: Block) {
         if let index = find(existingBlocks, block) {
-            portfolio.sellPrice(block.price)
-            scoreLabelNode.text = portfolio.cashToString()
+            game.portfolio.sellPrice(block.price)
+            scoreLabelNode.text = Price.cashString(self.game.cash)!
             existingBlocks.removeAtIndex(index)
             block.disappear()
         }
     }
     
     // MARK: Game Finished
-    private func transitionToNextLevel()
-    {
-        let nextLevelTransition = SKTransition.crossFadeWithDuration(1.0)
-        let nextLevelScene = MarketGameScene(size: size)
-        nextLevelScene.gameLevel = gameLevel + 1
-        nextLevelScene.portfolio.cash = portfolio.cash
-        view?.presentScene(nextLevelScene, transition: nextLevelTransition)
-    }
-    
-    private func finishedGame()
-    {
-        for var i = existingBlocks.count - 1; i >= 0; i-- {
-            let block = existingBlocks[i]
-            deleteBlock(block)
-        }
-        // Transition to next level
-        transitionToNextLevel()
-    }
     
     private func gameOver()
     {
@@ -408,6 +394,29 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // TODO: game over sound here
         explodeAllBlocks()
         // Present game over node or scene
+        let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
+        let presentGameOverScreenAction = SKAction.runBlock {
+            self.isGameOver = true
+            self.pauseButtonNode.hidden = true
+            self.scoreLabelNode.hidden = true
+            if self.gameOverNode == nil {
+                let defaults = NSUserDefaults.standardUserDefaults()
+                let newScore = self.game.cash
+                var bestScore = defaults.doubleForKey(UserDefaultsKey.BestScore)
+                if newScore > bestScore {
+                    defaults.setDouble(newScore, forKey: UserDefaultsKey.BestScore)
+                    bestScore = newScore
+                }
+    
+                self.gameOverNode = GameOverNode(size: self.size, score: Price.cashString(newScore)!, bestScore: Price.cashString(bestScore)!, musicOn: self.isMusicOn)
+                self.gameOverNode!.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0)
+                self.gameOverNode!.zPosition = ZPosition.GameOverNode
+                self.gameOverNode!.alpha = 0.0
+                self.addChild(self.gameOverNode!)
+                self.gameOverNode!.runAction(SKAction.fadeAlphaTo(1.0, duration: Time.GameOverNodeFadeIn))
+            }
+        }
+        runAction(SKAction.sequence([waitAction, presentGameOverScreenAction]))
     }
     
     private func explodeAllBlocks() {
@@ -428,9 +437,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // Display pause screen etc
         if pauseNode == nil {
             pauseButtonNode.hidden = true
-            pauseNode = PauseNode(size: size)
+            pauseNode = PauseNode(size: size, musicOn: isMusicOn)
             pauseNode!.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-            pauseNode!.zPosition = ZPosition.pauseNode
+            pauseNode!.zPosition = ZPosition.PauseNode
             addChild(pauseNode!)
         }
     }
@@ -438,7 +447,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func unpauseGame() {
         isGamePaused = false
         paused = false
-        if !backgroundMusicPlayer.playing && musicOn {
+        if !backgroundMusicPlayer.playing && isMusicOn {
             backgroundMusicPlayer.play()
         }
         // Hide pause screen etc
@@ -460,13 +469,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     func applicationWillResignActive() {
-        if !isGamePaused { // Pause the game if necessary
+        if !isGamePaused && !isGameOver { // Pause the game if necessary
             pauseGame()
         }
     }
     
     func applicationDidBecomeActive() {
-        self.view?.paused = false //Unpause SKView. This is safe to call even if the view is not paused.
+        self.view?.paused = false // Unpause SKView. This is safe to call even if the view is not paused.
         if isGamePaused {
             paused = true
         }
@@ -485,18 +494,19 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    
     // MARK: Deallocation
     override func willMoveFromView(view: SKView) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(view)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    
-    
+    func stopGameMusic() {
+        backgroundMusicPlayer.stop()
+        backgroundMusicPlayer = nil
+    }
     
     
     

@@ -43,8 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func userDefaultsSetup() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey(UserDefaultsKey.musicOn) == nil {
-            defaults.setBool(true, forKey: UserDefaultsKey.musicOn)
+        if defaults.objectForKey(UserDefaultsKey.MusicOn) == nil {
+            defaults.setBool(UserDefaults.MusicOn, forKey: UserDefaultsKey.MusicOn)
+        }
+        if defaults.objectForKey(UserDefaultsKey.BestScore) == nil {
+            defaults.setDouble(UserDefaults.BestScore, forKey: UserDefaultsKey.BestScore)
         }
     }
 

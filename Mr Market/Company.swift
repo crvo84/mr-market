@@ -55,7 +55,7 @@ class Company: NSObject
     
     class func newCompanyForIndex(index: Int) -> Company?
     {
-        var company: Company?
+        var company: Company? = nil
         
         if index < Texture.numberOfBlockImages {
             let name = Texture.blockImageNamePrefix + "\(index)"

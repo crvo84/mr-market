@@ -12,43 +12,72 @@ class ButtonNode: SKSpriteNode
 {
     private var backgroundNode: SKShapeNode?
     private var textLabelNode: SKLabelNode?
+    private var imageNode: SKSpriteNode?
     
     private struct Default {
-        static let backgroundColor = SKColor.clearColor()
-        static let borderWidth: CGFloat = 0.0
-        static let borderColor = SKColor.blackColor()
-        static let labelText = "Button"
-        static let labelFontName = "Arial"
-        static let labelFontColor = SKColor.blueColor()
-        static let labelFontSize: CGFloat = 20.0
+        static let BackgroundColor = SKColor.clearColor()
+        static let BorderWidth: CGFloat = 0.0
+        static let BorderColor = SKColor.blackColor()
+        static let LabelText = ""
+        static let LabelFontName = "Arial"
+        static let LabelFontColor = SKColor.blueColor()
+        static let LabelFontSize: CGFloat = 20.0
+        static let ImageRelativeWidth: CGFloat = 0.90
     }
     
-    var backgroundColor = Default.backgroundColor {
+    var backgroundColor = Default.BackgroundColor {
         didSet { backgroundNode?.fillColor = backgroundColor }
     }
     
-    var borderWidth: CGFloat = Default.borderWidth {
+    var highlighted: Bool = false {
+        didSet {
+            if highlighted {
+                backgroundNode?.fillColor = backgroundColor.colorWithAlphaComponent(0.5)
+            } else {
+                backgroundNode?.fillColor = backgroundColor
+            }
+        }
+    }
+    
+    var borderWidth: CGFloat = Default.BorderWidth {
         didSet { backgroundNode?.lineWidth = borderWidth }
     }
     
-    var borderColor: SKColor = Default.borderColor {
+    var borderColor: SKColor = Default.BorderColor {
         didSet { backgroundNode?.strokeColor = borderColor }
     }
     
-    var labelText: String = Default.labelText {
-        didSet { textLabelNode?.text = labelText }
+    var labelText: String? = "" {
+        didSet {
+            if labelText != nil {
+                textLabelNode?.text = labelText!
+            } else {
+                textLabelNode?.text = Default.LabelText
+            }
+        }
     }
     
-    var labelFontName: String = Default.labelFontName {
+    var labelFontName: String = Default.LabelFontName {
         didSet { textLabelNode?.fontName = labelFontName }
     }
     
-    var labelFontColor: SKColor = Default.labelFontColor {
+    var labelFontColor: SKColor = Default.LabelFontColor {
         didSet { textLabelNode?.fontColor = labelFontColor }
     }
     
-    var labelFontSize: CGFloat = Default.labelFontSize {
+    var labelFontSize: CGFloat = Default.LabelFontSize {
         didSet { textLabelNode?.fontSize = labelFontSize }
+    }
+    
+    var imageTexture: SKTexture? {
+        didSet { imageNode?.texture = imageTexture }
+    }
+    
+    var imageRelativeWidth: CGFloat = Default.ImageRelativeWidth {
+        didSet {
+            let imageSide = backgroundNode!.frame.width * imageRelativeWidth
+            imageNode?.size = CGSize(width: imageSide, height: imageSide)
+        }
     }
     
     override var name: String? {
@@ -56,12 +85,13 @@ class ButtonNode: SKSpriteNode
             super.name = name
             backgroundNode?.name = name
             textLabelNode?.name = name
+            imageNode?.name = name
         }
     }
     
-    init(size: CGSize, cornerRadius: CGFloat, labelText: String?) {
+    init(size: CGSize, cornerRadius: CGFloat, labelText: String?, imageTexture: SKTexture?) {
         super.init(texture: nil, color: UIColor.clearColor(), size: size)
-        
+
         // Background
         backgroundNode = SKShapeNode(rectOfSize: size, cornerRadius: cornerRadius)
         backgroundNode!.fillColor = backgroundColor
@@ -71,7 +101,7 @@ class ButtonNode: SKSpriteNode
         
         // Text Label
         textLabelNode = SKLabelNode()
-        textLabelNode!.text = labelText != nil ? labelText! : self.labelText
+        textLabelNode!.text = labelText != nil ? labelText! : Default.LabelText
         textLabelNode!.fontName = labelFontName
         textLabelNode!.fontSize = labelFontSize
         textLabelNode!.fontColor = labelFontColor
@@ -79,6 +109,12 @@ class ButtonNode: SKSpriteNode
         textLabelNode!.horizontalAlignmentMode = .Center
         backgroundNode!.addChild(textLabelNode!)
         
+        // Sprite Node
+        imageNode = SKSpriteNode()
+        imageNode!.texture = imageTexture
+        let imageSide = backgroundNode!.frame.size.width * Default.ImageRelativeWidth
+        imageNode!.size = CGSize(width: imageSide, height: imageSide)
+        backgroundNode!.addChild(imageNode!)
     }
 
     required init?(coder aDecoder: NSCoder) {
