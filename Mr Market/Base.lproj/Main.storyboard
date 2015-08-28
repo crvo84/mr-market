@@ -60,12 +60,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbf-Pm-9KC">
-                                <rect key="frame" x="200" y="332" width="56" height="56"/>
+                                <rect key="frame" x="272" y="374" width="56" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="56" id="4BQ-ul-J2n"/>
-                                    <constraint firstAttribute="height" constant="56" id="BKC-6n-QRX"/>
+                                    <constraint firstAttribute="height" constant="56" id="5Wx-oQ-TM0"/>
+                                    <constraint firstAttribute="width" constant="56" id="8be-6M-dQN"/>
                                 </constraints>
-                                <state key="normal" image="ranking">
+                                <state key="normal" image="podium">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -87,12 +87,11 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hw-G9-AE6">
-                                <rect key="frame" x="344" y="332" width="56" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="56" id="Tty-JX-nMN"/>
-                                    <constraint firstAttribute="height" constant="56" id="tnN-1C-mbU"/>
-                                </constraints>
-                                <state key="normal" image="removeAds">
+                                <rect key="frame" x="200" y="332" width="200" height="34"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="REMOVE ADS">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -102,16 +101,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="7Hw-G9-AE6" firstAttribute="trailing" secondItem="4Rg-Ao-9wg" secondAttribute="trailing" id="0AR-tD-fC3"/>
-                            <constraint firstItem="7Hw-G9-AE6" firstAttribute="top" secondItem="4Rg-Ao-9wg" secondAttribute="bottom" constant="8" symbolic="YES" id="5vz-2q-WWv"/>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" id="7ar-Ex-X5i"/>
-                            <constraint firstItem="4Rg-Ao-9wg" firstAttribute="leading" secondItem="rbf-Pm-9KC" secondAttribute="leading" id="8Vv-dK-jA6"/>
+                            <constraint firstItem="7Hw-G9-AE6" firstAttribute="top" secondItem="4Rg-Ao-9wg" secondAttribute="bottom" constant="8" symbolic="YES" id="AGC-Pc-Hhd"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" id="AuQ-oN-1Fe"/>
-                            <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="4Rg-Ao-9wg" secondAttribute="bottom" constant="8" symbolic="YES" id="CQT-d8-NJg"/>
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="top" secondItem="aN0-YL-z1k" secondAttribute="bottom" constant="8" symbolic="YES" id="Gpy-po-6Uw"/>
+                            <constraint firstAttribute="centerX" secondItem="rbf-Pm-9KC" secondAttribute="centerX" id="I7b-Px-24f"/>
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="centerXWithinMargins" multiplier="0.7" id="J9z-WE-0BG"/>
+                            <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="7Hw-G9-AE6" secondAttribute="bottom" constant="8" symbolic="YES" id="Pcf-Dh-A0n"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" constant="399" id="Pz6-zH-0jl"/>
+                            <constraint firstItem="7Hw-G9-AE6" firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" multiplier="0.7" id="aEb-AO-tx4"/>
+                            <constraint firstAttribute="centerX" secondItem="7Hw-G9-AE6" secondAttribute="centerX" id="eas-dM-hej"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="width" secondItem="ez4-Mq-2yQ" secondAttribute="width" id="fnr-Ow-8lN"/>
+                            <constraint firstItem="7Hw-G9-AE6" firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" id="gu1-VI-HYz"/>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="h2v-hy-Hsq"/>
                             <constraint firstAttribute="centerY" secondItem="4Rg-Ao-9wg" secondAttribute="centerY" id="h4r-IW-HjM"/>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="top" secondItem="6hL-6d-Pcf" secondAttribute="bottom" constant="8" symbolic="YES" id="i0U-c6-PLm"/>
@@ -135,6 +136,9 @@
                     </view>
                     <connections>
                         <outlet property="musicOnButton" destination="ez4-Mq-2yQ" id="vS6-iJ-VJb"/>
+                        <outlet property="playButton" destination="aN0-YL-z1k" id="AU2-XJ-KJr"/>
+                        <outlet property="removeAdsButton" destination="7Hw-G9-AE6" id="cRd-b3-V5a"/>
+                        <outlet property="tutorialButton" destination="4Rg-Ao-9wg" id="7DQ-F4-k1L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLb-8z-u1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -167,7 +171,6 @@
     </scenes>
     <resources>
         <image name="musicOn" width="48" height="48"/>
-        <image name="ranking" width="160" height="160"/>
-        <image name="removeAds" width="100" height="100"/>
+        <image name="podium" width="100" height="100"/>
     </resources>
 </document>

@@ -217,15 +217,15 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 3 // 16 for complete market cycle
-    static let PeriodsIncrease: Int = 1
+    static let PeriodsInitial: Int = 8 // 8 for complete market cycle
+    static let PeriodsIncrease: Int = 0
     static let PeriodsMax: Int = 30
-    static let NumberOfCompaniesInitial: Int = 2
+    static let NumberOfCompaniesInitial: Int = 1
     static let NumberOfCompaniesIncrease: Int = 1
-    static let SpeedInitial: CGFloat = 20.0
+    static let SpeedInitial: CGFloat = 2.0
     static let SpeedIncrease: CGFloat = 0.2
-    static let TransactionAmountInitial: Double = 100.0
-    static let TransactionAmountIncrease: Double = 100.0
+    static let TransactionAmountInitial: Double = 10.0
+    static let TransactionAmountIncrease: Double = 5.0
     static let InitialMarketLevel: Int = 0
 }
 
@@ -233,7 +233,7 @@ struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.0
     static let MaxPercentReturn: Double = 5
     static let MinPercentReturn: Double = 5
-    static let BurstReturnFactor: Double = 1.5
+    static let BurstReturnFactor: Double = 1.25
 }
 
 struct NodeName {
@@ -269,6 +269,14 @@ struct Text {
     static let Score = "Score"
     static let Best = "Best"
     static let TryAgain = "Try again"
+    static let RemoveAds = "Remove Ads"
+    static let Purchase = "Purchase"
+    static let Restore = "Restore"
+    static let Cancel = "Cancel"
+    static let Ok = "Ok"
+    static let Error = "Error"
+    static let NoPreviousPurchases = "No previous purchases could be restored."
+    static let PurchasesRestored = "Purchases restored successfully."
 }
 
 struct URLString {

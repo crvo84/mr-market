@@ -329,6 +329,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
             case NodeName.QuitButton:
                 if marketGameViewController != nil {
+                    if backgroundMusicPlayer.playing { backgroundMusicPlayer.stop() }
                     marketGameViewController!.performSegueWithIdentifier(SegueId.QuitGame, sender: marketGameViewController!)
                 }
                 
@@ -432,7 +433,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     // MARK: Pause/Unpause
     func pauseGame() {
-        if isGamePaused { return }
+        if isGamePaused || isGameOver { return }
         isGamePaused = true
         paused = true
         if backgroundMusicPlayer.playing {

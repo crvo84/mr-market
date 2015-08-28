@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ranking160x160.png"
+      "filename" : "villouLogo100x100.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ranking320x320.png"
+      "filename" : "villouLogo200x200.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ranking480x480.png"
+      "filename" : "villouLogo300x300.png"
     }
   ],
   "info" : {

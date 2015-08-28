@@ -51,21 +51,6 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         }
 
     }
-
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        if let segueId = segue.identifier {
-//            switch segueId {
-//            case SegueId.QuitGame:
-//                fallthrough
-//            case SegueId.RemoveAds:
-//                scene?.stopGameMusic()
-//            default:
-//                break
-//            }
-//        }
-//    }
     
     // MARK: UIActivity View Controller
     
@@ -90,7 +75,8 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
     
     func reportScoreForCash(cash: Double) {
         let score = GKScore(leaderboardIdentifier: GameCenter.LeaderboardId)
-        score.value = Int64(cash)
+
+        score.value = Int64(cash * 100.0)
         
         GKScore.reportScores([score], withCompletionHandler: { (error) -> Void in
             if error != nil {

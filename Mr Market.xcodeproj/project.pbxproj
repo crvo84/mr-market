@@ -32,10 +32,10 @@
 		73F5D61C1B7691C7009C7A9A /* MarketGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D61B1B7691C7009C7A9A /* MarketGameViewController.swift */; };
 		73F5D6201B76CA2B009C7A9A /* MrMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D61F1B76CA2B009C7A9A /* MrMarket.swift */; };
 		73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6211B76CACC009C7A9A /* SharedConstants.swift */; };
-		73F5D6241B76E648009C7A9A /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6231B76E648009C7A9A /* sprites.atlas */; };
 		73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6DC1B7C3877009C7A9A /* Block.swift */; };
 		73F81A341B8E24FA00CDF9CF /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F81A321B8E249000CDF9CF /* iAd.framework */; };
 		73F81A351B8E250000CDF9CF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */; };
+		73F81A901B8FE37000CDF9CF /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73F81A8F1B8FE37000CDF9CF /* sprites.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,9 +79,9 @@
 		73F5D61B1B7691C7009C7A9A /* MarketGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketGameViewController.swift; sourceTree = "<group>"; };
 		73F5D61F1B76CA2B009C7A9A /* MrMarket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrMarket.swift; sourceTree = "<group>"; };
 		73F5D6211B76CACC009C7A9A /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
-		73F5D6231B76E648009C7A9A /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		73F5D6DC1B7C3877009C7A9A /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		73F81A321B8E249000CDF9CF /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		73F81A8F1B8FE37000CDF9CF /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +175,7 @@
 				73A974631B82B06100CACF04 /* Model */,
 				73E1C3F01B8641CD00B3B57A /* Controller */,
 				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
+				73F81A8F1B8FE37000CDF9CF /* sprites.atlas */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
 			path = "Mr Market";
@@ -187,7 +188,6 @@
 				73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */,
 				73206A6D1B8D849700D2BA22 /* GameKit.framework */,
 				73A974521B7EA4B200CACF04 /* Sounds */,
-				73F5D6231B76E648009C7A9A /* sprites.atlas */,
 				73F5D6021B76912F009C7A9A /* LaunchScreen.xib */,
 				73F5D5F41B76912F009C7A9A /* Info.plist */,
 			);
@@ -321,13 +321,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73F81A901B8FE37000CDF9CF /* sprites.atlas in Resources */,
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
 				73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */,
 				733FFA841B7E3C95004B842E /* spark.png in Resources */,
 				73206A681B8C066700D2BA22 /* hopping-along.mp3 in Resources */,
 				73A974561B7EA4F600CACF04 /* slam.wav in Resources */,
 				73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */,
-				73F5D6241B76E648009C7A9A /* sprites.atlas in Resources */,
 				73206A661B8C066100D2BA22 /* ping-pong.mp3 in Resources */,
 				73A974621B82717400CACF04 /* SparkParticle.sks in Resources */,
 				73A974541B7EA4BB00CACF04 /* pop.wav in Resources */,

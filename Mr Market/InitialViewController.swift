@@ -14,7 +14,12 @@ import StoreKit
 // Global but private (Works like a static variable in objective-c). To avoid a "wall of sound" or many copies of the same music
 private var backgroundMusicPlayer: AVAudioPlayer!
 
-class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
+class InitialViewController: UIViewController, GKGameCenterControllerDelegate, SKPaymentTransactionObserver, SKProductsRequestDelegate
+{
+    
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var tutorialButton: UIButton!
+    @IBOutlet weak var removeAdsButton: UIButton!
     
     // Game Center
     var isGameCenterEnabled = false
@@ -24,6 +29,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
     
     // In-App Purchases
     var product: SKProduct?
+    var waitingForProduct = false
     
     // Background music
     private var musicOn: Bool {
@@ -40,6 +46,17 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
         }
     }
     
+    private var showAds: Bool {
+        get { return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.ShowAds) }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.ShowAds)
+            if !newValue {
+                removeAdsButton.hidden = true
+                canDisplayBannerAds = false
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -49,9 +66,20 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // game center
         authenticatePlayer()
         
-        canDisplayBannerAds = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.ShowAds)
+        // ad banner
+        canDisplayBannerAds = showAds
+        
+        // in-app purchases
+        removeAdsButton.hidden = !showAds
+        
+        if showAds {
+            SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+            getProductInfo()
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -64,7 +92,9 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        requestInterstitialAdPresentation()
+        if showAds {
+            requestInterstitialAdPresentation()
+        }
     }
     
     // MARK: Setup
@@ -104,8 +134,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
         if let segueName = segue.identifier {
             switch segueName {
             case SegueId.RemoveAds:
-                // Remove ads
-                println("Remove Ads Button pressed")
+                removeAds()
             default:
                 break
             }
@@ -171,24 +200,117 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate {
     // MARK: In-App Purchases
     
     @IBAction func removeAdsButtonPressed(sender: AnyObject) {
-        removeAds()
+        
+        var alertMessage: String?
+        if product != nil{
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.locale = product!.priceLocale
+            numberFormatter.numberStyle = .CurrencyStyle
+            alertMessage = numberFormatter.stringFromNumber(NSNumber(double: Double(product!.price)))
+        }
+        
+        let removeAdsActionSheet = UIAlertController(title: Text.RemoveAds, message: alertMessage, preferredStyle: .ActionSheet)
+        
+        let purchaseAction = UIAlertAction(title: Text.Purchase, style: .Default) { (action:UIAlertAction!) in
+            self.removeAds()
+        }
+        let restorePurchaseAction = UIAlertAction(title: Text.Restore, style: .Default) { (action: UIAlertAction!) in
+            self.restorePurchases()
+        }
+        let cancelAction = UIAlertAction(title: Text.Cancel, style: .Cancel, handler: nil)
+        removeAdsActionSheet.addAction(purchaseAction)
+        removeAdsActionSheet.addAction(restorePurchaseAction)
+        removeAdsActionSheet.addAction(cancelAction)
+        presentViewController(removeAdsActionSheet, animated: true, completion: nil)
     }
     
     private func removeAds()
     {
+        if !showAds { return }
         
+        if product != nil {
+            let payment = SKPayment(product: product)
+            SKPaymentQueue.defaultQueue().addPayment(payment)
+        } else {
+            waitingForProduct = true
+            getProductInfo()
+        }
+    }
+    
+    private func restorePurchases() {
+        SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
+    }
+    
+    func getProductInfo() {
+        if SKPaymentQueue.canMakePayments() {
+            let request = SKProductsRequest(productIdentifiers: NSSet(objects: InAppPurchase.RemoveAdsProductId) as Set<NSObject>)
+            request.delegate = self
+            request.start()
+        } else {
+            println("Please enable In App Purchase in Settings")
+        }
+    }
+    
+    // SKProduct request delegate
+    func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
+        var products = response.products
+        if (products.count > 0) {
+            product = products[0] as? SKProduct
+            if waitingForProduct {
+                waitingForProduct = false
+                removeAds()
+            }
+        }
+        
+        for product in response.invalidProductIdentifiers {
+            println("Product not found: \(product)")
+        }
+    }
+    
+    // SKPayment transaction delegate
+    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
+        for transaction in transactions as! [SKPaymentTransaction] {
+            switch transaction.transactionState {
+                
+            case SKPaymentTransactionState.Failed:
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                
+            case SKPaymentTransactionState.Restored:
+                fallthrough
+                
+            case SKPaymentTransactionState.Purchased:
+                showAds = false
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!) {
+        //called when the user successfully restores a purchase
+        var itemsRestored = false
+        for transaction in queue.transactions {
+            if transaction.transactionState == SKPaymentTransactionState.Restored {
+                itemsRestored = true
+            }
+        }
+        let restoredTitle = itemsRestored ? Text.PurchasesRestored : Text.NoPreviousPurchases
+        let restoredAlertController = UIAlertController(title: restoredTitle, message: nil, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: Text.Ok, style: .Default, handler: nil)
     }
 
-    // MARK: iAd
+    
+    func paymentQueue(queue: SKPaymentQueue!, restoreCompletedTransactionsFailedWithError error: NSError!) {
+        let failToRestoreAlert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: Text.Ok, style: .Default, handler: nil)
+        failToRestoreAlert.addAction(okAction)
+        presentViewController(failToRestoreAlert, animated: true, completion: nil)
+    }
 
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     
     
     
