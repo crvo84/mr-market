@@ -268,8 +268,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
-        updateBlockColors()
-        
         if let blockA = nodeA as? Block {
             if let blockB = nodeB as? Block {
                 // blockA collided with blockB
@@ -297,6 +295,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 blockB.isDescending = false
             }
         }
+        
+        updateBlockColors()
     }
     
     // MARK: User Interaction

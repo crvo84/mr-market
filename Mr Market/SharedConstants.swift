@@ -167,10 +167,8 @@ struct Category {
 }
 
 struct Time {
-//    static let BetweenBlocks = 3.0 / Double(GameOption.SpeedInitial) // TODO: update gamespeed on each level?
-    static let BetweenBlocksForInitialSpeed: Double = 3.0   // Inside game must be divided by current physicsWorld speed
-//    static let BetweenPeriods = Time.BetweenBlocks * 2
-    static let BetweenPeriodsForInitialSpeed: Double = 2.0 * Time.BetweenBlocksForInitialSpeed // Inside game must be divided by current physicsWorld speed
+    static let BetweenBlocksForInitialSpeed: Double = 4.0   // Inside game must be divided by current physicsWorld speed
+    static let BetweenPeriodsForInitialSpeed: Double = 5.0 // Inside game must be divided by current physicsWorld speed
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
@@ -211,19 +209,19 @@ struct CompanyInfo {
     static let MaxBeta: Double = 2
     static let MinBeta: Double = 0.5
     static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50%
-    static let MaxInitialPriceInteger: UInt32 = 25
+    static let MaxInitialPriceInteger: UInt32 = 9
     static let MinInitialPriceInteger: UInt32 = 1
     static let MaxDecimals: Int = 1
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 8 // 8 for complete market cycle
-    static let PeriodsIncrease: Int = 0
-    static let PeriodsMax: Int = 30
-    static let NumberOfCompaniesInitial: Int = 1
-    static let NumberOfCompaniesIncrease: Int = 1
-    static let SpeedInitial: CGFloat = 2.0
-    static let SpeedIncrease: CGFloat = 0.2
+    static let PeriodsInitial: Int = 3 // 8 for complete market cycle // 3
+    static let PeriodsIncrease: Int = 1 // 1
+    static let PeriodsMax: Int = 16 // 16
+    static let NumberOfCompaniesInitial: Int = 1 // 1
+    static let NumberOfCompaniesIncrease: Int = 0 // 1
+    static let SpeedInitial: CGFloat = 0.8 // 0.6
+    static let SpeedIncrease: CGFloat = 0.1 // 0.1
     static let TransactionAmountInitial: Double = 10.0
     static let TransactionAmountIncrease: Double = 5.0
     static let InitialMarketLevel: Int = 0
@@ -233,7 +231,7 @@ struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.0
     static let MaxPercentReturn: Double = 5
     static let MinPercentReturn: Double = 5
-    static let BurstReturnFactor: Double = 1.25
+    static let BurstReturnFactor: Double = 1.5
 }
 
 struct NodeName {
@@ -277,6 +275,7 @@ struct Text {
     static let Error = "Error"
     static let NoPreviousPurchases = "No previous purchases could be restored."
     static let PurchasesRestored = "Purchases restored successfully."
+
 }
 
 struct URLString {
