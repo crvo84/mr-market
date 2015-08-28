@@ -39,7 +39,7 @@ class GameOverNode: SKSpriteNode {
         addChild(backgroundNode!)
         
         // TRY AGAIN BUTTON
-        let tryAgainButtonSize = CGSize(width: size.width * Geometry.GameOverNodeLargeButtonRelativeWidth, height: size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
+        let tryAgainButtonSize = CGSize(width: backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth, height: backgroundNode!.frame.size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
         let tryAgainButtonCornerRadius = Geometry.GameOverNodeButtonRelativeCornerRadius * tryAgainButtonSize.width
         tryAgainButton = ButtonNode(size: tryAgainButtonSize, cornerRadius: tryAgainButtonCornerRadius, labelText: Text.TryAgain, imageTexture: nil)
         tryAgainButton!.backgroundColor = Color.GameOverNodeLargeButton
@@ -90,7 +90,7 @@ class GameOverNode: SKSpriteNode {
         quitButton!.name = NodeName.QuitButton
         backgroundNode!.addChild(quitButton!)
         
-        let labelsMiddlePointY = size.height / 4.0 + tryAgainButton!.size.height / 2.0
+        let labelsMiddlePointY = backgroundNode!.frame.size.height / 4.0 + tryAgainButton!.size.height / 2.0
         // SCORE LABEL
         scoreLabel = SKLabelNode(text: Text.Score + ": " + score)
         scoreLabel!.fontColor = Color.GameOverNodeScoreLabel

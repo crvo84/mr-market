@@ -59,7 +59,7 @@ struct Geometry {
     static let PauseNodeButtonVerticalSeparation: CGFloat = 8
     static let PauseNodeMusicOnOffButtonOffset: CGFloat = 10
     static let PauseNodeButtonBorderWidth: CGFloat = 0.0
-    static let PauseNodeButtonRelativeCornerRadius: CGFloat = 0.05 // Relative to large button width
+    static let PauseNodeButtonRelativeCornerRadius: CGFloat = 0.0 // Relative to large button width
     // paused music on/off node
     static let PausedMusicOnOffNodeLeftOffset: CGFloat = 16.0
     static let PausedMusicOnOffNodeLowerOffset: CGFloat = 8.0
@@ -76,12 +76,15 @@ struct Geometry {
     static let GameOverNodeSmallButtonImageRelativeWidth: CGFloat = 0.90 // Relative to button background
     static let GameOverNodeButtonVerticalSeparation: CGFloat = 24
     static let GameOverNodeButtonBorderWidth: CGFloat = 0.0
-    static let GameOverNodeButtonRelativeCornerRadius: CGFloat = 0.05 // Relative to large button width
+    static let GameOverNodeButtonRelativeCornerRadius: CGFloat = 0.00 // Relative to large button width
     // game over score labels
     static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 16
     
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
+    
+    // hi invest button
+    static let HiInvestButtonRelativeCornerRadius: CGFloat = 0.1 // Relative to button width
 }
 
 struct Color {
@@ -219,8 +222,8 @@ struct GameOption {
     static let PeriodsIncrease: Int = 1 // 1
     static let PeriodsMax: Int = 16 // 16
     static let NumberOfCompaniesInitial: Int = 1 // 1
-    static let NumberOfCompaniesIncrease: Int = 0 // 1
-    static let SpeedInitial: CGFloat = 0.8 // 0.6
+    static let NumberOfCompaniesIncrease: Int = 1 // 1
+    static let SpeedInitial: CGFloat = 0.8 // 0.8
     static let SpeedIncrease: CGFloat = 0.1 // 0.1
     static let TransactionAmountInitial: Double = 10.0
     static let TransactionAmountIncrease: Double = 5.0
@@ -281,6 +284,11 @@ struct Text {
 struct URLString {
     static let AppStoreDownload = "http://itunes.apple.com/app/id1009148607"
     static let AppStoreRate = "itms-apps://itunes.apple.com/app/id1009148607"
+    static let FacebookFromApp = "fb://profile/800203350077160"
+    static let Facebook = "https://www.facebook.com/800203350077160"
+    static let TwitterFromApp = "twitter:///user?screen_name=Villou_Apps"
+    static let Twitter = "https://twitter.com/Villou_Apps"
+    static let Villou = "http://www.villou.com"
 }
 
 struct SegueId {

@@ -412,8 +412,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 }
                 self.marketGameViewController!.reportScoreForCash(newScore)
                 
-                self.gameOverNode = GameOverNode(size: self.size, score: Price.cashString(newScore)!, bestScore: Price.cashString(bestScore)!, musicOn: self.isMusicOn)
-                self.gameOverNode!.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0)
+                let gameOverNodeSize = CGSize(width: self.size.width, height: self.size.height - self.adBottomOffset)
+                let gameOverNodePosition = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0 + self.adBottomOffset / 2.0)
+                self.gameOverNode = GameOverNode(size: gameOverNodeSize, score: Price.cashString(newScore)!, bestScore: Price.cashString(bestScore)!, musicOn: self.isMusicOn)
+                self.gameOverNode!.position = gameOverNodePosition
                 self.gameOverNode!.zPosition = ZPosition.GameOverNode
                 self.gameOverNode!.alpha = 0.0
                 self.addChild(self.gameOverNode!)
@@ -442,8 +444,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // Display pause screen etc
         if pauseNode == nil {
             pauseButtonNode.hidden = true
-            pauseNode = PauseNode(size: size, musicOn: isMusicOn)
-            pauseNode!.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+            let pauseNodeSize = CGSize(width: size.width, height: size.height - adBottomOffset)
+            let pauseNodePosition = CGPoint(x: size.width / 2.0, y: size.height / 2.0 + adBottomOffset / 2.0)
+            pauseNode = PauseNode(size: pauseNodeSize, musicOn: isMusicOn)
+            pauseNode!.position = pauseNodePosition
             pauseNode!.zPosition = ZPosition.PauseNode
             addChild(pauseNode!)
         }

@@ -16,6 +16,7 @@
 		73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73206A6B1B8D65C800D2BA22 /* Images.xcassets */; };
 		73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6D1B8D849700D2BA22 /* GameKit.framework */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
+		7349F8431B91152F009B6A16 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7349F8421B91152F009B6A16 /* AboutViewController.swift */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
 		73A974561B7EA4F600CACF04 /* slam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974551B7EA4F600CACF04 /* slam.wav */; };
 		73A974621B82717400CACF04 /* SparkParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 73A974611B82717400CACF04 /* SparkParticle.sks */; };
@@ -59,6 +60,7 @@
 		73206A6D1B8D849700D2BA22 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		7349F8421B91152F009B6A16 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
 		73A974611B82717400CACF04 /* SparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SparkParticle.sks; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		73E1C3F01B8641CD00B3B57A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7349F8421B91152F009B6A16 /* AboutViewController.swift */,
 				73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */,
 				73F5D61B1B7691C7009C7A9A /* MarketGameViewController.swift */,
 			);
@@ -362,6 +365,7 @@
 				73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */,
 				73A9746F1B82FB5100CACF04 /* Market.swift in Sources */,
 				73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */,
+				7349F8431B91152F009B6A16 /* AboutViewController.swift in Sources */,
 				73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
