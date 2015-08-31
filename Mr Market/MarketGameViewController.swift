@@ -105,14 +105,14 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
 //        /* whatever you need */
 //    }
     
-//    func bannerViewDidLoadAd(banner: ADBannerView!) {
-//        banner.hidden = false
-//    }
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        banner.hidden = false
+    }
     
-//    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
-//        /* whatever you need */
-//        banner.hidden = true
-//    }
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        /* whatever you need */
+        banner.hidden = true
+    }
     
 //    func bannerViewWillLoadAd(banner: ADBannerView!) {
 //        /* whatever you need */

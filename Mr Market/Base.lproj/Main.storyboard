@@ -51,7 +51,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Sym-Px-EBE" kind="presentation" modalTransitionStyle="partialCurl" id="Ov3-pa-057"/>
+                                    <segue destination="Sym-Px-EBE" kind="presentation" modalTransitionStyle="coverVertical" id="Ov3-pa-057"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aN0-YL-z1k">

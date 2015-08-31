@@ -54,11 +54,15 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     private var timeBetweenBlocks: Double {
-        return Time.BetweenBlocksForInitialSpeed / Double(gameSpeed)
+        let deviceHeightAdjustingFactor = Double((size.height - adBottomOffset) / Time.DeviceBaseHeight)
+        return Time.BetweenBlocksForInitialSpeed / Double(gameSpeed) * deviceHeightAdjustingFactor
     }
     
     private var timeBetweenPeriods: Double {
-        return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed)
+        let deviceHeightAdjustingFactor = Double((size.height - adBottomOffset) / Time.DeviceBaseHeight)
+        println("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
+        return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
+        // TODO: adjust to device height (iPhone 4s can be base)
     }
     
 
@@ -77,6 +81,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     override func didMoveToView(view: SKView) {
+        
+        println("Screen Width: \(size.width), Height: \(size.height)")
+        
         userInteractionEnabled = true
         backgroundColor = Color.MainBackground
         registerAppTransitionObservers()
@@ -105,6 +112,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func pauseGameSetup()
     {
         // pause button
+        pauseButtonNode.size = CGSize(width: Geometry.PauseButtonSideSize, height: Geometry.PauseButtonSideSize)
         pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
         pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
         pauseButtonNode.name = NodeName.PauseButton

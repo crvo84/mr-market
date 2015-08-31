@@ -47,6 +47,7 @@ struct Geometry {
     // pause button
     static let PauseButtonRightOffset: CGFloat = 10.0
     static let PauseButtonUpperOffset: CGFloat = 10.0
+    static let PauseButtonSideSize: CGFloat = 36
     // pause node
     static let PauseNodeRelativeHeight: CGFloat = 1.0 // Relative to scene height
     static let PauseNodeRelativeWidth: CGFloat = 1.0 // Relative to scene width
@@ -170,8 +171,12 @@ struct Category {
 }
 
 struct Time {
-    static let BetweenBlocksForInitialSpeed: Double = 4.0   // Inside game must be divided by current physicsWorld speed
-    static let BetweenPeriodsForInitialSpeed: Double = 5.0 // Inside game must be divided by current physicsWorld speed
+    static let BetweenBlocksForInitialSpeed: Double = 6.0   // Inside game must be divided by current physicsWorld speed and adjusted to device base height
+    static let BetweenPeriodsForInitialSpeed: Double = 4.0 // Inside game must be divided by current physicsWorld speed and adjusted to device base height
+    // Device Size. Time Between Blocks and Between Periods for initial speed is based on this device height. Adjust Time for different device heights.
+    // To adjust: TimeForDeviceBaseHeight * CurrentDeviceHeight / DeviceBaseHeight
+    static let DeviceBaseHeight: CGFloat = 667
+    
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
@@ -218,16 +223,16 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 3 // 8 for complete market cycle // 3
+    static let PeriodsInitial: Int = 1 // 8 for complete market cycle // 1
     static let PeriodsIncrease: Int = 1 // 1
     static let PeriodsMax: Int = 16 // 16
     static let NumberOfCompaniesInitial: Int = 1 // 1
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let SpeedInitial: CGFloat = 0.8 // 0.8
-    static let SpeedIncrease: CGFloat = 0.1 // 0.1
+    static let SpeedInitial: CGFloat = 0.65 // 0.65
+    static let SpeedIncrease: CGFloat = 0.03 // 0.02
     static let TransactionAmountInitial: Double = 10.0
     static let TransactionAmountIncrease: Double = 5.0
-    static let InitialMarketLevel: Int = 0
+    static let InitialMarketLevel: Int = 2
 }
 
 struct MarketOption {
