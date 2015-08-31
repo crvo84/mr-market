@@ -229,7 +229,7 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 1 // 1
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let SpeedInitial: CGFloat = 0.65 // 0.65
-    static let SpeedIncrease: CGFloat = 0.03 // 0.02
+    static let SpeedIncrease: CGFloat = 0.02 // 0.02
     static let TransactionAmountInitial: Double = 10.0
     static let TransactionAmountIncrease: Double = 5.0
     static let InitialMarketLevel: Int = 2

@@ -3,73 +3,73 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon58x58-1.png",
+      "filename" : "MrMarketIcon58x58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon87x87.png",
+      "filename" : "MrMarketIcon87x87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon80x80-1.png",
+      "filename" : "MrMarketIcon80x80-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon120x120-1.png",
+      "filename" : "MrMarketIcon120x120.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon120x120.png",
+      "filename" : "MrMarketIcon120x120-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "mrMarketIcon180x180.png",
+      "filename" : "MrMarketIcon180x180.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon29x29.png",
+      "filename" : "MrMarketIcon29x29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon58x58.png",
+      "filename" : "MrMarketIcon58x58-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon40x40.png",
+      "filename" : "MrMarketIcon40x40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon80x80.png",
+      "filename" : "MrMarketIcon80x80.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon76x76.png",
+      "filename" : "MrMarketIcon76x76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "mrMarketIcon152x152.png",
+      "filename" : "MrMarketIcon152x152.png",
       "scale" : "2x"
     }
   ],
