@@ -98,7 +98,7 @@
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="18"/>
                                 <state key="normal" title="REMOVE ADS">
-                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.43921568630000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -106,7 +106,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" id="7ar-Ex-X5i"/>
                             <constraint firstItem="7Hw-G9-AE6" firstAttribute="top" secondItem="4Rg-Ao-9wg" secondAttribute="bottom" constant="8" symbolic="YES" id="AGC-Pc-Hhd"/>
@@ -222,7 +222,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.45490196078431372" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hpK-9x-ZDc" firstAttribute="trailing" secondItem="GPQ-bk-IoQ" secondAttribute="centerXWithinMargins" constant="-8" id="GpF-P4-3Sc"/>
                             <constraint firstItem="hpK-9x-ZDc" firstAttribute="top" secondItem="ryi-6m-8Gk" secondAttribute="bottom" constant="8" symbolic="YES" id="OyW-Qv-zFS"/>
@@ -253,7 +253,7 @@
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.37238123280000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <segue destination="hn7-cg-gZ0" kind="unwind" identifier="Quit Game" unwindAction="unwindToInitialViewController:" id="U8k-pI-QaW"/>

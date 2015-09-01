@@ -89,7 +89,7 @@ struct Geometry {
 }
 
 struct Color {
-    static let MainBackground = SKColor(red: 0.0/255.0, green: 64.0/255.0, blue: 96.0/255.0, alpha: 1.0)
+    static let MainBackground = SKColor(red: 0.0/255.0, green: 102.0/255.0, blue: 134.0/255.0, alpha: 1.0)
     // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground

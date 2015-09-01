@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730982EA1B94DE6E0067DA51 /* ScoreImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730982E91B94DE6E0067DA51 /* ScoreImageGenerator.swift */; };
 		73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A5D1B8789E700D2BA22 /* PauseNode.swift */; };
 		73206A621B87AF4B00D2BA22 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A611B87AF4B00D2BA22 /* ButtonNode.swift */; };
 		73206A641B8BA15200D2BA22 /* MrMarketGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A631B8BA15200D2BA22 /* MrMarketGame.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		730982E91B94DE6E0067DA51 /* ScoreImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreImageGenerator.swift; sourceTree = "<group>"; };
 		73206A5D1B8789E700D2BA22 /* PauseNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseNode.swift; sourceTree = "<group>"; };
 		73206A611B87AF4B00D2BA22 /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		73206A631B8BA15200D2BA22 /* MrMarketGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrMarketGame.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				73F5D5F51B76912F009C7A9A /* AppDelegate.swift */,
 				73F5D5FD1B76912F009C7A9A /* Main.storyboard */,
+				730982E91B94DE6E0067DA51 /* ScoreImageGenerator.swift */,
 				73F5D6211B76CACC009C7A9A /* SharedConstants.swift */,
 				73F5D6DF1B7C3890009C7A9A /* Scenes */,
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
@@ -355,6 +358,7 @@
 				73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */,
 				73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */,
 				73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */,
+				730982EA1B94DE6E0067DA51 /* ScoreImageGenerator.swift in Sources */,
 				73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */,
 				73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */,
 				73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */,
