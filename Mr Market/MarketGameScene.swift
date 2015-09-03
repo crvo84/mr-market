@@ -123,7 +123,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func scoreLabelSetup()
     {
         scoreLabelNode.text = Price.cashString(game.cash)!
-        scoreLabelNode.fontColor = Color.ScoreLabel
+        scoreLabelNode.fontColor = Color.ScoreLabelInitial
         scoreLabelNode.fontSize = isIpad ? FontSize.ScoreLabelIpad : FontSize.ScoreLabelIphone
         scoreLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
         scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
@@ -276,34 +276,50 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
+        var landedBlock: Block?
+        
         if let blockA = nodeA as? Block {
+            
             if let blockB = nodeB as? Block {
-                // blockA collided with blockB
-                if !blockA.isDescending || !blockB.isDescending {
-                    if blockA.isDescending { game.portfolio.buyPrice(blockA.price) }
-                    if blockB.isDescending { game.portfolio.buyPrice(blockB.price) }
-                    runAction(slamSoundAction)
-                    blockA.isDescending = false
-                    blockB.isDescending = false
-                    if blockA.position.y + blockA.size.height / 2.0 > size.height || blockB.position.y + blockB.size.height / 2.0 > size.height {
-                        gameOver()
-                    }
+                if blockA.isDescending && blockB.isDescending {
+                    // Both blocks collided when both were descending
+                    return
+                } else if blockA.isDescending {
+                    landedBlock = blockA
+                } else if blockB.isDescending {
+                    landedBlock = blockB
                 }
+                
             } else {
                 // blockA collided with floor
-                game.portfolio.buyPrice(blockA.price)
-                runAction(slamSoundAction)
-                blockA.isDescending = false
+                landedBlock = blockA
             }
+            
         } else {
             // blockB collided with floor
             if let blockB = nodeB as? Block {
-                game.portfolio.buyPrice(blockB.price)
-                runAction(slamSoundAction)
-                blockB.isDescending = false
+                landedBlock = blockB
             }
         }
         
+        if let blockToPurchase = landedBlock {
+            if blockToPurchase.isDescending {
+                if blockToPurchase.position.y + blockToPurchase.size.height / 2.0 > size.height {
+                    gameOver()
+                    return
+                }
+                if game.portfolio.buyPrice(blockToPurchase.price) {
+                    blockToPurchase.isDescending = false
+                    runAction(slamSoundAction)
+                } else {
+                    runAction(popSoundAction)
+                    explosion(blockToPurchase.position)
+                    deleteBlock(blockToPurchase)
+                }
+            }
+        }
+        
+        updateScoreLabel()
         updateBlockColors()
     }
     
@@ -368,6 +384,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 break
             }
         } else if !view!.paused {
+            // Blocks must not have name
             if let body = physicsWorld.bodyAtPoint(location) {
                 if let blockNode = body.node as? Block {
                     if blockNode.isDescending {
@@ -387,9 +404,20 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func deleteBlock(block: Block) {
         if let index = find(existingBlocks, block) {
             game.portfolio.sellPrice(block.price)
-            scoreLabelNode.text = Price.cashString(self.game.cash)!
+            updateScoreLabel()
             existingBlocks.removeAtIndex(index)
             block.disappear()
+        }
+    }
+    
+    private func updateScoreLabel() {
+        scoreLabelNode.text = Price.cashString(self.game.cash)!
+        if game.hasProfit() {
+            scoreLabelNode.fontColor = Color.ScoreLabelProfit
+        } else if !game.enoughCash() {
+            scoreLabelNode.fontColor = Color.ScoreLabelNotEnoughCash
+        } else {
+            scoreLabelNode.fontColor = Color.ScoreLabelInitial
         }
     }
     

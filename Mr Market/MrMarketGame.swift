@@ -21,7 +21,7 @@ class MrMarketGame
     
     var companies: [Company] = Company.generateCompanies(GameOption.NumberOfCompaniesInitial)
     
-    let portfolio = Portfolio(transactionAmount: GameOption.TransactionAmountInitial)
+    let portfolio = Portfolio(initialCash: GameOption.InitialCash, transactionAmount: GameOption.TransactionAmountInitial)
     
     var numberOfPeriods: Int {
         return min(GameOption.PeriodsMax, GameOption.PeriodsInitial + GameOption.PeriodsIncrease * (gameLevel - 1))
@@ -29,6 +29,14 @@ class MrMarketGame
     
     var cash: Double {
         return portfolio.cash
+    }
+    
+    func hasProfit() -> Bool {
+        return portfolio.cash > GameOption.InitialCash
+    }
+    
+    func enoughCash() -> Bool {
+        return portfolio.cash >= portfolio.transactionAmount
     }
     
     private func updateCompanies()

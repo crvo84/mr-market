@@ -11,27 +11,36 @@ import Foundation
 class Portfolio
 {
     private var prices: [Price] = []
-    var cash: Double = 0.0
     
+    var cash: Double
     var transactionAmount: Double
     
-    init(transactionAmount: Double) {
+    init(initialCash: Double, transactionAmount: Double) {
+        self.cash = initialCash
         self.transactionAmount = transactionAmount
     }
     
-    func buyPrice(price: Price) {
+    // Return true if the price was purchased, false otherwise (e.g. no enough cash)
+    func buyPrice(price: Price) -> Bool {
         let index = find(prices, price)
-        if index == nil {
+        if index == nil && cash >= transactionAmount {
+            // If the price was not already purchased, or if enough cash available
+            cash -= transactionAmount
             prices.append(price)
             println("Block purchased")
+            return true
         }
+        
+        println("Block not purchased")
+        return false
     }
     
     func sellPrice(priceToSell: Price) {
         if let index = find(prices, priceToSell) {
-            cash += (priceToSell.company.currentPriceValue / priceToSell.value - 1) * transactionAmount
+//            cash += (priceToSell.company.currentPriceValue / priceToSell.value - 1) * transactionAmount
+            cash += (priceToSell.company.currentPriceValue / priceToSell.value) * transactionAmount
             prices.removeAtIndex(index)
-            if cash <= 0.0 { cash = 0.0 }
+//            if cash <= 0.0 { cash = 0.0 }
             println("Block Sold. Portfolio cash: \(cash)")
         }
     }

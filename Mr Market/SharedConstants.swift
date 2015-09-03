@@ -94,9 +94,15 @@ struct Color {
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor.blackColor()
-    static let BlockPurchased = SKColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.0)
+    static let BlockPurchased = SKColor.whiteColor()
+    static let BlockMaxProfit: Double = 0.2 // positive value
+    static let BlockMaxLoss: Double = -0.2 // negative value
+    static let BlockMinValueForSecondaryColor: CGFloat = 0.40 // for red, green or blue
+    static let BlockMaxValueForSecondaryColor: CGFloat = 0.80 // for red, green or blue
     // score label
-    static let ScoreLabel = SKColor.lightGrayColor()
+    static let ScoreLabelInitial = SKColor.whiteColor()
+    static let ScoreLabelProfit = SKColor.greenColor()
+    static let ScoreLabelNotEnoughCash = SKColor.whiteColor()
     // level label
     static let LevelLabel = SKColor.lightGrayColor()
     // pause
@@ -205,7 +211,6 @@ struct ZPosition {
     static let GameOverNode: CGFloat = 7
 }
 
-
 struct Shake {
     static let Key = "shakeKey"
     static let Movements: Int = 15 // Number of individual movements
@@ -223,23 +228,24 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 1 // 8 for complete market cycle // 1
+    static let PeriodsInitial: Int = 1 // 7 for complete market cycle // 1
     static let PeriodsIncrease: Int = 1 // 1
     static let PeriodsMax: Int = 16 // 16
     static let NumberOfCompaniesInitial: Int = 1 // 1
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let SpeedInitial: CGFloat = 0.65 // 0.65
-    static let SpeedIncrease: CGFloat = 0.02 // 0.02
-    static let TransactionAmountInitial: Double = 10.0
-    static let TransactionAmountIncrease: Double = 5.0
-    static let InitialMarketLevel: Int = 2
+    static let SpeedInitial: CGFloat = 0.70 // 0.65
+    static let SpeedIncrease: CGFloat = 0.03 // 0.02
+    static let TransactionAmountInitial: Double = 100.0
+    static let TransactionAmountIncrease: Double = 0.0
+    static let InitialCash: Double = 2000.0
+    static let InitialMarketLevel: Int = 0
 }
 
 struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.0
     static let MaxPercentReturn: Double = 5
     static let MinPercentReturn: Double = 5
-    static let BurstReturnFactor: Double = 1.5
+    static let BurstReturnFactor: Double = 1.2
 }
 
 struct NodeName {

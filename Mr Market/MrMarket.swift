@@ -18,9 +18,9 @@ class MrMarket: SKSpriteNode
     }
     
     struct Info {
-        static let NumberOfTexturesTotal = 8
+        static let NumberOfTexturesTotal = 7
         static let BoomLevel = 0
-        static let BurstLevel = 5
+        static let BurstLevel = 4
         static let MaxLevel = Info.NumberOfTexturesTotal - 1
         static let MinLevel = 0
     }

@@ -26,6 +26,7 @@
 		73A9746B1B82C12800CACF04 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746A1B82C12800CACF04 /* Price.swift */; };
 		73A9746F1B82FB5100CACF04 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746E1B82FB5100CACF04 /* Market.swift */; };
 		73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */; };
+		73E3CD921B979A5000CEC8E3 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73E3CD911B979A5000CEC8E3 /* sprites.atlas */; };
 		73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D5F51B76912F009C7A9A /* AppDelegate.swift */; };
 		73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D5FD1B76912F009C7A9A /* Main.storyboard */; };
 		73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6021B76912F009C7A9A /* LaunchScreen.xib */; };
@@ -37,7 +38,6 @@
 		73F5D6DD1B7C3877009C7A9A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D6DC1B7C3877009C7A9A /* Block.swift */; };
 		73F81A341B8E24FA00CDF9CF /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F81A321B8E249000CDF9CF /* iAd.framework */; };
 		73F81A351B8E250000CDF9CF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */; };
-		73F81A901B8FE37000CDF9CF /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73F81A8F1B8FE37000CDF9CF /* sprites.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +71,7 @@
 		73A9746A1B82C12800CACF04 /* Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		73A9746E1B82FB5100CACF04 /* Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 		73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		73E3CD911B979A5000CEC8E3 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		73F5D5F01B76912F009C7A9A /* Mr Market.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mr Market.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73F5D5F41B76912F009C7A9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73F5D5F51B76912F009C7A9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		73F5D6211B76CACC009C7A9A /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		73F5D6DC1B7C3877009C7A9A /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		73F81A321B8E249000CDF9CF /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		73F81A8F1B8FE37000CDF9CF /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +180,8 @@
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
 				73A974631B82B06100CACF04 /* Model */,
 				73E1C3F01B8641CD00B3B57A /* Controller */,
+				73E3CD911B979A5000CEC8E3 /* sprites.atlas */,
 				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
-				73F81A8F1B8FE37000CDF9CF /* sprites.atlas */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
 			path = "Mr Market";
@@ -327,7 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73F81A901B8FE37000CDF9CF /* sprites.atlas in Resources */,
+				73E3CD921B979A5000CEC8E3 /* sprites.atlas in Resources */,
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
 				73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */,
 				733FFA841B7E3C95004B842E /* spark.png in Resources */,

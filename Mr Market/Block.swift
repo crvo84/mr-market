@@ -90,22 +90,31 @@ class Block: SKSpriteNode
     }
     
     func updateColor() {
-        var newColor: SKColor
-        if currentReturn > 0.1 {
-            newColor = SKColor(red: 0.45, green: 1.0, blue: 0.45, alpha: 1.0)
-        } else if currentReturn > 0.5 {
-            newColor = SKColor(red: 0.60, green: 1.0, blue: 0.60, alpha: 1.0)
-        } else if currentReturn > 0.0 {
-            newColor = SKColor(red: 0.75, green: 1.0, blue: 0.75, alpha: 1.0)
-        } else if currentReturn == 0.0 {
-            newColor = Color.BlockPurchased
-        } else if currentReturn > -0.05 {
-            newColor = SKColor(red: 1.0, green: 0.75, blue: 0.75, alpha: 1.0)
-        } else if currentReturn > -0.1 {
-            newColor = SKColor(red: 1.0, green: 0.60, blue: 0.60, alpha: 1.0)
-        } else {
-            newColor = SKColor(red: 1.0, green: 0.45, blue: 0.45, alpha: 1.0)
+        var newColor = Color.BlockPurchased
+        
+        // Adjusted to max and min return to be represented with color
+        var adjustedReturn = currentReturn
+        if adjustedReturn < Color.BlockMaxLoss {
+            adjustedReturn = Color.BlockMaxLoss
+        } else if adjustedReturn > Color.BlockMaxProfit {
+            adjustedReturn = Color.BlockMaxProfit
         }
+        
+        // Secondary color component value (e.g. if main component is green, this is the value for red and blue)
+        let secondaryColorValueRange = Color.BlockMaxValueForSecondaryColor - Color.BlockMinValueForSecondaryColor
+        
+        // If return is higher, the secondaryColorValue should be lower so the color darker
+        if adjustedReturn > 0.0 { // Profit
+            let proportionOfRange = CGFloat(adjustedReturn / Color.BlockMaxProfit) * secondaryColorValueRange
+            let secondaryColorValue = Color.BlockMaxValueForSecondaryColor - proportionOfRange
+            newColor = SKColor(red: secondaryColorValue, green: 1.0, blue: secondaryColorValue, alpha: 1.0)
+            
+        } else if adjustedReturn < 0.0 {
+            let proportionOfRange = CGFloat(adjustedReturn / Color.BlockMaxLoss)
+            let secondaryColorValue = Color.BlockMaxValueForSecondaryColor - proportionOfRange
+            newColor = SKColor(red: 1.0, green: secondaryColorValue, blue: secondaryColorValue, alpha: 1.0)
+        }
+
         backgroundColor = newColor
     }
     
