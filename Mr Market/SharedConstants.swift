@@ -93,14 +93,14 @@ struct Color {
     // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
-    static let BlockTextDefault = SKColor.blackColor()
+    static let BlockTextDefault = SKColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
     static let BlockPurchased = SKColor.whiteColor()
     static let BlockMaxProfit: Double = 0.2 // positive value
     static let BlockMaxLoss: Double = -0.2 // negative value
     static let BlockMinValueForSecondaryColor: CGFloat = 0.40 // for red, green or blue
     static let BlockMaxValueForSecondaryColor: CGFloat = 0.80 // for red, green or blue
     // score label
-    static let ScoreLabelInitial = SKColor.whiteColor()
+    static let ScoreLabelInitial = SKColor.lightGrayColor()
     static let ScoreLabelProfit = SKColor.greenColor()
     static let ScoreLabelNotEnoughCash = SKColor.whiteColor()
     // level label
@@ -130,8 +130,8 @@ struct Color {
 
 struct FontSize {
     // block
-    static let BlockTextIphone: CGFloat = 15
-    static let BlockTextIpad: CGFloat = 30
+    static let BlockTextIphone: CGFloat = 18
+    static let BlockTextIpad: CGFloat = 36
     // score
     static let ScoreLabelIphone: CGFloat = 20
     static let ScoreLabelIpad: CGFloat = 40
@@ -219,33 +219,33 @@ struct Shake {
 }
 
 struct CompanyInfo {
-    static let MaxBeta: Double = 2
-    static let MinBeta: Double = 0.5
+    static let MaxBeta: Double = 1.0
+    static let MinBeta: Double = 1.0
     static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50%
-    static let MaxInitialPriceInteger: UInt32 = 9
-    static let MinInitialPriceInteger: UInt32 = 1
+    static let MaxInitialPriceInteger: UInt32 = 5 // 5
+    static let MinInitialPriceInteger: UInt32 = 1 // 1
     static let MaxDecimals: Int = 1
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 1 // 7 for complete market cycle // 1
-    static let PeriodsIncrease: Int = 1 // 1
-    static let PeriodsMax: Int = 16 // 16
-    static let NumberOfCompaniesInitial: Int = 1 // 1
+    static let PeriodsInitial: Int = 3 // 7 for complete market cycle // 1
+    static let PeriodsIncrease: Int = 1 // 0
+    static let PeriodsMax: Int = 5 // 14
+    static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let SpeedInitial: CGFloat = 0.70 // 0.65
-    static let SpeedIncrease: CGFloat = 0.03 // 0.02
+    static let SpeedInitial: CGFloat = 0.7 // 0.70
+    static let SpeedIncrease: CGFloat = 0.1 // 0.02
     static let TransactionAmountInitial: Double = 100.0
     static let TransactionAmountIncrease: Double = 0.0
-    static let InitialCash: Double = 2000.0
+    static let InitialCash: Double = 1000.0
     static let InitialMarketLevel: Int = 0
 }
 
 struct MarketOption {
-    static let ProbabilityOfBreakingTrend: Double = 0.0
-    static let MaxPercentReturn: Double = 5
-    static let MinPercentReturn: Double = 5
-    static let BurstReturnFactor: Double = 1.2
+    static let ProbabilityOfBreakingTrend: Double = 0.25
+    static let MaxPercentReturn: Double = 20
+    static let MinPercentReturn: Double = 20
+    static let BurstReturnFactor: Double = 0.80
 }
 
 struct NodeName {

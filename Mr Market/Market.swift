@@ -21,10 +21,12 @@ class Market
     }
     
     func newMarketLevel() -> Int {
+        // probability of breaking market trend
         let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOption.ProbabilityOfBreakingTrend
-
-        var newLevel = level + 1
         
+        var newLevel = continueTrend ? level + 1 : level - 1
+        
+        // From maxLevel to minLevel
         if newLevel > MrMarket.Info.MaxLevel {
             level = MrMarket.Info.MinLevel
         } else if newLevel < MrMarket.Info.MinLevel {
@@ -34,11 +36,20 @@ class Market
         }
         println("New Market Level")
 
+        // new random return
         let randomLimit = (MarketOption.MaxPercentReturn - MarketOption.MinPercentReturn) * 10 + 1
         let randomPercentReturn = Double(arc4random_uniform(UInt32(randomLimit))) / 10 + MarketOption.MinPercentReturn
         let randomReturn = randomPercentReturn / 100.0
         
-        latestReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOption.BurstReturnFactor
+        var newReturn = level < MrMarket.Info.BurstLevel ? randomReturn : -randomReturn * MarketOption.BurstReturnFactor
+        // when breaking trend, change return sign only if NOT coming from an inflection point
+        if !continueTrend {
+            if level != MrMarket.Info.MaxLevel && level != MrMarket.Info.BurstLevel - 1 {
+                newReturn = -newReturn
+            }
+        }
+        
+        latestReturn = newReturn
         
         println("Market. Latest Return: \(latestReturn), Level: \(level)")
         
