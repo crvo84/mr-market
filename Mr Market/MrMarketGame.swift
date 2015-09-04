@@ -47,6 +47,9 @@ class MrMarketGame
         if numberOfCompaniesForCurrentLevel > Texture.numberOfBlockImages {
             numberOfCompaniesForCurrentLevel = Texture.numberOfBlockImages
         }
+        if numberOfCompaniesForCurrentLevel > GameOption.NumberOfCompaniesMax && GameOption.NumberOfCompaniesMax > 0 {
+            numberOfCompaniesForCurrentLevel = GameOption.NumberOfCompaniesMax
+        }
 
         let numberToAdd = numberOfCompaniesForCurrentLevel - currentNumber
         

@@ -287,7 +287,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         showLabelActions.append(SKAction.removeFromParent())
         getCashLabelAction = SKAction.sequence(showLabelActions)
     
-        
         // add nodes and run actions
         addChild(getCashLabel!)
         addChild(getCashCounter!)
