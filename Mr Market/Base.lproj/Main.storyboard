@@ -41,13 +41,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWj-0a-FuR">
-                                <rect key="frame" x="536" y="544" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="Mxb-l7-Jo0"/>
-                                    <constraint firstAttribute="width" constant="48" id="ufK-5W-02l"/>
-                                </constraints>
-                                <state key="normal" image="ask">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="455" y="550" width="129" height="42"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="26"/>
+                                <state key="normal" title="More games">
+                                    <color key="titleColor" red="0.96862745098039216" green="0.66274509803921566" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -117,6 +114,7 @@
                             <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="7Hw-G9-AE6" secondAttribute="bottom" constant="8" symbolic="YES" id="Pcf-Dh-A0n"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" constant="399" id="Pz6-zH-0jl"/>
                             <constraint firstItem="7Hw-G9-AE6" firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" multiplier="0.7" id="aEb-AO-tx4"/>
+                            <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="gWj-0a-FuR" secondAttribute="bottom" constant="8" symbolic="YES" id="cLv-Co-DgV"/>
                             <constraint firstAttribute="centerX" secondItem="7Hw-G9-AE6" secondAttribute="centerX" id="eas-dM-hej"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="width" secondItem="ez4-Mq-2yQ" secondAttribute="width" id="fnr-Ow-8lN"/>
                             <constraint firstItem="7Hw-G9-AE6" firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" id="gu1-VI-HYz"/>
@@ -124,12 +122,11 @@
                             <constraint firstAttribute="centerY" secondItem="4Rg-Ao-9wg" secondAttribute="centerY" id="h4r-IW-HjM"/>
                             <constraint firstItem="k4s-64-CvO" firstAttribute="top" secondItem="6hL-6d-Pcf" secondAttribute="bottom" constant="8" symbolic="YES" id="i0U-c6-PLm"/>
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" id="iig-zV-TSj"/>
-                            <constraint firstItem="gWj-0a-FuR" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="lN3-60-bhS"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="centerX" secondItem="4Rg-Ao-9wg" secondAttribute="centerX" id="n6f-5m-d00"/>
+                            <constraint firstItem="gWj-0a-FuR" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="trailingMargin" id="tSf-du-rc6"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="top" secondItem="k4s-64-CvO" secondAttribute="bottom" constant="26" id="tpT-HG-4Qq"/>
                             <constraint firstAttribute="centerX" secondItem="4Rg-Ao-9wg" secondAttribute="centerX" id="u3V-Z5-5gA"/>
                             <constraint firstItem="aN0-YL-z1k" firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" id="udY-MI-96W"/>
-                            <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="gWj-0a-FuR" secondAttribute="bottom" constant="8" symbolic="YES" id="vhi-Vf-r2U"/>
                             <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="ez4-Mq-2yQ" secondAttribute="bottom" constant="8" symbolic="YES" id="yhc-WU-R7w"/>
                         </constraints>
                         <variation key="default">
@@ -180,9 +177,6 @@
                                 <state key="normal" image="villouLogo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="websiteButtonPressed:" destination="Sym-Px-EBE" eventType="touchUpInside" id="cNE-Jc-wXD"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryi-6m-8Gk">
                                 <rect key="frame" x="246" y="279" width="108" height="42"/>
@@ -267,7 +261,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ask" width="100" height="100"/>
         <image name="facebook" width="100" height="100"/>
         <image name="home" width="100" height="100"/>
         <image name="musicOn" width="48" height="48"/>

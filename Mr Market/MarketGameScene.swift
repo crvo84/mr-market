@@ -50,6 +50,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Audio
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
+    private let moneySoundAction = SKAction.playSoundFileNamed(Filename.MoneySound, waitForCompletion: false)
+    private let gameOverSoundAction = SKAction.playSoundFileNamed(Filename.GameOverSound, waitForCompletion: false)
     private var isMusicOn: Bool {
         get { return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn) }
         set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserDefaultsKey.MusicOn) }
@@ -230,16 +232,37 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     // MARK: Get Cash Count
     private func startGetCashCount() {
-        // in case variables are not nil
-        getCashLabel = nil
-        getCashCounter = nil
-        getCashLabelAction = nil
-        getCashCounterAction = nil
-        
         // TODO: stop normal music, start alert sound
         backgroundMusicPlayer.stop()
         if isMusicOn { alertBackgroundMusicPlayer.play() }
         
+        // COUNTER
+        // add counter
+        getCashCounter = SKLabelNode(text: "\(Time.GetCashTotalCount)")
+        getCashCounter!.fontColor = Color.GetCashCounter
+        getCashCounter!.fontName = FontName.GetCashCounter
+        getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
+        getCashCounter!.verticalAlignmentMode = .Top
+        getCashCounter!.horizontalAlignmentMode = .Center
+        getCashCounter!.position = CGPoint(x: pauseButtonNode.position.x - pauseButtonNode.size.width / 2.0, y: pauseButtonNode.position.y - pauseButtonNode.size.height - Geometry.GetCashCounterUpperOffset)
+        getCashCounter!.zPosition = ZPosition.GetCashCounter
+        
+        // counter action
+        var counterActions: [SKAction] = []
+        for var i = Time.GetCashTotalCount - 1; i >= 0; i-- {
+            let currentCount = Int(i)
+            counterActions.append(SKAction.waitForDuration(1.0))
+            counterActions.append(SKAction.runBlock({
+                self.getCashCounter?.text = "\(currentCount)"
+            }))
+        }
+        counterActions.append(SKAction.runBlock({
+            self.stopGetCashCount(gameOver: true)
+            self.gameOver()
+        }))
+        getCashCounterAction = SKAction.sequence(counterActions)
+        
+        // LABEL
         // add label
         getCashLabel = SKLabelNode(text: Text.GetCash)
         getCashLabel!.fontColor = Color.GetCashLabel
@@ -247,64 +270,47 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         getCashLabel!.fontSize = isIpad ? FontSize.GetCashLabelIpad : FontSize.GetCashLabelIphone
         getCashLabel!.verticalAlignmentMode = .Top
         getCashLabel!.horizontalAlignmentMode = .Center
-        getCashLabel!.position = CGPoint(x: size.width / 2.0, y: scoreLabelNode.position.y - scoreLabelNode.frame.size.height - Geometry.GetCashLabelUpperOffset)
+        getCashLabel!.position = CGPoint(x: size.width / 2.0, y: getCashCounter!.position.y)
         getCashLabel!.zPosition = ZPosition.GetCashLabel
         
+        getCashLabel!.alpha = 0.0 // starts hidden
+        
         // label action
-        let removeLabelAction = SKAction.runBlock {
-            self.getCashLabel?.runAction(SKAction.fadeOutWithDuration(Time.GetCashLabelFadeOut))
-            self.getCashLabel?.removeFromParent()
-            self.getCashLabel = nil
+        var showLabelActions: [SKAction] = []
+        for i in 0..<Time.GetCashLabelTimesShowed {
+            let waitHiddenAction = SKAction.waitForDuration(i > 0 ? Time.GetCashLabelOnScreen : 0)
+            let appearLabelAction = SKAction.fadeInWithDuration(Time.GetCashLabelFadeInOut)
+            let waitOnScreenLabelAction = SKAction.waitForDuration(Time.GetCashLabelOnScreen)
+            let disappearLabelAction = SKAction.fadeOutWithDuration(Time.GetCashLabelFadeInOut)
+            showLabelActions.append(SKAction.sequence([waitHiddenAction, appearLabelAction, waitOnScreenLabelAction, disappearLabelAction]))
         }
-        getCashLabelAction = SKAction.sequence([SKAction.waitForDuration(Time.GetCashLabelOnScreen), removeLabelAction])
+        showLabelActions.append(SKAction.removeFromParent())
+        getCashLabelAction = SKAction.sequence(showLabelActions)
+    
         
-        // show counter and start animating
-        getCashCounter = SKLabelNode(text: "\(Time.GetCashTotal)")
-        getCashCounter!.fontColor = Color.GetCashCounter
-        getCashCounter!.fontName = FontName.GetCashCounter
-        getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
-        getCashCounter!.verticalAlignmentMode = .Top
-        getCashCounter!.horizontalAlignmentMode = .Right
-        getCashCounter!.position = CGPoint(x: size.width - Geometry.GetCashCounterRightOffset, y: pauseButtonNode.position.y - pauseButtonNode.size.height - Geometry.GetCashCounterUpperOffset)
-        getCashCounter!.zPosition = ZPosition.GetCashCounter
-        
-        // counter action
-        var counterActions: [SKAction] = []
-        for var i = Time.GetCashTotal - 1; i >= 0; i-- {
-            let currentCount = i
-            counterActions.append(SKAction.waitForDuration(1.0))
-            counterActions.append(SKAction.runBlock({
-                self.getCashCounter?.text = "\(currentCount)"
-            }))
-        }
-        counterActions.append(SKAction.runBlock({
-            self.getCashCounter?.removeFromParent()
-            self.getCashLabel?.removeFromParent()
-            self.getCashCounter = nil
-            self.getCashLabel = nil
-            self.gameOver()
-        }))
-        getCashCounterAction = SKAction.sequence(counterActions)
-        
-        // add nodes
+        // add nodes and run actions
         addChild(getCashLabel!)
         addChild(getCashCounter!)
-        runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
+        getCashLabel!.runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
         runAction(getCashCounterAction!, withKey: ActionKey.GetCashCounter)
     }
     
-    private func stopGetCashCount() {
+    private func stopGetCashCount(#gameOver: Bool) {
         // remove actions
-        removeActionForKey(ActionKey.GetCashLabel)
+        getCashLabel?.removeActionForKey(ActionKey.GetCashLabel)
         removeActionForKey(ActionKey.GetCashCounter)
         // remove nodes
         getCashLabel?.removeFromParent()
         getCashCounter?.removeFromParent()
         // stop alert music
         alertBackgroundMusicPlayer.stop()
-        if isMusicOn {
+        if isMusicOn && !gameOver {
             backgroundMusicPlayer.play()
         }
+        getCashLabel = nil
+        getCashCounter = nil
+        getCashLabelAction = nil
+        getCashCounterAction = nil
     }
     
     // MARK: UI Effects
@@ -492,7 +498,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                         deleteBlock(blockNode)
                     } else {
                         deleteBlock(blockNode)
-                        // add cash sound
+                        runAction(moneySoundAction)
                     }
                 }
             }
@@ -521,7 +527,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         } else {
             scoreLabelNode.fontColor = game.hasProfit() ? Color.ScoreLabelProfit : Color.ScoreLabelInitial
             if isGetCashCountActive {
-                stopGetCashCount()
+                stopGetCashCount(gameOver: false)
                 isGetCashCountActive = false
             }
         }
@@ -534,11 +540,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     {
         removeAllActions()
         shakeNode(mrMarket!)
+        shakeNode(pauseButtonNode)
+        shakeNode(scoreLabelNode)
         // TODO: game over sound here
         explodeAllBlocks()
         backgroundMusicPlayer.stop()
         backgroundMusicPlayer.currentTime = 0
-        alertBackgroundMusicPlayer.stop()
+        runAction(gameOverSoundAction)
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {
@@ -572,7 +580,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func explodeAllBlocks() {
         for var i = existingBlocks.count - 1; i >= 0; i-- {
             let block = existingBlocks[i]
-            explosion(block.position)
+            if block.isDescending {
+                explosion(block.position)
+            }
             deleteBlock(block)
         }
     }
@@ -605,13 +615,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         if !isGamePaused { return }
         isGamePaused = false
         paused = false
-        if !backgroundMusicPlayer.playing && isMusicOn {
-            backgroundMusicPlayer.play()
-        }
-        if isGetCashCountActive && isMusicOn && !alertBackgroundMusicPlayer.playing {
-            alertBackgroundMusicPlayer.play()
-        }
         
+        if isMusicOn {
+            if isGetCashCountActive {
+                if !alertBackgroundMusicPlayer.playing { alertBackgroundMusicPlayer.play() }
+            } else {
+                if !backgroundMusicPlayer.playing { backgroundMusicPlayer.play() }
+            }
+        }
         
         // Hide pause screen etc
         pauseNode?.removeFromParent()

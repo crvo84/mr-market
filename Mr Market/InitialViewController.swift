@@ -20,6 +20,8 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var tutorialButton: UIButton!
     @IBOutlet weak var removeAdsButton: UIButton!
+    @IBOutlet weak var musicOnButton: UIButton!
+//    @IBOutlet weak var aboutButton: UIButton!
     
     // Game Center
     var isGameCenterEnabled = false
@@ -79,7 +81,6 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
             SKPaymentQueue.defaultQueue().addTransactionObserver(self)
             getProductInfo()
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -107,7 +108,6 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         musicOnButton.setImage(UIImage(named: musicOn ? Filename.MusicOn : Filename.MusicOff), forState: UIControlState.Normal)
     }
     
-    @IBOutlet weak var musicOnButton: UIButton!
     @IBAction func musicOnButtonPressed(sender: AnyObject) {
         musicOn = !musicOn
         updateUI()
