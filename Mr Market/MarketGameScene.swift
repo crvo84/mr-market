@@ -11,7 +11,6 @@ import AVFoundation
 
 // Global but private (Works like a static variable in objective-c). To avoid a "wall of sound" or many copies of the same music
 private var backgroundMusicPlayer: AVAudioPlayer!
-
 class MarketGameScene: SKScene, SKPhysicsContactDelegate
 {
     // View Controller
@@ -31,6 +30,16 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private var isGameOver = false
     private let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
     private var pauseNode: PauseNode?
+    
+    // Alert background music
+    private var alertBackgroundMusicPlayer: AVAudioPlayer!
+    
+    // Get Cash count
+    private var isGetCashCountActive = false
+    private var getCashLabel: SKLabelNode?
+    private var getCashCounter: SKLabelNode?
+    private var getCashCounterAction: SKAction?
+    private var getCashLabelAction: SKAction?
     
     // Game Over
     private var gameOverNode: GameOverNode?
@@ -92,7 +101,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         physicsWorldSetup()
         mrMarketSetup()
         audioSetup()
-
+        
         performOneLevelActions()
     }
     
@@ -208,6 +217,92 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         if !backgroundMusicPlayer.playing && isMusicOn {
+            backgroundMusicPlayer.play()
+        }
+        
+        // setup alert background music
+        if let alertBackgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.AlertBackgroundMusic, withExtension: nil) {
+            alertBackgroundMusicPlayer = AVAudioPlayer(contentsOfURL: alertBackgroundMusicURL, error: nil)
+            alertBackgroundMusicPlayer!.numberOfLoops = -1
+            alertBackgroundMusicPlayer!.volume = Volume.AlertBackgroundMusic
+        }
+    }
+    
+    // MARK: Get Cash Count
+    private func startGetCashCount() {
+        // in case variables are not nil
+        getCashLabel = nil
+        getCashCounter = nil
+        getCashLabelAction = nil
+        getCashCounterAction = nil
+        
+        // TODO: stop normal music, start alert sound
+        backgroundMusicPlayer.stop()
+        if isMusicOn { alertBackgroundMusicPlayer.play() }
+        
+        // add label
+        getCashLabel = SKLabelNode(text: Text.GetCash)
+        getCashLabel!.fontColor = Color.GetCashLabel
+        getCashLabel!.fontName = FontName.GetCashLabel
+        getCashLabel!.fontSize = isIpad ? FontSize.GetCashLabelIpad : FontSize.GetCashLabelIphone
+        getCashLabel!.verticalAlignmentMode = .Top
+        getCashLabel!.horizontalAlignmentMode = .Center
+        getCashLabel!.position = CGPoint(x: size.width / 2.0, y: scoreLabelNode.position.y - scoreLabelNode.frame.size.height - Geometry.GetCashLabelUpperOffset)
+        getCashLabel!.zPosition = ZPosition.GetCashLabel
+        
+        // label action
+        let removeLabelAction = SKAction.runBlock {
+            self.getCashLabel?.runAction(SKAction.fadeOutWithDuration(Time.GetCashLabelFadeOut))
+            self.getCashLabel?.removeFromParent()
+            self.getCashLabel = nil
+        }
+        getCashLabelAction = SKAction.sequence([SKAction.waitForDuration(Time.GetCashLabelOnScreen), removeLabelAction])
+        
+        // show counter and start animating
+        getCashCounter = SKLabelNode(text: "\(Time.GetCashTotal)")
+        getCashCounter!.fontColor = Color.GetCashCounter
+        getCashCounter!.fontName = FontName.GetCashCounter
+        getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
+        getCashCounter!.verticalAlignmentMode = .Top
+        getCashCounter!.horizontalAlignmentMode = .Right
+        getCashCounter!.position = CGPoint(x: size.width - Geometry.GetCashCounterRightOffset, y: pauseButtonNode.position.y - pauseButtonNode.size.height - Geometry.GetCashCounterUpperOffset)
+        getCashCounter!.zPosition = ZPosition.GetCashCounter
+        
+        // counter action
+        var counterActions: [SKAction] = []
+        for var i = Time.GetCashTotal - 1; i >= 0; i-- {
+            let currentCount = i
+            counterActions.append(SKAction.waitForDuration(1.0))
+            counterActions.append(SKAction.runBlock({
+                self.getCashCounter?.text = "\(currentCount)"
+            }))
+        }
+        counterActions.append(SKAction.runBlock({
+            self.getCashCounter?.removeFromParent()
+            self.getCashLabel?.removeFromParent()
+            self.getCashCounter = nil
+            self.getCashLabel = nil
+            self.gameOver()
+        }))
+        getCashCounterAction = SKAction.sequence(counterActions)
+        
+        // add nodes
+        addChild(getCashLabel!)
+        addChild(getCashCounter!)
+        runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
+        runAction(getCashCounterAction!, withKey: ActionKey.GetCashCounter)
+    }
+    
+    private func stopGetCashCount() {
+        // remove actions
+        removeActionForKey(ActionKey.GetCashLabel)
+        removeActionForKey(ActionKey.GetCashCounter)
+        // remove nodes
+        getCashLabel?.removeFromParent()
+        getCashCounter?.removeFromParent()
+        // stop alert music
+        alertBackgroundMusicPlayer.stop()
+        if isMusicOn {
             backgroundMusicPlayer.play()
         }
     }
@@ -353,7 +448,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
             case NodeName.QuitButton:
                 if marketGameViewController != nil {
-                    if backgroundMusicPlayer.playing { backgroundMusicPlayer.stop() }
+                    if backgroundMusicPlayer.playing {
+                        backgroundMusicPlayer.stop()
+                    }
+                    backgroundMusicPlayer.currentTime = 0
                     marketGameViewController!.performSegueWithIdentifier(SegueId.QuitGame, sender: marketGameViewController!)
                 }
                 
@@ -365,6 +463,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
             case NodeName.ShareButton:
                 let sharingText = "I got " + Price.cashString(game.cash)! + " from Mr. Market!! Can you beat me?"
+                // TODO: localize
                 let sharingURL = NSURL(string: URLString.AppStoreDownload)
                 // TODO: sharingImage
                 marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: nil, sharingURL: sharingURL)
@@ -412,13 +511,21 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func updateScoreLabel() {
         scoreLabelNode.text = Price.cashString(self.game.cash)!
-        if game.hasProfit() {
-            scoreLabelNode.fontColor = Color.ScoreLabelProfit
-        } else if !game.enoughCash() {
+
+        if !game.enoughCash() {
             scoreLabelNode.fontColor = Color.ScoreLabelNotEnoughCash
+            if !isGetCashCountActive {
+                startGetCashCount()
+                isGetCashCountActive = true
+            }
         } else {
-            scoreLabelNode.fontColor = Color.ScoreLabelInitial
+            scoreLabelNode.fontColor = game.hasProfit() ? Color.ScoreLabelProfit : Color.ScoreLabelInitial
+            if isGetCashCountActive {
+                stopGetCashCount()
+                isGetCashCountActive = false
+            }
         }
+
     }
     
     // MARK: Game Finished
@@ -431,6 +538,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         explodeAllBlocks()
         backgroundMusicPlayer.stop()
         backgroundMusicPlayer.currentTime = 0
+        alertBackgroundMusicPlayer.stop()
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {
@@ -477,6 +585,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         if backgroundMusicPlayer.playing {
             backgroundMusicPlayer.pause()
         }
+        if alertBackgroundMusicPlayer.playing {
+            alertBackgroundMusicPlayer.pause()
+        }
+    
         // Display pause screen etc
         if pauseNode == nil {
             pauseButtonNode.hidden = true
@@ -496,6 +608,11 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         if !backgroundMusicPlayer.playing && isMusicOn {
             backgroundMusicPlayer.play()
         }
+        if isGetCashCountActive && isMusicOn && !alertBackgroundMusicPlayer.playing {
+            alertBackgroundMusicPlayer.play()
+        }
+        
+        
         // Hide pause screen etc
         pauseNode?.removeFromParent()
         pauseNode = nil
@@ -530,6 +647,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     func applicationDidEnterBackground() {
         backgroundMusicPlayer.stop()
+        alertBackgroundMusicPlayer.stop()
         self.view?.paused = true
     }
     

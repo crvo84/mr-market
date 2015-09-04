@@ -17,6 +17,7 @@ struct Filename {
     static let SlamSound = "slam.wav"
     static let BackgroundMusicInitial = "hopping-along.mp3"
     static let BackgroundMusic = "ping-pong.mp3"
+    static let AlertBackgroundMusic = "alertAlarm.mp3"
     static let PauseButton = "pause"
     static let MusicOn = "musicOn"
     static let MusicOff = "musicOff"
@@ -43,6 +44,11 @@ struct Geometry {
     static let BlockTextLeftOffset: CGFloat = 4.0 // From item node
     static let BlockTextVerticalOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
+    
+    // get cash counter
+    static let GetCashCounterUpperOffset: CGFloat = 10
+    static let GetCashCounterRightOffset: CGFloat = 10
+    static let GetCashLabelUpperOffset: CGFloat = 15
     
     // pause button
     static let PauseButtonRightOffset: CGFloat = 10.0
@@ -95,16 +101,17 @@ struct Color {
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
     static let BlockPurchased = SKColor.whiteColor()
-    static let BlockMaxProfit: Double = 0.2 // positive value
-    static let BlockMaxLoss: Double = -0.2 // negative value
-    static let BlockMinValueForSecondaryColor: CGFloat = 0.40 // for red, green or blue
-    static let BlockMaxValueForSecondaryColor: CGFloat = 0.80 // for red, green or blue
+    static let BlockMaxProfit: Double = 0.5 // positive value
+    static let BlockMaxLoss: Double = -0.5 // negative value
+    static let BlockMinValueForSecondaryColor: CGFloat = 0.30 // for red, green or blue
+    static let BlockMaxValueForSecondaryColor: CGFloat = 0.75 // for red, green or blue
+    // get cash label
+    static let GetCashCounter = Color.ScoreLabelNotEnoughCash
+    static let GetCashLabel = Color.ScoreLabelNotEnoughCash
     // score label
-    static let ScoreLabelInitial = SKColor.lightGrayColor()
+    static let ScoreLabelInitial = SKColor(red: 0.85, green: 1.0, blue: 0.85, alpha: 1.0)
     static let ScoreLabelProfit = SKColor.greenColor()
-    static let ScoreLabelNotEnoughCash = SKColor.whiteColor()
-    // level label
-    static let LevelLabel = SKColor.lightGrayColor()
+    static let ScoreLabelNotEnoughCash = SKColor.redColor()
     // pause
     static let PausedLabel = SKColor.lightGrayColor()
     static let PauseNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
@@ -125,13 +132,18 @@ struct Color {
     static let GameOverNodeSmallButtonText = SKColor.darkGrayColor()
     
     // iAd
-    static let AdBannerBackground = SKColor(red: 0.0/255.0, green: 32.0/255.0, blue: 48.0/255.0, alpha: 1.0)
+    static let AdBannerBackground = SKColor(red: 0.0/255.0, green: 40.0/255.0, blue: 56.0/255.0, alpha: 1.0)
 }
 
 struct FontSize {
     // block
-    static let BlockTextIphone: CGFloat = 18
-    static let BlockTextIpad: CGFloat = 36
+    static let BlockTextIphone: CGFloat = 20
+    static let BlockTextIpad: CGFloat = 40
+    // get cash
+    static let GetCashCounterIphone: CGFloat = 30
+    static let GetCashCounterIpad: CGFloat = 60
+    static let GetCashLabelIphone: CGFloat = 30
+    static let GetCashLabelIpad: CGFloat = 60
     // score
     static let ScoreLabelIphone: CGFloat = 20
     static let ScoreLabelIpad: CGFloat = 40
@@ -151,10 +163,6 @@ struct FontSize {
     static let GameOverNodeLargeButtonIpad: CGFloat = 50
     static let GameOverNodeSmallButtonIphone: CGFloat = 18
     static let GameOverNodeSmallButtonIpad: CGFloat = 30
-    
-    // level
-    static let LevelLabelIphone: CGFloat = 40
-    static let LevelLabelIpad: CGFloat = 80
 }
 
 struct FontName {
@@ -164,6 +172,8 @@ struct FontName {
     static let PauseNodeButton = "Arial"
     static let GameOverScoreLabel = "Arial"
     static let GameOverButton = "Arial"
+    static let GetCashCounter = "Arial"
+    static let GetCashLabel = "Arial"
 }
 
 struct Texture {
@@ -186,10 +196,12 @@ struct Time {
     static let BlockColorization = 1.0
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
-    static let LevelLabelOnScreen = 2.0
-    static let LevelLabelFadeOut = 0.6
     static let GameOverNodePresentation = Time.BlockExplosion + 0.5
     static let GameOverNodeFadeIn = 0.3
+    
+    static let GetCashTotal: Double = 9
+    static let GetCashLabelOnScreen: Double = 2
+    static let GetCashLabelFadeOut: Double = 0.5
 }
 
 struct Physics {
@@ -200,15 +212,16 @@ struct Physics {
 }
 
 struct ZPosition {
-    static let Exposion: CGFloat = 6
+        static let Block: CGFloat = 4
     static let MrMarket: CGFloat = 5
     static let ScoreLabel: CGFloat = 5
     static let PauseButton: CGFloat = 5
+    static let Exposion: CGFloat = 6
     static let PausedLabel: CGFloat = 6
-    static let LevelLabel: CGFloat = 6
-    static let Block: CGFloat = 4
     static let PauseNode: CGFloat = 7
     static let GameOverNode: CGFloat = 7
+    static let GetCashCounter: CGFloat = 7
+    static let GetCashLabel: CGFloat = 7
 }
 
 struct Shake {
@@ -216,6 +229,11 @@ struct Shake {
     static let Movements: Int = 15 // Number of individual movements
     static let Distance: Double = 20.0 // How big
     static let Duration: Double = 0.25 // How long
+}
+
+struct ActionKey {
+    static let GetCashLabel = "GetCashLabel"
+    static let GetCashCounter = "GetCashCounter"
 }
 
 struct CompanyInfo {
@@ -228,16 +246,16 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 3 // 7 for complete market cycle // 1
+    static let PeriodsInitial: Int = 4 // 7 for complete market cycle // 1
     static let PeriodsIncrease: Int = 1 // 0
     static let PeriodsMax: Int = 5 // 14
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let SpeedInitial: CGFloat = 0.7 // 0.70
+    static let SpeedInitial: CGFloat = 1.0 // 0.70
     static let SpeedIncrease: CGFloat = 0.1 // 0.02
     static let TransactionAmountInitial: Double = 100.0
     static let TransactionAmountIncrease: Double = 0.0
-    static let InitialCash: Double = 1000.0
+    static let InitialCash: Double = 500.0
     static let InitialMarketLevel: Int = 0
 }
 
@@ -245,7 +263,7 @@ struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.25
     static let MaxPercentReturn: Double = 20
     static let MinPercentReturn: Double = 20
-    static let BurstReturnFactor: Double = 0.80
+    static let BurstReturnFactor: Double = 0.85
 }
 
 struct NodeName {
@@ -287,6 +305,7 @@ struct Text {
     static let Cancel = "Cancel"
     static let Ok = "Ok"
     static let Error = "Error"
+    static let GetCash = "Get cash!"
     static let NoPreviousPurchases = "No previous purchases could be restored."
     static let PurchasesRestored = "Purchases restored successfully."
 
@@ -317,7 +336,9 @@ struct InAppPurchase {
     static let RemoveAdsProductId = "MrMarketRemoveAds"
 }
 
-
+struct Volume {
+    static let AlertBackgroundMusic: Float = 0.4
+}
 
 
 

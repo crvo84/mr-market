@@ -16,6 +16,7 @@
 		73206A6A1B8CBD5D00D2BA22 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */; };
 		73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73206A6B1B8D65C800D2BA22 /* Images.xcassets */; };
 		73206A6E1B8D849700D2BA22 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73206A6D1B8D849700D2BA22 /* GameKit.framework */; };
+		73231D661B990E9C00154EA6 /* alertAlarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73231D651B990E9C00154EA6 /* alertAlarm.mp3 */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		7349F8431B91152F009B6A16 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7349F8421B91152F009B6A16 /* AboutViewController.swift */; };
 		73A974541B7EA4BB00CACF04 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73A974531B7EA4BB00CACF04 /* pop.wav */; };
@@ -61,6 +62,7 @@
 		73206A6B1B8D65C800D2BA22 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		73206A6D1B8D849700D2BA22 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		73206A6F1B8DAA0500D2BA22 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		73231D651B990E9C00154EA6 /* alertAlarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alertAlarm.mp3; sourceTree = "<group>"; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		7349F8421B91152F009B6A16 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		73A974521B7EA4B200CACF04 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				73231D651B990E9C00154EA6 /* alertAlarm.mp3 */,
 				73206A671B8C066700D2BA22 /* hopping-along.mp3 */,
 				73206A651B8C066100D2BA22 /* ping-pong.mp3 */,
 				73A974531B7EA4BB00CACF04 /* pop.wav */,
@@ -327,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73231D661B990E9C00154EA6 /* alertAlarm.mp3 in Resources */,
 				73E3CD921B979A5000CEC8E3 /* sprites.atlas in Resources */,
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
 				73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */,
