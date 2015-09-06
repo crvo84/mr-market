@@ -151,8 +151,8 @@ struct FontSize {
     static let GetCashLabelIphone: CGFloat = 30
     static let GetCashLabelIpad: CGFloat = 60
     // score
-    static let ScoreLabelIphone: CGFloat = 20
-    static let ScoreLabelIpad: CGFloat = 40
+    static let ScoreLabelIphone: CGFloat = 24
+    static let ScoreLabelIpad: CGFloat = 48
     // pause
     static let PausedLabelIphone: CGFloat = 40
     static let PausedLabelIpad: CGFloat = 80
@@ -248,20 +248,21 @@ struct CompanyInfo {
     static let MaxBeta: Double = 1.0
     static let MinBeta: Double = 1.0
     static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50%
-    static let MaxInitialPriceInteger: UInt32 = 1 // 5
+    static let MaxInitialPriceInteger: UInt32 = 1 // 1
     static let MinInitialPriceInteger: UInt32 = 1 // 1
     static let MaxDecimals: Int = 1
 }
 
 struct GameOption {
-    static let PeriodsInitial: Int = 4 // 7 for complete market cycle // 4
-    static let PeriodsIncrease: Int = 1 // 1
-    static let PeriodsMax: Int = 4 // 4
+    static let UpdateAllPricesSimultaneously: Bool = true
+    static let PeriodsInitial: Int = 4 // 4
+    static let PeriodsIncrease: Int = 0 // 0
+    static let PeriodsMax: Int = 6 // 6
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 0 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 0.70 // 0.70
-    static let SpeedIncrease: CGFloat = 0.15 // 0.15
+    static let SpeedInitial: CGFloat = 0.65 // 0.70
+    static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     static let InitialCash: Double = 500.0 // 500
@@ -272,7 +273,7 @@ struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.25 // 0.25
     static let MaxPercentReturn: Double = 20 // 20
     static let MinPercentReturn: Double = 20 // 20
-    static let BurstReturnFactor: Double = 0.85 // 0.87
+    static let BurstReturnFactor: Double = 0.85 // 0.85
 }
 
 struct NodeName {

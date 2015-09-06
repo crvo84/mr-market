@@ -23,16 +23,21 @@ class Company: NSObject
         self.currentPriceValue = priceInteger + Double(arc4random_uniform(10)) / 10.0
     }
     
-    func newPriceWithMarketReturn(marketReturn: Double) -> Price
+//    func newPriceWithMarketReturn(marketReturn: Double) -> Price
+    func newPriceWithMarketReturn(marketReturn: Double)
     {
         // Add random deviation to the company beta
         let betaDeviation = (Double(arc4random_uniform(CompanyInfo.BetaMaxPercentDeviation * 2 + 1)) - Double(CompanyInfo.BetaMaxPercentDeviation)) / 100.0
         let companyReturn = marketReturn * beta * (1 + betaDeviation)
         currentPriceValue *= (1 + companyReturn)
-        
-        println("Company: " + name + ", Beta: \(beta), Price: \(currentPriceValue)")
-        
-        return Price(company: self, value: currentPriceValue)
+
+//        return Price(company: self, value: currentPriceValue)
+    }
+    
+    class func newPricesWithMarketReturn(marketReturn: Double, forCompanies companies: [Company]) {
+        for company in companies {
+            company.newPriceWithMarketReturn(marketReturn)
+        }
     }
     
     class func generateCompanies(numberOfCompanies: Int) -> [Company] {

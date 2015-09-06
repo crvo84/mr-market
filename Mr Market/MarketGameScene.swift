@@ -16,6 +16,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // View Controller
     weak var marketGameViewController: MarketGameViewController?
     
+    // To create content only once
+    private var contentCreated = false
+    
     // bottom offset (Must be set before scene is presented)
     var adBottomOffset: CGFloat = 0.0
     
@@ -93,18 +96,20 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     override func didMoveToView(view: SKView) {
         
-        println("Screen Width: \(size.width), Height: \(size.height)")
-        
-        userInteractionEnabled = true
-        backgroundColor = Color.MainBackground
-        registerAppTransitionObservers()
-        pauseGameSetup()
-        scoreLabelSetup()
-        physicsWorldSetup()
-        mrMarketSetup()
-        audioSetup()
-        
-        performOneLevelActions()
+        if !contentCreated {
+            userInteractionEnabled = true
+            backgroundColor = Color.MainBackground
+            registerAppTransitionObservers()
+            pauseGameSetup()
+            scoreLabelSetup()
+            physicsWorldSetup()
+            mrMarketSetup()
+            audioSetup()
+            
+            performOneLevelActions()
+            
+            contentCreated = true
+        }
     }
     
     
@@ -182,9 +187,15 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 let oneBlockAction = SKAction.runBlock { [unowned self] in
                     
                     let company = self.game.companies[j]
-                    let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
-                    let price = company.newPriceWithMarketReturn(self.game.market.latestReturn)
+
+                    if !GameOption.UpdateAllPricesSimultaneously {
+                        company.newPriceWithMarketReturn(self.game.market.latestReturn)
+                    }
                     
+//                    let price = company.newPriceWithMarketReturn(self.game.market.latestReturn)
+                    let price = Price(company: company, value: company.currentPriceValue)
+                    
+                    let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
                     let newBlock = Block(price: price, itemTexture: itemTexture, size: self.blockSize)
                     //random position
                     let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
@@ -204,6 +215,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             result.append(SKAction.waitForDuration(timeBetweenPeriods))
             result.append(SKAction.runBlock{
                     self.mrMarket!.level = self.game.market.newMarketLevel()
+                    if GameOption.UpdateAllPricesSimultaneously {
+                        Company.newPricesWithMarketReturn(self.game.market.latestReturn, forCompanies: self.game.companies)
+                    }
                 })
         }
         return result
