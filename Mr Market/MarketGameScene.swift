@@ -19,8 +19,16 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // To create content only once
     private var contentCreated = false
     
-    // bottom offset (Must be set before scene is presented)
+    // Ad bottom offset (Must be set before scene is presented)
     var adBottomOffset: CGFloat = 0.0
+    
+    // Floor offset
+    var floorOffset: CGFloat {
+        get {
+            var offset = size.height * Geometry.FloorRelativeHeight
+            return max(adBottomOffset, offset)
+        }
+    }
     
     // MrMarketGame
     private let game = MrMarketGame()
@@ -68,18 +76,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     private var timeBetweenBlocks: Double {
-        let deviceHeightAdjustingFactor = Double((size.height - adBottomOffset) / Time.DeviceBaseHeight)
+        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
         return Time.BetweenBlocksForInitialSpeed / Double(gameSpeed) * deviceHeightAdjustingFactor
     }
     
     private var timeBetweenPeriods: Double {
-        let deviceHeightAdjustingFactor = Double((size.height - adBottomOffset) / Time.DeviceBaseHeight)
+        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
         println("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
         return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
         // TODO: adjust to device height (iPhone 4s can be base)
     }
     
-
     // Texture
     private let textureAtlas = SKTextureAtlas(named: Filename.SpritesAtlas)
     
@@ -91,7 +98,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private var blockSize: CGSize {
         // block size
         let blockWidth = (size.width - Geometry.BlockHorizontalSeparation * (Geometry.BlocksPerLine + 1)) / Geometry.BlocksPerLine
-        return CGSize(width: blockWidth, height: size.height / Geometry.BlocksPerColumn)
+        return CGSize(width: blockWidth, height: (size.height - floorOffset) / Geometry.BlocksPerColumn)
     }
     
     override func didMoveToView(view: SKView) {
@@ -100,18 +107,32 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             userInteractionEnabled = true
             backgroundColor = Color.MainBackground
             registerAppTransitionObservers()
+            floorSetup()
             pauseGameSetup()
             scoreLabelSetup()
             physicsWorldSetup()
             mrMarketSetup()
             audioSetup()
-            
             performOneLevelActions()
             
             contentCreated = true
         }
     }
     
+    private func floorSetup() {
+        let tileTexture = SKTexture(imageNamed: Filename.GrassTile)
+        let tileRatio = tileTexture.size().width / tileTexture.size().height
+        let tileSize = CGSize(width: floorOffset * tileRatio, height: floorOffset)
+        
+        var numberOfTiles: Int = Int(size.width / tileSize.width) + 1
+        for i in 0..<numberOfTiles {
+            let tileNode = SKSpriteNode(texture: tileTexture, color: SKColor.clearColor(), size: tileSize)
+            tileNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
+            tileNode.position = CGPoint(x: tileSize.width * CGFloat(i), y: floorOffset)
+            tileNode.zPosition = ZPosition.Floor
+            addChild(tileNode)
+        }
+    }
     
     private func performOneLevelActions()
     {
@@ -155,7 +176,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         physicsWorld.gravity = CGVector(dx: 0.0, dy: Physics.Gravity)
         physicsWorld.speed = gameSpeed
         // create floor physics body
-        physicsBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: 0.0, y: adBottomOffset), toPoint: CGPoint(x: size.width, y: adBottomOffset))
+        physicsBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: 0.0, y: floorOffset), toPoint: CGPoint(x: size.width, y: floorOffset))
         physicsBody?.restitution = Physics.BlockRestitution
     }
     
@@ -191,8 +212,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     if !GameOption.UpdateAllPricesSimultaneously {
                         company.newPriceWithMarketReturn(self.game.market.latestReturn)
                     }
-                    
-//                    let price = company.newPriceWithMarketReturn(self.game.market.latestReturn)
+
                     let price = Price(company: company, value: company.currentPriceValue)
                     
                     let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")

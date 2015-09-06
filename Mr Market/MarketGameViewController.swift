@@ -29,8 +29,6 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
             adBanner!.frame = CGRectMake(0.0, view.frame.size.height - adBanner!.frame.size.height, adBanner!.frame.size.width, adBanner!.frame.size.height)
             adBanner!.backgroundColor = Color.AdBannerBackground
             view.addSubview(adBanner!)
-            
-            // TODO: Add "Mr Market" label to show if ad is not available
         }
 
         // Configure de main view

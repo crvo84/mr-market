@@ -27,6 +27,7 @@ struct Filename {
     static let Star = "star"
     static let Home = "home"
     static let RemoveAds = "removeAds"
+    static let GrassTile = "grassTile"
 }
 
 struct Geometry {
@@ -40,7 +41,7 @@ struct Geometry {
     static let BlockItemRelativeHeight: CGFloat = 0.8 // Relative to block height
     static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlocksPerLine: CGFloat = 3.0
-    static let BlocksPerColumn: CGFloat = 11.5
+    static let BlocksPerColumn: CGFloat = 10.5
     static let BlockRelativeHeight: CGFloat = 0.45 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
     static let BlockTextLeftOffset: CGFloat = 4.0 // From item node
@@ -90,8 +91,8 @@ struct Geometry {
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
     
-    // hi invest button
-    static let HiInvestButtonRelativeCornerRadius: CGFloat = 0.1 // Relative to button width
+    // floor
+    static let FloorRelativeHeight: CGFloat = 1 / 10 // Relative to scene height
 }
 
 struct Color {
@@ -221,6 +222,7 @@ struct Physics {
 
 struct ZPosition {
     static let Block: CGFloat = 4
+    static let Floor: CGFloat = 5
     static let MrMarket: CGFloat = 5
     static let ScoreLabel: CGFloat = 5
     static let PauseButton: CGFloat = 5
@@ -261,7 +263,7 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 0 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 0.65 // 0.70
+    static let SpeedInitial: CGFloat = 0.70 // 0.70
     static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
