@@ -28,6 +28,7 @@ struct Filename {
     static let Home = "home"
     static let RemoveAds = "removeAds"
     static let GrassTile = "grassTile"
+    static let ScoreShare = "scoreShare"
 }
 
 struct Geometry {
@@ -139,7 +140,7 @@ struct Color {
     static let GameOverNodeSmallButtonText = SKColor.darkGrayColor()
     
     // iAd
-    static let AdBannerBackground = SKColor(red: 0.0/255.0, green: 40.0/255.0, blue: 56.0/255.0, alpha: 1.0)
+    static let AdBannerBackground = SKColor.clearColor()
 }
 
 struct FontSize {
@@ -207,7 +208,7 @@ struct Time {
     static let GameOverNodeFadeIn = 0.3
     
     // get cash
-    static let GetCashTotalCount: Double = 9 // seconds
+    static let GetCashTotalCount: Double = 1 // seconds // 9
     static let GetCashLabelOnScreen: Double = 1
     static let GetCashLabelFadeInOut: Double = 0.2
     static let GetCashLabelTimesShowed: Int = Int(Time.GetCashTotalCount / ((Time.GetCashLabelOnScreen + Time.GetCashLabelFadeInOut) * 2)) // label animation cannot last more than counter
@@ -263,11 +264,11 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 0 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 0.70 // 0.70
+    static let SpeedInitial: CGFloat = 5 // 0.70
     static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
-    static let InitialCash: Double = 500.0 // 500
+    static let InitialCash: Double = 100.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
 }
 
@@ -320,7 +321,8 @@ struct Text {
     static let GetCash = "Low cash!"
     static let NoPreviousPurchases = "No previous purchases could be restored."
     static let PurchasesRestored = "Purchases restored successfully."
-
+    static let MrMarket = "Mr. Market"
+    static let CanYouBeatMe = "Can you beat me?"
 }
 
 struct URLString {

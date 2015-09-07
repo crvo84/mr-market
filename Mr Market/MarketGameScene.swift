@@ -272,7 +272,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         // COUNTER
         // add counter
-        getCashCounter = SKLabelNode(text: "\(Time.GetCashTotalCount)")
+        getCashCounter = SKLabelNode(text: "\(Int(Time.GetCashTotalCount))")
         getCashCounter!.fontColor = Color.GetCashCounter
         getCashCounter!.fontName = FontName.GetCashCounter
         getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
@@ -501,11 +501,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
             case NodeName.ShareButton:
-                let sharingText = "I got " + Price.cashString(game.cash)! + " from Mr. Market!! Can you beat me?"
-                // TODO: localize
+                let cashString = Price.cashString(game.cash)!
+                let sharingText = Text.MrMarket +  "  |  " + cashString + "  |  " + Text.CanYouBeatMe
+                
                 let sharingURL = NSURL(string: URLString.AppStoreDownload)
-                // TODO: sharingImage
-                marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: nil, sharingURL: sharingURL)
+
+                let sharingImage = ScoreImageGenerator().scoreImageWithText(cashString)
+                
+                marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: sharingImage, sharingURL: sharingURL)
                 
             case NodeName.RateButton:
                 let ratingURL = NSURL(string: URLString.AppStoreRate)

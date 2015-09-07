@@ -146,6 +146,7 @@
 				73A974641B82B07900CACF04 /* Company.swift */,
 				73A974681B82BF2C00CACF04 /* Portfolio.swift */,
 				73A9746A1B82C12800CACF04 /* Price.swift */,
+				730982E91B94DE6E0067DA51 /* ScoreImageGenerator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -183,7 +184,6 @@
 			children = (
 				73F5D5F51B76912F009C7A9A /* AppDelegate.swift */,
 				73F5D5FD1B76912F009C7A9A /* Main.storyboard */,
-				730982E91B94DE6E0067DA51 /* ScoreImageGenerator.swift */,
 				73F5D6211B76CACC009C7A9A /* SharedConstants.swift */,
 				73F5D6DF1B7C3890009C7A9A /* Scenes */,
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
