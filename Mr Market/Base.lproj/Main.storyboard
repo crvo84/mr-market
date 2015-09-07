@@ -99,7 +99,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="removeAdsButtonPressed:" destination="dbB-kk-FeK" eventType="touchUpInside" id="8Ou-iW-30m"/>
+                                    <action selector="removeAdsButtonPressed:" destination="dbB-kk-FeK" eventType="touchUpInside" id="Pdw-7Z-68I"/>
                                 </connections>
                             </button>
                         </subviews>

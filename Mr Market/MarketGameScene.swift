@@ -502,13 +502,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
             case NodeName.ShareButton:
                 let cashString = Price.cashString(game.cash)!
-                let sharingText = Text.MrMarket +  "  |  " + cashString + "  |  " + Text.CanYouBeatMe
                 
+                let sharingText = Text.MrMarket +  "  |  " + cashString + "  |  " + Text.CanYouBeatMe
                 let sharingURL = NSURL(string: URLString.AppStoreDownload)
-
                 let sharingImage = ScoreImageGenerator().scoreImageWithText(cashString)
                 
-                marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: sharingImage, sharingURL: sharingURL)
+                let locationInView = touch.locationInView(view!)
+                
+                marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: sharingImage, sharingURL: sharingURL, sender: self.view!, positionInView: locationInView)
                 
             case NodeName.RateButton:
                 let ratingURL = NSURL(string: URLString.AppStoreRate)

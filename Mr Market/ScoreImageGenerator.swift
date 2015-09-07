@@ -32,7 +32,7 @@ class ScoreImageGenerator {
         
     }
 
-    func scoreImageWithText(scoreText: String) -> UIImage {
+    func scoreImageWithText(scoreText: String) -> UIImage? {
         let baseTexture = SKTexture(imageNamed: Filename.ScoreShare)
         let size = baseTexture.size()
         let skView = SKView(frame: CGRectMake(0.0, 0.0, size.width, size.height))
@@ -79,7 +79,7 @@ class ScoreImageGenerator {
     }
 
     
-    private func imageWithView(view: UIView) -> UIImage {
+    private func imageWithView(view: UIView) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
         view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()

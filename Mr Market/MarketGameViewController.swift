@@ -52,7 +52,7 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
     
     // MARK: UIActivity View Controller
     
-    func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
+    func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?, sender: UIView, positionInView: CGPoint) {
         var sharingItems = [AnyObject]()
         
         if let text = sharingText {
@@ -66,6 +66,12 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         }
         
         let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = sender
+            popoverController.sourceRect = CGRectMake(positionInView.x, positionInView.y, 1.0, 1.0)
+        }
+        
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
@@ -99,9 +105,9 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         return true
     }
     
-//    func bannerViewActionDidFinish(banner: ADBannerView!) {
-//        /* whatever you need */
-//    }
+    func bannerViewActionDidFinish(banner: ADBannerView!) {
+        /* whatever you need */
+    }
     
     func bannerViewDidLoadAd(banner: ADBannerView!) {
         banner.hidden = false
@@ -112,9 +118,9 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         banner.hidden = true
     }
     
-//    func bannerViewWillLoadAd(banner: ADBannerView!) {
-//        /* whatever you need */
-//    }
+    func bannerViewWillLoadAd(banner: ADBannerView!) {
+        /* whatever you need */
+    }
     
     
     

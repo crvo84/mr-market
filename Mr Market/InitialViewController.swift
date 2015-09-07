@@ -199,7 +199,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
 
     // MARK: In-App Purchases
     
-    @IBAction func removeAdsButtonPressed(sender: AnyObject) {
+    @IBAction func removeAdsButtonPressed(sender: UIButton) {
         
         var alertMessage: String?
         if product != nil{
@@ -221,6 +221,12 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         removeAdsActionSheet.addAction(purchaseAction)
         removeAdsActionSheet.addAction(restorePurchaseAction)
         removeAdsActionSheet.addAction(cancelAction)
+        
+        if let popoverController = removeAdsActionSheet.popoverPresentationController {
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+        }
+        
         presentViewController(removeAdsActionSheet, animated: true, completion: nil)
     }
     
