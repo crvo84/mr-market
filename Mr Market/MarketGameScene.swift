@@ -84,7 +84,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
         println("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
         return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
-        // TODO: adjust to device height (iPhone 4s can be base)
     }
     
     // Texture
@@ -153,7 +152,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
         pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
         pauseButtonNode.name = NodeName.PauseButton
-        pauseButtonNode.zPosition = ZPosition.PauseButton
+        pauseButtonNode.zPosition = ZPosition.Button
         addChild(pauseButtonNode)
     }
     
@@ -266,7 +265,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     // MARK: Get Cash Count
     private func startGetCashCount() {
-        // TODO: stop normal music, start alert sound
         backgroundMusicPlayer.stop()
         if isMusicOn { alertBackgroundMusicPlayer.play() }
         
@@ -579,11 +577,12 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         shakeNode(mrMarket!)
         shakeNode(pauseButtonNode)
         shakeNode(scoreLabelNode)
-        // TODO: game over sound here
+
         explodeAllBlocks()
         backgroundMusicPlayer.stop()
         backgroundMusicPlayer.currentTime = 0
         runAction(gameOverSoundAction)
+        
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {

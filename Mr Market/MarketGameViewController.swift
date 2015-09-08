@@ -33,7 +33,7 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
 
         // Configure de main view
         if let skView = view as? SKView {
-            skView.showsFPS = true
+            skView.showsFPS = true // TODO: remove showFPS
             
             // Create and configure scene
             var scene = MarketGameScene(size: skView.bounds.size)

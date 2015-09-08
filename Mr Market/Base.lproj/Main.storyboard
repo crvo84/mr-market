@@ -52,7 +52,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aN0-YL-z1k">
-                                <rect key="frame" x="200" y="220" width="200" height="48"/>
+                                <rect key="frame" x="200" y="217" width="200" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="29"/>
                                 <state key="normal" title="Play">
@@ -64,7 +64,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbf-Pm-9KC">
-                                <rect key="frame" x="272" y="374" width="56" height="56"/>
+                                <rect key="frame" x="272" y="376" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="5Wx-oQ-TM0"/>
                                     <constraint firstAttribute="width" constant="56" id="8be-6M-dQN"/>
@@ -78,20 +78,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-Ao-9wg">
-                                <rect key="frame" x="200" y="276" width="200" height="48"/>
+                                <rect key="frame" x="200" y="275" width="200" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="idS-PR-VRL"/>
-                                    <constraint firstAttribute="height" constant="48" id="lHA-id-Gtn"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fv4-ns-K17"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="eYX-br-BFO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="29"/>
                                 <state key="normal" title="Tutorial">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="XD5-Ch-RTD" kind="presentation" identifier="Tutorial" id="TLf-5S-IaS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hw-G9-AE6">
-                                <rect key="frame" x="200" y="332" width="200" height="34"/>
+                                <rect key="frame" x="200" y="333" width="200" height="35"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="18"/>
                                 <state key="normal" title="REMOVE ADS">
@@ -111,8 +114,10 @@
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="top" secondItem="aN0-YL-z1k" secondAttribute="bottom" constant="8" symbolic="YES" id="Gpy-po-6Uw"/>
                             <constraint firstAttribute="centerX" secondItem="rbf-Pm-9KC" secondAttribute="centerX" id="I7b-Px-24f"/>
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="centerXWithinMargins" multiplier="0.7" id="J9z-WE-0BG"/>
+                            <constraint firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" multiplier="3" priority="750" id="LCU-gC-YqB"/>
                             <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="7Hw-G9-AE6" secondAttribute="bottom" constant="8" symbolic="YES" id="Pcf-Dh-A0n"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" constant="399" id="Pz6-zH-0jl"/>
+                            <constraint firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" multiplier="12" priority="750" id="aDr-ba-z7Z"/>
                             <constraint firstItem="7Hw-G9-AE6" firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" multiplier="0.7" id="aEb-AO-tx4"/>
                             <constraint firstItem="tqB-bT-N6A" firstAttribute="top" secondItem="gWj-0a-FuR" secondAttribute="bottom" constant="8" symbolic="YES" id="cLv-Co-DgV"/>
                             <constraint firstAttribute="centerX" secondItem="7Hw-G9-AE6" secondAttribute="centerX" id="eas-dM-hej"/>
@@ -258,6 +263,28 @@
                 <exit id="hn7-cg-gZ0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1077" y="86"/>
+        </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="BKP-pu-KUp">
+            <objects>
+                <viewController id="XD5-Ch-RTD" customClass="TutorialViewController" customModule="Mr_Market" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bh7-Ay-Csd"/>
+                        <viewControllerLayoutGuide type="bottom" id="uPt-KK-r9L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a7r-As-9mQ" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <segue destination="XuM-Ss-hAR" kind="unwind" identifier="Quit Tutorial" unwindAction="unwindToInitialViewController:" id="Ni9-Hk-LeV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cIq-QT-y7g" sceneMemberID="firstResponder"/>
+                <exit id="XuM-Ss-hAR" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1077" y="-562"/>
         </scene>
     </scenes>
     <resources>

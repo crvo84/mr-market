@@ -29,7 +29,9 @@
 		73A9746B1B82C12800CACF04 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746A1B82C12800CACF04 /* Price.swift */; };
 		73A9746F1B82FB5100CACF04 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9746E1B82FB5100CACF04 /* Market.swift */; };
 		73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */; };
-		73E3CD921B979A5000CEC8E3 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73E3CD911B979A5000CEC8E3 /* sprites.atlas */; };
+		73E6581E1B9E7E920091E762 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 73E6581D1B9E7E920091E762 /* sprites.atlas */; };
+		73F1FDE31B9E35A100C4742E /* GameTutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1FDE21B9E35A100C4742E /* GameTutorialScene.swift */; };
+		73F1FDE51B9E3D9500C4742E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1FDE41B9E3D9500C4742E /* TutorialViewController.swift */; };
 		73F5D5F61B76912F009C7A9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5D5F51B76912F009C7A9A /* AppDelegate.swift */; };
 		73F5D5FF1B76912F009C7A9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D5FD1B76912F009C7A9A /* Main.storyboard */; };
 		73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73F5D6021B76912F009C7A9A /* LaunchScreen.xib */; };
@@ -77,7 +79,9 @@
 		73A9746A1B82C12800CACF04 /* Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		73A9746E1B82FB5100CACF04 /* Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 		73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		73E3CD911B979A5000CEC8E3 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		73E6581D1B9E7E920091E762 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		73F1FDE21B9E35A100C4742E /* GameTutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTutorialScene.swift; sourceTree = "<group>"; };
+		73F1FDE41B9E3D9500C4742E /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		73F5D5F01B76912F009C7A9A /* Mr Market.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mr Market.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73F5D5F41B76912F009C7A9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73F5D5F51B76912F009C7A9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,9 +158,11 @@
 		73E1C3F01B8641CD00B3B57A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				73F1FDE41B9E3D9500C4742E /* TutorialViewController.swift */,
 				7349F8421B91152F009B6A16 /* AboutViewController.swift */,
 				73E1C3EE1B8641C300B3B57A /* InitialViewController.swift */,
 				73F5D61B1B7691C7009C7A9A /* MarketGameViewController.swift */,
+				73E6581D1B9E7E920091E762 /* sprites.atlas */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -189,7 +195,6 @@
 				73F5D6DE1B7C387E009C7A9A /* SpriteNodes */,
 				73A974631B82B06100CACF04 /* Model */,
 				73E1C3F01B8641CD00B3B57A /* Controller */,
-				73E3CD911B979A5000CEC8E3 /* sprites.atlas */,
 				73206A6B1B8D65C800D2BA22 /* Images.xcassets */,
 				73F5D5F31B76912F009C7A9A /* Supporting Files */,
 			);
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				73F5D6191B76918F009C7A9A /* MarketGameScene.swift */,
+				73F1FDE21B9E35A100C4742E /* GameTutorialScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -337,10 +343,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				73231D681B99607800154EA6 /* gameOver.wav in Resources */,
-				73E3CD921B979A5000CEC8E3 /* sprites.atlas in Resources */,
 				73231D701B996BA600154EA6 /* alertAlarm.mp3 in Resources */,
 				73F5D6041B76912F009C7A9A /* LaunchScreen.xib in Resources */,
 				73231D6A1B9960D700154EA6 /* money.wav in Resources */,
+				73E6581E1B9E7E920091E762 /* sprites.atlas in Resources */,
 				73206A6C1B8D65C800D2BA22 /* Images.xcassets in Resources */,
 				733FFA841B7E3C95004B842E /* spark.png in Resources */,
 				73206A681B8C066700D2BA22 /* hopping-along.mp3 in Resources */,
@@ -367,6 +373,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				73F5D6201B76CA2B009C7A9A /* MrMarket.swift in Sources */,
+				73F1FDE51B9E3D9500C4742E /* TutorialViewController.swift in Sources */,
+				73F1FDE31B9E35A100C4742E /* GameTutorialScene.swift in Sources */,
 				73F5D6221B76CACC009C7A9A /* SharedConstants.swift in Sources */,
 				73206A5E1B8789E700D2BA22 /* PauseNode.swift in Sources */,
 				73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */,

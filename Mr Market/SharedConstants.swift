@@ -29,6 +29,8 @@ struct Filename {
     static let RemoveAds = "removeAds"
     static let GrassTile = "grassTile"
     static let ScoreShare = "scoreShare"
+    static let NextButton = "next"
+    static let ReloadButton = "reload"
 }
 
 struct Geometry {
@@ -94,11 +96,21 @@ struct Geometry {
     
     // floor
     static let FloorRelativeHeight: CGFloat = 1 / 10 // Relative to scene height
+    
+    // Tutorial
+    static let TutorialExitButtonUpperOffset: CGFloat = 8
+    static let TutorialExitButtonLeftOffset: CGFloat = 8
+    static let TutorialExitButtonSideSize: CGFloat = 36
+    static let TutorialNextButtonUpperOffset: CGFloat = 8
+    static let TutorialNextButtonRightOffset: CGFloat = 8
+    static let TutorialNextButtonSideSize: CGFloat = 36
+    static let TutorialReloadButtonLowerOffset: CGFloat = 8
+    static let TutorialReloadButtonLeftOffset: CGFloat = 8
+    static let TutorialReloadButtonSideSize: CGFloat = 36
 }
 
 struct Color {
     static let MainBackground = SKColor(red: 0.0/255.0, green: 102.0/255.0, blue: 134.0/255.0, alpha: 1.0)
-    static let GetCashBackground = SKColor(red: 134.0/255.0, green: 102.0/255.0, blue: 134.0/255.0, alpha: 1.0)
     
     // block
     static let BlockDefault = SKColor.whiteColor()
@@ -141,6 +153,10 @@ struct Color {
     
     // iAd
     static let AdBannerBackground = SKColor.clearColor()
+    
+    // tutorial
+    static let TutorialBackground = Color.MainBackground
+    static let TutorialLabel = SKColor.lightGrayColor()
 }
 
 struct FontSize {
@@ -171,6 +187,10 @@ struct FontSize {
     static let GameOverNodeLargeButtonIpad: CGFloat = 50
     static let GameOverNodeSmallButtonIphone: CGFloat = 18
     static let GameOverNodeSmallButtonIpad: CGFloat = 30
+    // tutorial
+    static let TutorialLabelIphone: CGFloat = 32
+    static let TutorialLabelIpad: CGFloat = 64
+    
 }
 
 struct FontName {
@@ -182,6 +202,7 @@ struct FontName {
     static let GameOverButton = "Arial"
     static let GetCashCounter = "Arial"
     static let GetCashLabel = "Arial"
+    static let TutorialLabel = "Arial"
 }
 
 struct Texture {
@@ -208,10 +229,13 @@ struct Time {
     static let GameOverNodeFadeIn = 0.3
     
     // get cash
-    static let GetCashTotalCount: Double = 1 // seconds // 9
+    static let GetCashTotalCount: Double = 9 // seconds // 9
     static let GetCashLabelOnScreen: Double = 1
     static let GetCashLabelFadeInOut: Double = 0.2
     static let GetCashLabelTimesShowed: Int = Int(Time.GetCashTotalCount / ((Time.GetCashLabelOnScreen + Time.GetCashLabelFadeInOut) * 2)) // label animation cannot last more than counter
+    
+    // tutorial
+    static let TutorialLabelOnScreen: Double = 1
 }
 
 struct Physics {
@@ -226,13 +250,14 @@ struct ZPosition {
     static let Floor: CGFloat = 5
     static let MrMarket: CGFloat = 5
     static let ScoreLabel: CGFloat = 5
-    static let PauseButton: CGFloat = 5
+    static let Button: CGFloat = 5
     static let Exposion: CGFloat = 6
     static let PausedLabel: CGFloat = 6
     static let PauseNode: CGFloat = 7
     static let GameOverNode: CGFloat = 7
     static let GetCashCounter: CGFloat = 7
     static let GetCashLabel: CGFloat = 7
+    static let TutorialLabel: CGFloat = 7
 }
 
 struct Shake {
@@ -264,19 +289,23 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 0 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 5 // 0.70
+    static let SpeedInitial: CGFloat = 0.7 // 0.70
     static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
-    static let InitialCash: Double = 100.0 // 500
-    static let InitialMarketLevel: Int = 0 // 0
+    static let InitialCash: Double = 500.0 // 500
+    static let InitialMarketLevel: Int = 1 // 0
+}
+
+struct Tutorial {
+    static let Speed: CGFloat = 1.5
 }
 
 struct MarketOption {
     static let ProbabilityOfBreakingTrend: Double = 0.25 // 0.25
-    static let MaxPercentReturn: Double = 20 // 20
-    static let MinPercentReturn: Double = 20 // 20
-    static let BurstReturnFactor: Double = 0.85 // 0.85
+    static let MaxPercentReturn: Double = 15 // 20
+    static let MinPercentReturn: Double = 15 // 20
+    static let BurstReturnFactor: Double = 1.0 // 0.85
 }
 
 struct NodeName {
@@ -289,6 +318,8 @@ struct NodeName {
     static let ShareButton = "shareButton"
     static let RateButton = "rateButton"
     static let RemoveAdsButton = "removeAdsButton"
+    static let ReloadButton = "reloadButton"
+    static let NextButton = "nextButton"
 }
 
 struct UserDefaultsKey {
@@ -312,8 +343,12 @@ struct Text {
     static let Score = "Score"
     static let Best = "Best"
     static let TryAgain = "Try again"
+    static let WellDone = "Well done"
     static let RemoveAds = "Remove Ads"
     static let Purchase = "Purchase"
+    static let Purchased = "Purchased"
+    static let Sold = "Sold"
+    static let Rejected = "Rejected"
     static let Restore = "Restore"
     static let Cancel = "Cancel"
     static let Ok = "Ok"
@@ -326,8 +361,8 @@ struct Text {
 }
 
 struct URLString {
-    static let AppStoreDownload = "http://itunes.apple.com/app/id1009148607"
-    static let AppStoreRate = "itms-apps://itunes.apple.com/app/id1009148607"
+    static let AppStoreDownload = "http://itunes.apple.com/app/id1033738154"
+    static let AppStoreRate = "itms-apps://itunes.apple.com/app/id1033738154"
     static let FacebookFromApp = "fb://profile/800203350077160"
     static let Facebook = "https://www.facebook.com/800203350077160"
     static let TwitterFromApp = "twitter:///user?screen_name=Villou_Apps"
@@ -340,6 +375,7 @@ struct SegueId {
     static let StartGame = "Start Game"
     static let QuitGame = "Quit Game"
     static let RemoveAds = "Remove Ads"
+    static let QuitTutorial = "Quit Tutorial"
 }
 
 struct GameCenter {
