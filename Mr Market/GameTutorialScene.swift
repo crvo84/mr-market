@@ -42,15 +42,20 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
     
     // Blocks
     private var company: Company = Company(uniqueName: TutorialBlock.CompanyName, beta: TutorialBlock.CompanyBeta)
-    private let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(TutorialBlock.ItemNumber)")
+    private let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(TutorialBlock.ItemSuffix)")
     private var existingBlocks: [Block] = []
     private var blockSize: CGSize {
         // block size
         let blockWidth = (size.width - Geometry.BlockHorizontalSeparation * (Geometry.BlocksPerLine + 1)) / Geometry.BlocksPerLine
         return CGSize(width: blockWidth, height: (size.height - floorOffset) / Geometry.BlocksPerColumn)
     }
-    private var readyForExplosion: Bool = false
-    private var readyForSale: Bool = false
+    
+    // Tutorial Labels
+    private var tutorialLabelNode: SKLabelNode?
+    // Tutorial nodes
+    private var touchScreenNode: SKSpriteNode?
+    // Tutorial steps
+    private var buyTutorialDone: Bool = false
     
     override func didMoveToView(view: SKView) {
         
@@ -60,9 +65,10 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
             floorSetup()
             physicsWorldSetup()
             buttonsSetup()
-            purchaseTutorial()
             
             contentCreated = true
+            
+            startTutorial()
         }
     }
     
@@ -136,131 +142,193 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
         addChild(mrMarket!)
     }
     
+    
+    // MARK: TUTORIAL
+    
     private struct TutorialBlock {
         static let NameA = "blockA"
         static let NameB = "blockB"
         static let PriceValueA: Double = 10
-        static let PriceValueB: Double = 15
+        static let PriceValueB: Double = 12
         static let CompanyName = "TutorialCompany"
         static let CompanyBeta: Double = 1.0
-        static let ItemNumber: Int = 3
+        static let ItemSuffix: Int = 3
     }
     
-    
-    // MARK: TUTORIAL
-    
-    private func purchaseTutorial() {
-        let purchaseLabel = labelNodeWithText(Text.Purchase, atHeight: size.height / 2.0, withAlpha: 0.0)
-        addChild(purchaseLabel)
+    private func startTutorial()
+    {
+        let mainTitleNode = SKLabelNode(text: Text.HowToPlay)
+        mainTitleNode.fontColor = Color.TutorialMainTitle
+        mainTitleNode.fontName = FontName.TutorialMainTitle
+        mainTitleNode.fontSize = isIpad ? FontSize.TutorialMainTitleIpad : FontSize.TutorialMainTitleIphone
+        mainTitleNode.verticalAlignmentMode = .Top
+        mainTitleNode.horizontalAlignmentMode = .Center
+        mainTitleNode.position = CGPoint(x: size.width / 2.0, y: (size.height + floorOffset) / 2.0)
+        mainTitleNode.zPosition = ZPosition.TutorialMainTitle
+        mainTitleNode.alpha = 0.0
+        addChild(mainTitleNode)
         
-        let waitLabelAction = SKAction.waitForDuration(Time.TutorialLabelOnScreen)
-        let fadeInLabelAction = SKAction.fadeInWithDuration(Time.TutorialLabelOnScreen)
-        let fadeOutLabelAction = SKAction.fadeOutWithDuration(Time.TutorialLabelOnScreen)
-        let startTutorialAction = SKAction.runBlock {
-            self.createBlockWithPrice(TutorialBlock.PriceValueA)
+        let fadeInAction = SKAction.fadeInWithDuration(Time.TutorialLabelFadeInOut)
+        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+        let fadeOutAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
+        let removeMainTitleNode = SKAction.removeFromParent()
+        mainTitleNode.runAction(SKAction.sequence([fadeInAction, waitAction, fadeOutAction, removeMainTitleNode])) {
+            self.buyTutorial()
         }
-        let removeLabelAction = SKAction.removeFromParent()
-        purchaseLabel.runAction(SKAction.sequence([waitLabelAction, fadeInLabelAction, waitLabelAction, fadeOutLabelAction, startTutorialAction, removeLabelAction]))
     }
     
-//    private func
+    private func buyTutorial() {
+        // Set Label Text
+        setLabelNodeWithText(Text.Buy)
+        // labelNode should have alpha 0.0
+        // wait
+        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+        // Fade in label
+        let fadeInLabelAction = SKAction.fadeInWithDuration(Time.TutorialLabelFadeInOut)
+        // drop block
+        let createBlockAction = SKAction.runBlock {
+            self.createBlockWithPrice(TutorialBlock.PriceValueA, withName: TutorialBlock.NameA)
+        }
+        tutorialLabelNode!.runAction(SKAction.sequence([waitAction, fadeInLabelAction, createBlockAction]))
+        // when block hits the bottom, wait, fade out node and call rejectOfferTutorial
+        // done at didBeginContact
+    }
     
-    private func createBlockWithPrice(priceValue: Double) {
+    private func rejectOfferTutorial() {
+        // set label text
+        setLabelNodeWithText(Text.RejectOffer)
+        // labelNode should have alpha 0.0
+        // wait
+        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+        // fade in label
+        let fadeInLabelAction = SKAction.fadeInWithDuration(Time.TutorialLabelFadeInOut)
+        // create block and touch screen
+        let createBlockAction = SKAction.runBlock {
+            self.addTouchScreenPointingAt(CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0 + Geometry.TutorialTouchScreenVerticalOffsetFromCenter), withSize: nil, pointingLeft: false)
+            self.createBlockWithPrice(TutorialBlock.PriceValueB, withName: TutorialBlock.NameB)
+        }
+        tutorialLabelNode!.runAction(SKAction.sequence([waitAction, fadeInLabelAction, createBlockAction]))
+        // when the block overlaps the touchScreenNode, colorize the touchscreen, explode block, wait and then fade out label and touchScreenNode and call see tutorial
+        // done at update
+        
+    }
+    
+    private func sellTutorial() {
+        // set label text
+        setLabelNodeWithText(Text.Sell)
+        // labelNode should have alpha 0.0
+        // wait
+        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+        // fade in label
+        let fadeInLabelAction = SKAction.fadeInWithDuration(Time.TutorialLabelFadeInOut)
+        // add touchScreenNode
+        let addTouchScreenAction = SKAction.runBlock {
+            if self.existingBlocks.count > 0 {
+                let blockA = self.existingBlocks[0]
+                let pointingAt = CGPoint(x: self.size.width / 2.0, y: blockA.position.y)
+                self.addTouchScreenPointingAt(pointingAt, withSize: nil, pointingLeft: true)
+            }
+        }
+        // wait
+        // highlight touchScreen
+        let highlightTouchScreenAction = SKAction.runBlock {
+            self.highlightTouchScreen()
+        }
+        let waitAfterHighlightAction = SKAction.waitForDuration(Time.TutorialTouchScreenFadeInOut)
+        // sell block
+        let sellAction = SKAction.runBlock {
+            if self.existingBlocks.count > 0 {
+                let blockA = self.existingBlocks[0]
+                self.deleteBlock(blockA)
+                self.runAction(self.moneySoundAction)
+            }
+        }
+        
+        // wait
+        // remove touchscreen
+        let removeTouchScreenAction = SKAction.runBlock {
+            self.removeTouchScreen(animated: true)
+        }
+        let fadeOutTutorialAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
+        
+        tutorialLabelNode!.runAction(SKAction.sequence([waitAction, fadeInLabelAction, addTouchScreenAction, waitAction, highlightTouchScreenAction, waitAfterHighlightAction, sellAction, waitAction, removeTouchScreenAction, fadeOutTutorialAction]))
+    }
+    
+    private func createBlockWithPrice(priceValue: Double, withName name: String) {
         company.currentPriceValue = priceValue
         let price = Price(company: company, value: company.currentPriceValue)
         let newBlock = Block(price: price, itemTexture: itemTexture, size: self.blockSize)
         // position
-        let blockPosition = CGFloat(Int(Geometry.BlocksPerLine / 2))
-        let blockX = (Geometry.BlockHorizontalSeparation + self.blockSize.width / 2.0) + blockPosition * (self.blockSize.width + Geometry.BlockHorizontalSeparation)
+        let blockColumn = CGFloat(Int(Geometry.BlocksPerLine / 2))
+        let blockX = (Geometry.BlockHorizontalSeparation + self.blockSize.width / 2.0) + blockColumn * (self.blockSize.width + Geometry.BlockHorizontalSeparation)
         let blockY = self.size.height + self.blockSize.height / 2.0
         newBlock.position = CGPoint(x: blockX, y: blockY)
+        newBlock.name = name
         self.existingBlocks.append(newBlock)
         self.addChild(newBlock)
-    }
-    
-    private func labelNodeWithText(text: String, atHeight: CGFloat, withAlpha alpha: CGFloat) -> SKLabelNode {
-        let labelNode = SKLabelNode(text: text)
-        labelNode.fontColor = Color.TutorialLabel
-        labelNode.fontName = FontName.TutorialLabel
-        labelNode.fontSize = isIpad ? FontSize.TutorialLabelIpad : FontSize.TutorialLabelIphone
-        labelNode.verticalAlignmentMode = .Center
-        labelNode.horizontalAlignmentMode = .Center
-        labelNode.position = CGPoint(x: size.width / 2.0, y: atHeight)
-        labelNode.zPosition = ZPosition.TutorialLabel
-        labelNode.alpha = alpha
         
-        return labelNode
+        updateBlockColors()
     }
     
-//    private func generateCurrentLevelActions() -> [SKAction]
-//    {
-//        let numberOfPeriods = game.numberOfPeriods
-//        let numberOfCompanies = game.companies.count
-//        
-//        var result: [SKAction] = []
-//        
-//        for i in 0..<numberOfPeriods {
-//            
-//            for j in 0..<numberOfCompanies {
-//                
-//                let oneBlockAction = SKAction.runBlock { [unowned self] in
-//                    
-//                    let company = self.game.companies[j]
-//                    
-//                    if !GameOption.UpdateAllPricesSimultaneously {
-//                        company.newPriceWithMarketReturn(self.game.market.latestReturn)
-//                    }
-//                    
-//                    let price = Price(company: company, value: company.currentPriceValue)
-//                    
-//                    let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
-//                    let newBlock = Block(price: price, itemTexture: itemTexture, size: self.blockSize)
-//                    //random position
-//                    let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
-//                    let blockX = (Geometry.BlockHorizontalSeparation + self.blockSize.width / 2.0) + randomBlockPosition * (self.blockSize.width + Geometry.BlockHorizontalSeparation)
-//                    let blockY = self.size.height + self.blockSize.height / 2.0
-//                    newBlock.position = CGPoint(x: blockX, y: blockY)
-//                    self.existingBlocks.append(newBlock)
-//                    self.addChild(newBlock)
-//                    self.updateBlockColors()
-//                }
-//                
-//                let waitAction = SKAction.waitForDuration(timeBetweenBlocks)
-//                
-//                result.append(oneBlockAction)
-//                result.append(waitAction)
-//            }
-//            result.append(SKAction.waitForDuration(timeBetweenPeriods))
-//            result.append(SKAction.runBlock{
-//                self.mrMarket!.level = self.game.market.newMarketLevel()
-//                if GameOption.UpdateAllPricesSimultaneously {
-//                    Company.newPricesWithMarketReturn(self.game.market.latestReturn, forCompanies: self.game.companies)
-//                }
-//                })
-//        }
-//        return result
-//    }
-    
-    private func explosion(position: CGPoint)
+    private func setLabelNodeWithText(text: String)
     {
-        var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
-        
-        emitterNode.position = position
-        
-        let explodeAction = SKAction.runBlock { self.addChild(emitterNode) }
-        let waitAction = SKAction.waitForDuration(Time.BlockExplosion)
-        let disappearAction = SKAction.runBlock { emitterNode.removeFromParent() }
-        
-        runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
+        if tutorialLabelNode == nil {
+            tutorialLabelNode = SKLabelNode()
+            tutorialLabelNode!.fontColor = Color.TutorialLabel
+            tutorialLabelNode!.fontName = FontName.TutorialLabel
+            tutorialLabelNode!.fontSize = isIpad ? FontSize.TutorialLabelIpad : FontSize.TutorialLabelIphone
+            tutorialLabelNode!.verticalAlignmentMode = .Top
+            tutorialLabelNode!.horizontalAlignmentMode = .Center
+            tutorialLabelNode!.position = CGPoint(x: size.width / 2.0, y: size.height - Geometry.TutorialLabelUpperOffset)
+            tutorialLabelNode!.zPosition = ZPosition.TutorialLabel
+            tutorialLabelNode!.alpha = 0.0
+            addChild(tutorialLabelNode!)
+        }
+        tutorialLabelNode!.text = text
     }
     
-    private func updateBlockColors() {
-        for block in existingBlocks {
-            if !block.isDescending {
-                block.updateColor()
+    // pointing up
+    private func addTouchScreenPointingAt(point: CGPoint, withSize nodeSize: CGSize?, pointingLeft: Bool) {
+        if touchScreenNode != nil {
+            removeTouchScreen(animated: false)
+        }
+        
+        touchScreenNode = SKSpriteNode(imageNamed: Filename.TouchScreen)
+        touchScreenNode!.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+        touchScreenNode!.position = point
+        touchScreenNode!.zPosition = ZPosition.TouchScreen
+        touchScreenNode!.alpha = 0.0
+        if nodeSize != nil {
+            touchScreenNode!.size = nodeSize!
+        }
+        if pointingLeft {
+            let radians = CGFloat(M_PI_2)
+            touchScreenNode!.runAction(SKAction.rotateByAngle(radians, duration: 0.0))
+        }
+        addChild(touchScreenNode!)
+        touchScreenNode!.runAction(SKAction.fadeAlphaTo(Tutorial.TouchScreenInitialAlpha, duration: Time.TutorialTouchScreenFadeInOut))
+    }
+    
+
+    
+    private func highlightTouchScreen() {
+        touchScreenNode!.runAction(SKAction.fadeAlphaTo(Tutorial.TouchScreenFinalAlpha, duration: Time.TutorialTouchScreenHighlight))
+    }
+    
+    private func removeTouchScreen(#animated: Bool) {
+        if touchScreenNode != nil {
+            if animated {
+                touchScreenNode!.runAction(SKAction.fadeOutWithDuration(Time.TutorialTouchScreenFadeInOut), completion: {
+                    self.touchScreenNode!.removeFromParent()
+                    self.touchScreenNode = nil
+                })
+            } else {
+                self.touchScreenNode!.removeFromParent()
+                self.touchScreenNode = nil
             }
         }
     }
+
     
     // MARK: Physics contact
     func didBeginContact(contact: SKPhysicsContact) {
@@ -297,10 +365,60 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
             if blockToPurchase.isDescending {
                 blockToPurchase.isDescending = false
                 runAction(slamSoundAction)
+                
+                // when block hits the bottom, wait, fade out node and call rejectOfferTutorial
+                if let blockName = blockToPurchase.name {
+                    if blockName == TutorialBlock.NameA {
+                        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+                        let fadeOutTutorialLabelAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
+                        let rejectOfferTutorialAction = SKAction.runBlock {
+                            self.buyTutorialDone = true
+                            self.rejectOfferTutorial()
+                        }
+                        tutorialLabelNode!.runAction(SKAction.sequence([fadeOutTutorialLabelAction, rejectOfferTutorialAction]))
+                    }
+                }
             }
         }
         updateBlockColors()
     }
+    
+    // MARK: Frame rendering cycle
+    override func update(currentTime: NSTimeInterval) {
+        if buyTutorialDone {
+            // when the block overlaps the touchScreenNode, colorize the touchscreen, explode block, wait and then fade out label and touchScreenNode and call see tutorial
+            if existingBlocks.count > 1 && touchScreenNode != nil {
+                let blockB = existingBlocks[1]
+                let blockBTouchScreenDistance = blockB.position.y - touchScreenNode!.position.y
+                
+                
+                if blockBTouchScreenDistance <= 0 {
+                    
+                    let explodeAction = SKAction.runBlock {
+                        self.runAction(self.popSoundAction)
+                        self.explosion(blockB.position)
+                        self.deleteBlock(blockB)
+                    }
+                    let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+                    let removeTouchScreenAction = SKAction.runBlock {
+                        self.removeTouchScreen(animated: true)
+                    }
+                    let fadeOutTutorialAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
+                    let sellTutorialAction = SKAction.runBlock {
+                        self.sellTutorial()
+                    }
+                    
+                    tutorialLabelNode!.runAction(SKAction.sequence([explodeAction, waitAction, removeTouchScreenAction, fadeOutTutorialAction, sellTutorialAction]))
+                    
+                } else if blockBTouchScreenDistance <= blockSize.height {
+                    
+                    highlightTouchScreen()
+                    
+                }
+            }
+        }
+    }
+    
     
     // MARK: User Interaction
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -326,26 +444,26 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
                     tutorialViewController!.performSegueWithIdentifier(SegueId.QuitTutorial, sender: tutorialViewController!)
                 }
                 
+//            case TutorialBlock.NameA:
+//                if let blockNode = touchedNode as? Block {
+//                    if !blockNode.isDescending && readyForSale {
+//                        deleteBlock(blockNode)
+//                        runAction(moneySoundAction)
+//                    }
+//                }
+//                
+//                
+//            case TutorialBlock.NameB:
+//                if let blockNode = touchedNode as? Block {
+//                    if blockNode.isDescending && readyForExplosion {
+//                        runAction(popSoundAction)
+//                        explosion(blockNode.position)
+//                        deleteBlock(blockNode)
+//                    }
+//                }
+                
             default:
                 break
-            }
-        } else if !view!.paused {
-            // Blocks must not have name
-            if let body = physicsWorld.bodyAtPoint(location) {
-                if let blockNode = body.node as? Block {
-                    if blockNode.isDescending {
-                        if readyForExplosion {
-                            runAction(popSoundAction)
-                            explosion(blockNode.position)
-                            deleteBlock(blockNode)
-                        }
-                    } else {
-                        if readyForSale {
-                            deleteBlock(blockNode)
-                            runAction(moneySoundAction)
-                        }
-                    }
-                }
             }
         }
     }
@@ -355,6 +473,27 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
         if let index = find(existingBlocks, block) {
             existingBlocks.removeAtIndex(index)
             block.disappear()
+        }
+    }
+    
+    private func explosion(position: CGPoint)
+    {
+        var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
+        
+        emitterNode.position = position
+        
+        let explodeAction = SKAction.runBlock { self.addChild(emitterNode) }
+        let waitAction = SKAction.waitForDuration(Time.BlockExplosion)
+        let disappearAction = SKAction.runBlock { emitterNode.removeFromParent() }
+        
+        runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
+    }
+    
+    private func updateBlockColors() {
+        for block in existingBlocks {
+            if !block.isDescending {
+                block.updateColor()
+            }
         }
     }
 }

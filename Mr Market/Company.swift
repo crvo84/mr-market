@@ -59,7 +59,7 @@ class Company: NSObject
     }
     
     class func newCompanyForIndex(index: Int) -> Company?
-    {
+    { // TODO: items aleatorios
         var company: Company? = nil
         
         if index < Texture.numberOfBlockImages {

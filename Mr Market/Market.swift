@@ -10,7 +10,7 @@ import Foundation
 
 class Market
 {
-    var level: Int // [0, 7]
+    var level: Int // [0, 4]
     var volatility: Double = 1.0
     var latestReturn: Double = 0.0
     
