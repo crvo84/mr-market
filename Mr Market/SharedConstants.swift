@@ -390,11 +390,10 @@ struct Text {
     // tutorial
     static let TutorialSentence0 = "This is Mr. Market"
     static let TutorialSentence1 = "Is he bipolar? You bet he is."
-    static let TutorialSentence2 = "He tells millions of people how to feel."
-    static let TutorialSentence3 = "Think for yourself!"
-    static let TutorialSentence4 = "He provide you with prices..."
-    static let TutorialSentence5 = "...you decide whether to accept them."
-    static let TutorialSentence6 = "Don't ignore him. Do business with him!"
+    static let TutorialSentence2 = "But despite of his obvious mood disorder, millions of people follow his lead."
+    static let TutorialSentence3 = "Think for yourself! But don't ignore him, instead, do business with him."
+    static let TutorialSentence4 = "He provides you with prices. You decide whether or not to accept them."
+    static let TutorialSentence5 = "'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett"
 //    static let TutorialSentence0 = "T.h.i.s. i.s. M.r.. M.a.r.k.e.t.."
 //    static let TutorialSentence1 = "I.s. h.e. b.i.p.o.l.a.r.?. Y.o.u. b.e.t. h.e. i.s.."
 //    static let TutorialSentence2 = "H.e. t.e.l.l.s. m.i.l.l.i.o.n.s. o.f. p.e.o.p.l.e. h.o.w. t.o. f.e.e.l.."
@@ -425,6 +424,11 @@ struct SegueId {
     static let QuitHowToPlay = "Quit How To Play"
     static let WhoIsMrMarket = "Who Is Mr Market"
     static let QuitWhoIsMrMarket = "Quit Who Is Mr Market"
+}
+
+struct StoryboardId {
+    static let TutorialPageContentViewController = "TutorialPageContentViewController"
+    static let TutorialPageViewController = "TutorialPageViewController"
 }
 
 struct GameCenter {

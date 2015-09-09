@@ -9,28 +9,14 @@
 import UIKit
 import SpriteKit
 
-class TutorialViewController: UIViewController {
-    
-//    override func prefersStatusBarHidden() -> Bool {
-//        return true
-//    }
+class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     
     @IBOutlet weak var mrMarketView: SKView!
+    @IBOutlet weak var tutorialView: UIView!
     
-    @IBOutlet weak var tutorialSentenceLabel: UILabel!
-    private var timer: NSTimer?
-    
-    private let sentences: [String] = [Text.TutorialSentence0, Text.TutorialSentence1, Text.TutorialSentence2, Text.TutorialSentence3, Text.TutorialSentence4, Text.TutorialSentence5, Text.TutorialSentence6]
-    
-    private var currentIndex: Int = 0 {
-        didSet {
-            if currentIndex >= sentences.count {
-                currentIndex = 0
-            } else if currentIndex < 0 {
-                currentIndex = sentences.count - 1
-            }
-        }
-    }
+    private var pageViewController: UIPageViewController?
+
+    private var tutorialSentences: [String] = [Text.TutorialSentence0, Text.TutorialSentence1, Text.TutorialSentence2, Text.TutorialSentence3, Text.TutorialSentence4, Text.TutorialSentence5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,56 +29,106 @@ class TutorialViewController: UIViewController {
         // Show the scene
         mrMarketView.presentScene(scene)
         
-        tutorialSentenceLabel.text = sentences[currentIndex]
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        tutorialView.backgroundColor = UIColor.clearColor()
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(Time.TutorialSentenceBetweenLabels, target: self, selector: "updateTutorialSentenceNext", userInfo: nil, repeats: false)
-    }
-    
-    func updateTutorialSentenceNext() {
-        changeTutorialSentenceToIndex(++currentIndex)
-    }
-    
-    private func updateTutorialSentencePrevious() {
-        changeTutorialSentenceToIndex(--currentIndex)
-    }
-    
-    // Label should have alpha = 0, every time this function is called
-    private func changeTutorialSentenceToIndex(index: Int) {
-        // reset timer
-        timer?.invalidate()
-        timer = nil
-        
-        // fade out current label
-        UIView.animateWithDuration(Time.TutorialSentenceFadeInOut, animations: { () -> Void in
-            
-            self.tutorialSentenceLabel.alpha = 0.0
-            
-        }) { (_) -> Void in
-            
-            // change tutorial label text
-            if self.currentIndex < self.sentences.count {
-                self.tutorialSentenceLabel.text = self.sentences[self.currentIndex]
-            }
-            
-            // fade in current label
-            UIView.animateWithDuration(Time.TutorialSentenceFadeInOut, animations: { () -> Void in
-                self.tutorialSentenceLabel.alpha = 1.0
-            }, completion: { (_) -> Void in
-                // set timer
-                self.timer = NSTimer.scheduledTimerWithTimeInterval(Time.TutorialSentenceBetweenLabels, target: self, selector: "updateTutorialSentenceNext", userInfo: nil, repeats: false)
-            })
-        }
+        tutorialPageViewControllerSetup()
+
     }
 
+    private func tutorialPageViewControllerSetup() {
+        // Create page view controller
+        pageViewController = storyboard!.instantiateViewControllerWithIdentifier(StoryboardId.TutorialPageViewController) as? UIPageViewController
+        pageViewController!.dataSource = self
+        
+        let pageContentViewController = viewControllerAtIndex(0)
+        let viewControllers = [pageContentViewController!]
+        
+        pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
+        
+        // Change the size of page view controller
+        pageViewController!.view.frame = tutorialView.bounds
+        addChildViewController(pageViewController!)
+        tutorialView.addSubview(pageViewController!.view)
+        pageViewController!.didMoveToParentViewController(self)
+    }
+
+        
+    // MARK: UIPageViewController DataSource
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        
+        if let tutorialPageContentViewController = viewController as? TutorialPageContentViewController {
+            if let index = tutorialPageContentViewController.pageIndex {
+                if index == tutorialSentences.count - 1 {
+                    return self.viewControllerAtIndex(0)
+                } else if index >= 0 && index < tutorialSentences.count - 1 {
+                    return viewControllerAtIndex(index + 1)
+                }
+            }
+        }
+        return nil
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        
+        if let tutorialPageContentViewController = viewController as? TutorialPageContentViewController {
+            if let index = tutorialPageContentViewController.pageIndex {
+                if index > 0 && index <= tutorialSentences.count - 1 {
+                    return viewControllerAtIndex(index - 1)
+                }
+            }
+        }
+        return nil
+    }
+    
+    private func viewControllerAtIndex(index: Int) -> TutorialPageContentViewController? {
+        if tutorialSentences.count > 0 && index < tutorialSentences.count {
+            
+            // create new tutorial page content view controller and pass suitable data
+            if let tutorialPageContentViewController = storyboard!.instantiateViewControllerWithIdentifier(StoryboardId.TutorialPageContentViewController) as? TutorialPageContentViewController {
+                tutorialPageContentViewController.labelText = tutorialSentences[index]
+                tutorialPageContentViewController.pageIndex = index
+                
+                return tutorialPageContentViewController
+            }
+        }
+        return nil
+    }
+    
+    // Page indicator data source
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return tutorialSentences.count
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return 0
+    }
+
+    
     
     // MARK: Navigation
     @IBAction func unwindToTutorialViewController(segue: UIStoryboardSegue)
     {
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 

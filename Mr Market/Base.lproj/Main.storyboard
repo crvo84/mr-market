@@ -265,6 +265,49 @@
             </objects>
             <point key="canvasLocation" x="1077" y="86"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="8RL-lf-Rdo">
+            <objects>
+                <pageViewController storyboardIdentifier="TutorialPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="8Rd-fW-wGF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="76C-Ha-4s0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39" y="-1293"/>
+        </scene>
+        <!--Tutorial Page Content View Controller-->
+        <scene sceneID="QMs-Lo-YFb">
+            <objects>
+                <viewController storyboardIdentifier="TutorialPageContentViewController" id="tcd-h4-K5y" customClass="TutorialPageContentViewController" customModule="Mr_Market" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jfa-qH-lDP"/>
+                        <viewControllerLayoutGuide type="bottom" id="Htu-d4-yde"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="Tsg-Ag-2ZS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLz-6z-R7H">
+                                <rect key="frame" x="16" y="28" width="568" height="564"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="KLz-6z-R7H" firstAttribute="trailing" secondItem="Tsg-Ag-2ZS" secondAttribute="trailingMargin" id="BFX-5U-ZTl"/>
+                            <constraint firstItem="KLz-6z-R7H" firstAttribute="top" secondItem="Jfa-qH-lDP" secondAttribute="bottom" constant="8" symbolic="YES" id="F8B-Zv-beL"/>
+                            <constraint firstItem="Htu-d4-yde" firstAttribute="top" secondItem="KLz-6z-R7H" secondAttribute="bottom" constant="8" symbolic="YES" id="YKK-rs-e1G"/>
+                            <constraint firstItem="KLz-6z-R7H" firstAttribute="leading" secondItem="Tsg-Ag-2ZS" secondAttribute="leadingMargin" id="ur1-yH-ZBj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="KLz-6z-R7H" id="jPf-AH-wPh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMW-RG-VWI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="713" y="-1293"/>
+        </scene>
         <!--Tutorial View Controller-->
         <scene sceneID="BKP-pu-KUp">
             <objects>
@@ -309,43 +352,33 @@
                                     <constraint firstAttribute="width" secondItem="Ghx-k8-QWq" secondAttribute="height" multiplier="97:150" id="I8N-64-lbZ"/>
                                 </constraints>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNg-th-vfT" userLabel="separation view">
-                                <rect key="frame" x="16" y="283" width="568" height="35"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is he bipolar? you bet he is!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Ba-FD-v9W">
-                                <rect key="frame" x="61" y="318" width="479" height="48"/>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrB-CS-mqb">
+                                <rect key="frame" x="100" y="307" width="400" height="269"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="RVS-Hh-sp7"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="npf-z5-e8A"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" secondItem="Ghx-k8-QWq" secondAttribute="height" multiplier="3.5" id="0Ug-iL-VUB"/>
-                            <constraint firstItem="cNg-th-vfT" firstAttribute="top" secondItem="Ghx-k8-QWq" secondAttribute="bottom" id="17a-Z8-I24"/>
-                            <constraint firstItem="0Ba-FD-v9W" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="a7r-As-9mQ" secondAttribute="trailingMargin" id="6pf-tt-8T7"/>
-                            <constraint firstAttribute="centerX" secondItem="0Ba-FD-v9W" secondAttribute="centerX" id="HIz-1N-WfZ"/>
-                            <constraint firstItem="Ghx-k8-QWq" firstAttribute="height" secondItem="cNg-th-vfT" secondAttribute="height" multiplier="5" id="OYn-z1-dor"/>
+                            <constraint firstAttribute="centerX" secondItem="OrB-CS-mqb" secondAttribute="centerX" id="9B5-6S-4h9"/>
+                            <constraint firstItem="uPt-KK-r9L" firstAttribute="top" secondItem="OrB-CS-mqb" secondAttribute="bottom" constant="24" id="QZY-Re-9tD"/>
                             <constraint firstItem="oFp-ZA-51G" firstAttribute="top" secondItem="bh7-Ay-Csd" secondAttribute="bottom" constant="8" symbolic="YES" id="RYU-uW-mr9"/>
                             <constraint firstItem="n17-Hn-Pnm" firstAttribute="top" secondItem="bh7-Ay-Csd" secondAttribute="bottom" constant="8" symbolic="YES" id="SH3-cU-XPu"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="cNg-th-vfT" secondAttribute="leading" id="TBs-ZI-FWu"/>
-                            <constraint firstItem="cNg-th-vfT" firstAttribute="trailing" secondItem="a7r-As-9mQ" secondAttribute="trailingMargin" id="dZm-Fs-LHM"/>
                             <constraint firstItem="oFp-ZA-51G" firstAttribute="trailing" secondItem="a7r-As-9mQ" secondAttribute="trailingMargin" id="eGd-xw-Omi"/>
-                            <constraint firstItem="0Ba-FD-v9W" firstAttribute="width" secondItem="a7r-As-9mQ" secondAttribute="width" multiplier="0.7" priority="750" id="rYF-v2-Pw2"/>
-                            <constraint firstItem="0Ba-FD-v9W" firstAttribute="top" secondItem="cNg-th-vfT" secondAttribute="bottom" id="tMR-pt-DBM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OrB-CS-mqb" secondAttribute="trailing" priority="750" id="lcv-IU-iOv"/>
+                            <constraint firstItem="OrB-CS-mqb" firstAttribute="top" secondItem="Ghx-k8-QWq" secondAttribute="bottom" constant="24" id="nJ4-4B-Pqf"/>
+                            <constraint firstItem="OrB-CS-mqb" firstAttribute="leading" secondItem="a7r-As-9mQ" secondAttribute="leadingMargin" priority="750" id="o0y-73-T8Y"/>
                             <constraint firstAttribute="centerX" secondItem="Ghx-k8-QWq" secondAttribute="centerX" id="u5N-Ca-eW2"/>
-                            <constraint firstAttribute="leadingMargin" relation="lessThanOrEqual" secondItem="0Ba-FD-v9W" secondAttribute="leading" id="w3Y-zP-pdq"/>
                             <constraint firstItem="n17-Hn-Pnm" firstAttribute="leading" secondItem="a7r-As-9mQ" secondAttribute="leadingMargin" id="xEB-CI-e5o"/>
                             <constraint firstItem="Ghx-k8-QWq" firstAttribute="top" secondItem="n17-Hn-Pnm" secondAttribute="bottom" constant="32" id="zxg-i1-Zgr"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mrMarketView" destination="Ghx-k8-QWq" id="EHc-Ru-EHl"/>
-                        <outlet property="tutorialSentenceLabel" destination="0Ba-FD-v9W" id="4CZ-2t-kiu"/>
+                        <outlet property="tutorialView" destination="OrB-CS-mqb" id="BWS-dC-f0X"/>
                         <segue destination="XuM-Ss-hAR" kind="unwind" identifier="Quit Tutorial" unwindAction="unwindToInitialViewController:" id="Ni9-Hk-LeV"/>
                     </connections>
                 </viewController>
