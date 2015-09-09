@@ -1,5 +1,5 @@
 //
-//  GameTutorialScene.swift
+//  HowToPlayScene.swift
 //  Mr Market
 //
 //  Created by Carlos Rogelio Villanueva Ousset on 9/7/15.
@@ -8,9 +8,9 @@
 
 import SpriteKit
 
-class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
+class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
-    weak var tutorialViewController: TutorialViewController?
+    weak var howToPlayViewController: HowToPlayViewController?
     
     // To create content only once
     private var contentCreated = false
@@ -33,12 +33,6 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
     private let moneySoundAction = SKAction.playSoundFileNamed(Filename.MoneySound, waitForCompletion: false)
-    
-    // Texture
-    private let textureAtlas = SKTextureAtlas(named: Filename.SpritesAtlas)
-    
-    // Market
-    private var mrMarket: MrMarket?
     
     // Blocks
     private var company: Company = Company(uniqueName: TutorialBlock.CompanyName, beta: TutorialBlock.CompanyBeta)
@@ -102,7 +96,7 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
     private func buttonsSetup()
     {
         // exit button
-        let exitButtonNode = SKSpriteNode(imageNamed: Filename.Home)
+        let exitButtonNode = SKSpriteNode(imageNamed: Filename.PreviousButton)
         exitButtonNode.size = CGSize(width: Geometry.TutorialExitButtonSideSize, height: Geometry.TutorialExitButtonSideSize)
         exitButtonNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
         exitButtonNode.position = CGPoint(x: Geometry.TutorialExitButtonLeftOffset , y: size.height - Geometry.TutorialExitButtonUpperOffset)
@@ -110,38 +104,24 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
         exitButtonNode.zPosition = ZPosition.Button
         addChild(exitButtonNode)
         
-        // next button
-        let nextButtonNode = SKSpriteNode(imageNamed: Filename.NextButton)
-        nextButtonNode.size = CGSize(width: Geometry.TutorialNextButtonSideSize, height: Geometry.TutorialNextButtonSideSize)
-        nextButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
-        nextButtonNode.position = CGPoint(x: size.width - Geometry.TutorialNextButtonRightOffset, y: size.height - Geometry.TutorialNextButtonUpperOffset)
-        nextButtonNode.name = NodeName.NextButton
-        nextButtonNode.zPosition = ZPosition.Button
-        addChild(nextButtonNode)
+//        // next button
+//        let nextButtonNode = SKSpriteNode(imageNamed: Filename.NextButton)
+//        nextButtonNode.size = CGSize(width: Geometry.TutorialNextButtonSideSize, height: Geometry.TutorialNextButtonSideSize)
+//        nextButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+//        nextButtonNode.position = CGPoint(x: size.width - Geometry.TutorialNextButtonRightOffset, y: size.height - Geometry.TutorialNextButtonUpperOffset)
+//        nextButtonNode.name = NodeName.NextButton
+//        nextButtonNode.zPosition = ZPosition.Button
+//        addChild(nextButtonNode)
         
         // reload Button
         let reloadButtonNode = SKSpriteNode(imageNamed: Filename.ReloadButton)
         reloadButtonNode.size = CGSize(width: Geometry.TutorialReloadButtonSideSize, height: Geometry.TutorialReloadButtonSideSize)
-        reloadButtonNode.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        reloadButtonNode.position = CGPoint(x: Geometry.TutorialReloadButtonLeftOffset, y: Geometry.TutorialReloadButtonLowerOffset)
+        reloadButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        reloadButtonNode.position = CGPoint(x: size.width - Geometry.TutorialReloadButtonRightOffset, y: size.height - Geometry.TutorialReloadButtonUpperOffset)
         reloadButtonNode.name = NodeName.ReloadButton
         reloadButtonNode.zPosition = ZPosition.Button
         addChild(reloadButtonNode)
     }
-    
-    private func mrMarketSetup()
-    {
-        // add mr market
-        let mrMarketWidth: CGFloat = size.width * Geometry.MrMarketRelativeWidth
-        let mrMarketHeight: CGFloat = mrMarketWidth / Geometry.MrMarketAspectRatio
-        mrMarket = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: MrMarket.Info.MinLevel)
-        mrMarket?.anchorPoint = CGPoint(x: 0.0, y: 1.0)
-        mrMarket!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketTopOffset)
-        mrMarket!.name = NodeName.MrMarket
-        mrMarket!.level = MrMarket.Info.MinLevel // TODO: set level at init (check MrMarket code)
-        addChild(mrMarket!)
-    }
-    
     
     // MARK: TUTORIAL
     
@@ -250,8 +230,19 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
             self.removeTouchScreen(animated: true)
         }
         let fadeOutTutorialAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
+        let endTutorialAction = SKAction.runBlock {
+            self.endTutorial()
+        }
         
-        tutorialLabelNode!.runAction(SKAction.sequence([waitAction, fadeInLabelAction, addTouchScreenAction, waitAction, highlightTouchScreenAction, waitAfterHighlightAction, sellAction, waitAction, removeTouchScreenAction, fadeOutTutorialAction]))
+        tutorialLabelNode!.runAction(SKAction.sequence([waitAction, fadeInLabelAction, addTouchScreenAction, waitAction, highlightTouchScreenAction, waitAfterHighlightAction, sellAction, waitAction, removeTouchScreenAction, fadeOutTutorialAction, endTutorialAction]))
+    }
+    
+    private func endTutorial() {
+        
+        if howToPlayViewController != nil {
+            howToPlayViewController!.performSegueWithIdentifier(SegueId.QuitHowToPlay, sender: howToPlayViewController!)
+        }
+        
     }
     
     private func createBlockWithPrice(priceValue: Double, withName name: String) {
@@ -431,36 +422,18 @@ class GameTutorialScene: SKScene, SKPhysicsContactDelegate {
                 
             case NodeName.ReloadButton:
                 // Create and configure new scene
-                let newGameTutorialScene = GameTutorialScene(size: size)
-                newGameTutorialScene.scaleMode = .AspectFill
-                newGameTutorialScene.tutorialViewController = tutorialViewController
-                newGameTutorialScene.adBottomOffset = adBottomOffset
+                let newHowToPlayScene = HowToPlayScene(size: size)
+                newHowToPlayScene.scaleMode = .AspectFill
+                newHowToPlayScene.howToPlayViewController = howToPlayViewController
+                newHowToPlayScene.adBottomOffset = adBottomOffset
                 // Transition
                 let newGameTransition = SKTransition.crossFadeWithDuration(0.5)
-                view?.presentScene(newGameTutorialScene, transition: newGameTransition)
+                view?.presentScene(newHowToPlayScene, transition: newGameTransition)
                 
             case NodeName.QuitButton:
-                if tutorialViewController != nil {
-                    tutorialViewController!.performSegueWithIdentifier(SegueId.QuitTutorial, sender: tutorialViewController!)
+                if howToPlayViewController != nil {
+                    howToPlayViewController!.performSegueWithIdentifier(SegueId.QuitHowToPlay, sender: howToPlayViewController!)
                 }
-                
-//            case TutorialBlock.NameA:
-//                if let blockNode = touchedNode as? Block {
-//                    if !blockNode.isDescending && readyForSale {
-//                        deleteBlock(blockNode)
-//                        runAction(moneySoundAction)
-//                    }
-//                }
-//                
-//                
-//            case TutorialBlock.NameB:
-//                if let blockNode = touchedNode as? Block {
-//                    if blockNode.isDescending && readyForExplosion {
-//                        runAction(popSoundAction)
-//                        explosion(blockNode.position)
-//                        deleteBlock(blockNode)
-//                    }
-//                }
                 
             default:
                 break

@@ -33,7 +33,6 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
 
         // Configure de main view
         if let skView = view as? SKView {
-            skView.showsFPS = true // TODO: remove showFPS
             
             // Create and configure scene
             var scene = MarketGameScene(size: skView.bounds.size)
@@ -113,14 +112,15 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         banner.hidden = false
     }
     
-    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
-        /* whatever you need */
-        banner.hidden = true
-    }
+//    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+//        /* whatever you need */
+//        banner.hidden = true
+//    }
     
     func bannerViewWillLoadAd(banner: ADBannerView!) {
         /* whatever you need */
     }
+    
     
     
     

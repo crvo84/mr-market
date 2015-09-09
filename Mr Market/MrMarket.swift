@@ -35,6 +35,7 @@ class MrMarket: SKSpriteNode
         texture = textureForLevel(level)
         
         zPosition = ZPosition.MrMarket
+        self.level = level
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -30,13 +30,15 @@ struct Filename {
     static let GrassTile = "grassTile"
     static let ScoreShare = "scoreShare"
     static let NextButton = "next"
+    static let PreviousButton = "previous"
     static let ReloadButton = "reload"
     static let TouchScreen = "touchScreen"
+    static let Controller = "controller"
 }
 
 struct Geometry {
     // mr market
-    static let MrMarketRelativeWidth: CGFloat = 1.0 / 6.0 // Relative to scene width
+    static let MrMarketRelativeWidth: CGFloat = 1.0 / 5.0 // Relative to scene width
     static let MrMarketAspectRatio: CGFloat = 290.0 / 450.0
     static let MrMarketLeftOffset: CGFloat = 15.0
     static let MrMarketTopOffset: CGFloat = 15.0
@@ -58,7 +60,7 @@ struct Geometry {
     // pause button
     static let PauseButtonRightOffset: CGFloat = 10.0
     static let PauseButtonUpperOffset: CGFloat = 10.0
-    static let PauseButtonSideSize: CGFloat = 36
+    static let PauseButtonSideSize: CGFloat = 40
     // pause node
     static let PauseNodeRelativeHeight: CGFloat = 1.0 // Relative to scene height
     static let PauseNodeRelativeWidth: CGFloat = 1.0 // Relative to scene width
@@ -101,20 +103,22 @@ struct Geometry {
     // Tutorial
     static let TutorialExitButtonUpperOffset: CGFloat = 8
     static let TutorialExitButtonLeftOffset: CGFloat = 8
-    static let TutorialExitButtonSideSize: CGFloat = 36
-    static let TutorialNextButtonUpperOffset: CGFloat = 8
-    static let TutorialNextButtonRightOffset: CGFloat = 8
-    static let TutorialNextButtonSideSize: CGFloat = 36
-    static let TutorialReloadButtonLowerOffset: CGFloat = 8
-    static let TutorialReloadButtonLeftOffset: CGFloat = 8
-    static let TutorialReloadButtonSideSize: CGFloat = 36
-//    static let TutorialMainTitleUpperOffset: CGFloat = 8 // relative to Exit Button bottom
+    static let TutorialExitButtonSideSize: CGFloat = 52
+//    static let TutorialNextButtonUpperOffset: CGFloat = 8
+//    static let TutorialNextButtonRightOffset: CGFloat = 8
+//    static let TutorialNextButtonSideSize: CGFloat = 48
+    static let TutorialReloadButtonUpperOffset: CGFloat = 8
+    static let TutorialReloadButtonRightOffset: CGFloat = 8
+    static let TutorialReloadButtonSideSize: CGFloat = 52
     static let TutorialLabelUpperOffset: CGFloat = 64
     static let TutorialTouchScreenVerticalOffsetFromCenter: CGFloat = -20
+    static let TutorialMrMarketSizeMultiplierFactor: CGFloat = 2.0 // relative to normal game size
+    static let TutorialMrMarketVerticalOffsetFromCenter: CGFloat = 16
 }
 
 struct Color {
-    static let MainBackground = SKColor(red: 0.0/255.0, green: 102.0/255.0, blue: 134.0/255.0, alpha: 1.0)
+//    static let MainBackground = SKColor(red: 0.0/255.0, green: 102.0/255.0, blue: 134.0/255.0, alpha: 1.0)
+    static let MainBackground = SKColor(red: 0.0, green: 116/255, blue: 140/255, alpha: 1.0)
     
     // block
     static let BlockDefault = SKColor.whiteColor()
@@ -163,6 +167,8 @@ struct Color {
     static let TutorialMainTitle = SKColor.whiteColor()
     static let TutorialLabel = SKColor(red: 247/255, green: 169/255, blue: 59/255, alpha: 1.0)
     static let TutorialTouchScreenColorization = SKColor.whiteColor()
+    static let TutorialTextView = SKColor.whiteColor()
+    static let TutorialTextViewBackground = Color.MainBackground
 }
 
 struct FontSize {
@@ -198,6 +204,8 @@ struct FontSize {
     static let TutorialMainTitleIpad: CGFloat = 64
     static let TutorialLabelIphone: CGFloat = 34
     static let TutorialLabelIpad: CGFloat = 68
+    static let TutorialTextViewIphone: CGFloat = 20
+    static let TutorialTextViewIpad: CGFloat = 40
     
 }
 
@@ -212,6 +220,7 @@ struct FontName {
     static let GetCashLabel = "Arial"
     static let TutorialMainTitle = "Arial"
     static let TutorialLabel = "Arial"
+    static let TutorialTextView = "Arial"
 }
 
 struct Texture {
@@ -244,10 +253,13 @@ struct Time {
     static let GetCashLabelTimesShowed: Int = Int(Time.GetCashTotalCount / ((Time.GetCashLabelOnScreen + Time.GetCashLabelFadeInOut) * 2)) // label animation cannot last more than counter
     
     // tutorial
-    static let TutorialLabelFadeInOut: Double = 0.8
+    static let TutorialLabelFadeInOut: Double = 1.0
     static let TutorialWaitBetweenActions: Double = 1.5
     static let TutorialTouchScreenFadeInOut: Double = 0.8
     static let TutorialTouchScreenHighlight: Double = 0.5
+    static let TutorialMrMarketMoodFaceChange: Double = 1.2
+    static let TutorialSentenceBetweenLabels: Double = 5.0
+    static let TutorialSentenceFadeInOut: Double = 0.6
 }
 
 struct Physics {
@@ -374,10 +386,23 @@ struct Text {
     static let PurchasesRestored = "Purchases restored successfully."
     static let MrMarket = "Mr. Market"
     static let CanYouBeatMe = "Can you beat me?"
-    // tutorial
-    static let TrueValue = "True value"
     static let HowToPlay = "How to play"
-    static let WhoIsMrMarket = "Who is Mr. Market?"
+    // tutorial
+    static let TutorialSentence0 = "This is Mr. Market"
+    static let TutorialSentence1 = "Is he bipolar? You bet he is."
+    static let TutorialSentence2 = "He tells millions of people how to feel."
+    static let TutorialSentence3 = "Think for yourself!"
+    static let TutorialSentence4 = "He provide you with prices..."
+    static let TutorialSentence5 = "...you decide whether to accept them."
+    static let TutorialSentence6 = "Don't ignore him. Do business with him!"
+//    static let TutorialSentence0 = "T.h.i.s. i.s. M.r.. M.a.r.k.e.t.."
+//    static let TutorialSentence1 = "I.s. h.e. b.i.p.o.l.a.r.?. Y.o.u. b.e.t. h.e. i.s.."
+//    static let TutorialSentence2 = "H.e. t.e.l.l.s. m.i.l.l.i.o.n.s. o.f. p.e.o.p.l.e. h.o.w. t.o. f.e.e.l.."
+//    static let TutorialSentence3 = "T.h.i.n.k. f.o.r. y.o.u.r.s.e.l.f.!."
+//    static let TutorialSentence4 = "H.e. p.r.o.v.i.d.e. y.o.u. w.i.t.h. p.r.i.c.e.s...."
+//    static let TutorialSentence5 = "...y.o.u. d.e.c.i.d.e. w.h.e.t.h.e.r. t.o. a.c.c.e.p.t. t.h.e.m.."
+//    static let TutorialSentence6 = "D.o.n.'.t. i.g.n.o.r.e. h.i.m.. D.o. b.u.s.i.n.e.s.s. w.i.t.h. h.i.m.!."
+
 }
 
 struct URLString {
@@ -396,6 +421,10 @@ struct SegueId {
     static let QuitGame = "Quit Game"
     static let RemoveAds = "Remove Ads"
     static let QuitTutorial = "Quit Tutorial"
+    static let HowToPlay = "How To Play"
+    static let QuitHowToPlay = "Quit How To Play"
+    static let WhoIsMrMarket = "Who Is Mr Market"
+    static let QuitWhoIsMrMarket = "Quit Who Is Mr Market"
 }
 
 struct GameCenter {
