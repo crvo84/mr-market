@@ -16,7 +16,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     
     private var pageViewController: UIPageViewController?
 
-    private var tutorialSentences: [String] = [Text.TutorialSentence0, Text.TutorialSentence1, Text.TutorialSentence2, Text.TutorialSentence3, Text.TutorialSentence4, Text.TutorialSentence5]
+    private var tutorialSentences: [String] = [Text.TutorialSentence0 + " " + Text.MrMarket, Text.TutorialSentence1, Text.TutorialSentence2, Text.TutorialSentence3, Text.TutorialSentence4, Text.TutorialSentence5]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -363,45 +363,35 @@ struct UserDefaults {
 }
 
 struct Text {
-    static let Level = "Level"
-    static let Paused = "Paused"
-    static let Continue = "Continue"
-    static let Restart = "Restart"
-    static let Quit = "Quit"
-    static let Score = "Score"
-    static let Best = "Best"
-    static let TryAgain = "Try again"
-    static let WellDone = "Well done"
-    static let RemoveAds = "Remove Ads"
-    static let Purchase = "Purchase"
-    static let Buy = "Buy"
-    static let Sell = "Sell"
-    static let RejectOffer = "Reject offer"
-    static let Restore = "Restore"
-    static let Cancel = "Cancel"
-    static let Ok = "Ok"
-    static let Error = "Error"
-    static let GetCash = "Low cash!"
-    static let NoPreviousPurchases = "No previous purchases could be restored."
-    static let PurchasesRestored = "Purchases restored successfully."
     static let MrMarket = "Mr. Market"
-    static let CanYouBeatMe = "Can you beat me?"
-    static let HowToPlay = "How to play"
+    static let Level = NSLocalizedString("Level", comment: "Noun. e.g. 'Level 2'")
+    static let Paused = NSLocalizedString("Paused", comment: "Used for a label showed when the game is paused")
+    static let Continue = NSLocalizedString("Continue", comment: "For a button. To continue playing a game")
+    static let Restart = NSLocalizedString("Restart", comment: "For a button. To restart the game")
+    static let Quit = NSLocalizedString("Quit", comment: "For a button. To quit a game")
+    static let Score = NSLocalizedString("Score", comment: "Noun. For a label to show the score. e.g. 'Score: 123'")
+    static let Best = NSLocalizedString("Best", comment: "For a label to show the best score. 'Best 456'")
+    static let TryAgain = NSLocalizedString("Try again", comment: "For a button, to play again and try to get a better score")
+    static let RemoveAds = NSLocalizedString("Remove Ads", comment: "For a button, to pay for removing advertising.")
+    static let Purchase = NSLocalizedString("Purchase", comment: "Verb. For a button, to purchase a product")
+    static let Buy = NSLocalizedString("Buy", comment: "e.g. 'Buy a stock'")
+    static let Sell = NSLocalizedString("Sell", comment: "e.g. 'Sell a stock'")
+    static let RejectOffer = NSLocalizedString("Reject offer", comment: "To reject an offer to buy a stock.")
+    static let Restore = NSLocalizedString("Restore", comment: "Verb. For a button to restore previous purchases.")
+    static let Cancel = NSLocalizedString("Cancel", comment: "Verb. For a button to cancel an operation")
+    static let Ok = NSLocalizedString("Ok", comment: "For a button to close an alert view.")
+    static let GetCash = NSLocalizedString("Low cash!", comment: "For an alert label, no let the user know that she needs to get more cash.")
+    static let NoPreviousPurchases = NSLocalizedString("No previous purchases could be restored.", comment: "For an alert view.")
+    static let PurchasesRestored = NSLocalizedString("Purchases restored successfully.", comment: "For an alert view")
+    static let CanYouBeatMe = NSLocalizedString("Can you beat me?", comment: "To send a friend when you want to challenge him to beat your score.")
+    static let HowToPlay = NSLocalizedString("How to play", comment: "The title for a game tutorial. Not a question.")
     // tutorial
-    static let TutorialSentence0 = "This is Mr. Market"
-    static let TutorialSentence1 = "Is he bipolar? You bet he is."
-    static let TutorialSentence2 = "But despite of his obvious mood disorder, millions of people follow his lead."
-    static let TutorialSentence3 = "Think for yourself! But don't ignore him, instead, do business with him."
-    static let TutorialSentence4 = "He provides you with prices. You decide whether or not to accept them."
-    static let TutorialSentence5 = "'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett"
-//    static let TutorialSentence0 = "T.h.i.s. i.s. M.r.. M.a.r.k.e.t.."
-//    static let TutorialSentence1 = "I.s. h.e. b.i.p.o.l.a.r.?. Y.o.u. b.e.t. h.e. i.s.."
-//    static let TutorialSentence2 = "H.e. t.e.l.l.s. m.i.l.l.i.o.n.s. o.f. p.e.o.p.l.e. h.o.w. t.o. f.e.e.l.."
-//    static let TutorialSentence3 = "T.h.i.n.k. f.o.r. y.o.u.r.s.e.l.f.!."
-//    static let TutorialSentence4 = "H.e. p.r.o.v.i.d.e. y.o.u. w.i.t.h. p.r.i.c.e.s...."
-//    static let TutorialSentence5 = "...y.o.u. d.e.c.i.d.e. w.h.e.t.h.e.r. t.o. a.c.c.e.p.t. t.h.e.m.."
-//    static let TutorialSentence6 = "D.o.n.'.t. i.g.n.o.r.e. h.i.m.. D.o. b.u.s.i.n.e.s.s. w.i.t.h. h.i.m.!."
-
+    static let TutorialSentence0 = NSLocalizedString("This is", comment: "To introduce someone. e.g. 'This is John'")
+    static let TutorialSentence1 = NSLocalizedString("Is he bipolar? You bet he is.", comment: "First asks if he is bipolar. Then answers the question that you can be sure he is.")
+    static let TutorialSentence2 = NSLocalizedString("But despite of his obvious mood disorder, millions of people follow his lead.", comment: "Its a continuation of the sentence: 'Is he bipolar? you bet he is'...")
+    static let TutorialSentence3 = NSLocalizedString("Think for yourself! But don't ignore him, instead, do business with him.", comment: "The first sentence if possible, should have an exclamation mark 'Think for yourself!")
+    static let TutorialSentence4 = NSLocalizedString("He provides you with prices. You decide whether or not to accept them.", comment: "Stock prices.")
+    static let TutorialSentence5 = NSLocalizedString("'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett", comment: "Quote. The name of the author is 'Warren Buffett'")
 }
 
 struct URLString {
