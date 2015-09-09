@@ -34,6 +34,17 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         tutorialPageViewControllerSetup()
 
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        referenceLabel.hidden = true
+    }
+
+    @IBOutlet weak var referenceLabel: UILabel!
+    @IBAction func infoButtonPressed(sender: UIButton) {
+        referenceLabel.hidden = !referenceLabel.hidden
+    }
 
     private func tutorialPageViewControllerSetup() {
         // Create page view controller
@@ -106,6 +117,15 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     
     
     // MARK: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == SegueId.BookReference {
+            if let popoverPresentationController = segue.destinationViewController.popoverPresentationController {
+                
+            }
+        }
+    }
+    
     @IBAction func unwindToTutorialViewController(segue: UIStoryboardSegue)
     {
         

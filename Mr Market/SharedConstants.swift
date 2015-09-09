@@ -424,6 +424,7 @@ struct SegueId {
     static let QuitHowToPlay = "Quit How To Play"
     static let WhoIsMrMarket = "Who Is Mr Market"
     static let QuitWhoIsMrMarket = "Quit Who Is Mr Market"
+    static let BookReference = "Book Reference"
 }
 
 struct StoryboardId {

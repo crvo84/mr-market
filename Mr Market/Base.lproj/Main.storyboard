@@ -353,24 +353,49 @@
                                 </constraints>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrB-CS-mqb">
-                                <rect key="frame" x="100" y="307" width="400" height="269"/>
+                                <rect key="frame" x="100" y="307" width="400" height="245"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="npf-z5-e8A"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAy-Hj-zVi">
+                                <rect key="frame" x="570" y="570" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="eHZ-Oz-iNT"/>
+                                    <constraint firstAttribute="height" constant="22" id="ybU-J2-FTE"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="XD5-Ch-RTD" eventType="touchUpInside" id="7y0-c0-X8n"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Based on &quot;The Intelligent Investor&quot; by B. Graham" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="qQu-3d-ZWM">
+                                <rect key="frame" x="16" y="571" width="546" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" secondItem="Ghx-k8-QWq" secondAttribute="height" multiplier="3.5" id="0Ug-iL-VUB"/>
                             <constraint firstAttribute="centerX" secondItem="OrB-CS-mqb" secondAttribute="centerX" id="9B5-6S-4h9"/>
-                            <constraint firstItem="uPt-KK-r9L" firstAttribute="top" secondItem="OrB-CS-mqb" secondAttribute="bottom" constant="24" id="QZY-Re-9tD"/>
+                            <constraint firstItem="qQu-3d-ZWM" firstAttribute="leading" secondItem="a7r-As-9mQ" secondAttribute="leadingMargin" id="Add-Jg-29f"/>
+                            <constraint firstItem="uPt-KK-r9L" firstAttribute="top" secondItem="OrB-CS-mqb" secondAttribute="bottom" constant="48" id="NM6-0T-a87"/>
+                            <constraint firstItem="uPt-KK-r9L" firstAttribute="top" secondItem="qQu-3d-ZWM" secondAttribute="bottom" constant="8" symbolic="YES" id="QVH-gq-S93"/>
                             <constraint firstItem="oFp-ZA-51G" firstAttribute="top" secondItem="bh7-Ay-Csd" secondAttribute="bottom" constant="8" symbolic="YES" id="RYU-uW-mr9"/>
                             <constraint firstItem="n17-Hn-Pnm" firstAttribute="top" secondItem="bh7-Ay-Csd" secondAttribute="bottom" constant="8" symbolic="YES" id="SH3-cU-XPu"/>
+                            <constraint firstItem="uAy-Hj-zVi" firstAttribute="leading" secondItem="qQu-3d-ZWM" secondAttribute="trailing" constant="8" symbolic="YES" id="SoX-4K-vtg"/>
+                            <constraint firstItem="uPt-KK-r9L" firstAttribute="top" secondItem="uAy-Hj-zVi" secondAttribute="bottom" constant="8" symbolic="YES" id="abs-FO-Wy4"/>
                             <constraint firstItem="oFp-ZA-51G" firstAttribute="trailing" secondItem="a7r-As-9mQ" secondAttribute="trailingMargin" id="eGd-xw-Omi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OrB-CS-mqb" secondAttribute="trailing" priority="750" id="lcv-IU-iOv"/>
                             <constraint firstItem="OrB-CS-mqb" firstAttribute="top" secondItem="Ghx-k8-QWq" secondAttribute="bottom" constant="24" id="nJ4-4B-Pqf"/>
                             <constraint firstItem="OrB-CS-mqb" firstAttribute="leading" secondItem="a7r-As-9mQ" secondAttribute="leadingMargin" priority="750" id="o0y-73-T8Y"/>
+                            <constraint firstItem="uAy-Hj-zVi" firstAttribute="trailing" secondItem="a7r-As-9mQ" secondAttribute="trailingMargin" constant="8" id="tfr-xj-SO7"/>
                             <constraint firstAttribute="centerX" secondItem="Ghx-k8-QWq" secondAttribute="centerX" id="u5N-Ca-eW2"/>
                             <constraint firstItem="n17-Hn-Pnm" firstAttribute="leading" secondItem="a7r-As-9mQ" secondAttribute="leadingMargin" id="xEB-CI-e5o"/>
                             <constraint firstItem="Ghx-k8-QWq" firstAttribute="top" secondItem="n17-Hn-Pnm" secondAttribute="bottom" constant="32" id="zxg-i1-Zgr"/>
@@ -378,6 +403,7 @@
                     </view>
                     <connections>
                         <outlet property="mrMarketView" destination="Ghx-k8-QWq" id="EHc-Ru-EHl"/>
+                        <outlet property="referenceLabel" destination="qQu-3d-ZWM" id="y5P-i1-f1D"/>
                         <outlet property="tutorialView" destination="OrB-CS-mqb" id="BWS-dC-f0X"/>
                         <segue destination="XuM-Ss-hAR" kind="unwind" identifier="Quit Tutorial" unwindAction="unwindToInitialViewController:" id="Ni9-Hk-LeV"/>
                     </connections>
