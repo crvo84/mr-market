@@ -47,7 +47,7 @@ struct Geometry {
     static let BlockItemRelativeHeight: CGFloat = 0.8 // Relative to block height
     static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlocksPerLine: CGFloat = 3.0
-    static let BlocksPerColumn: CGFloat = 10.5
+    static let BlocksPerColumn: CGFloat = 9.5
     static let BlockRelativeHeight: CGFloat = 0.45 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
     static let BlockTextLeftOffset: CGFloat = 4.0 // From item node
@@ -104,9 +104,6 @@ struct Geometry {
     static let TutorialExitButtonUpperOffset: CGFloat = 8
     static let TutorialExitButtonLeftOffset: CGFloat = 8
     static let TutorialExitButtonSideSize: CGFloat = 52
-//    static let TutorialNextButtonUpperOffset: CGFloat = 8
-//    static let TutorialNextButtonRightOffset: CGFloat = 8
-//    static let TutorialNextButtonSideSize: CGFloat = 48
     static let TutorialReloadButtonUpperOffset: CGFloat = 8
     static let TutorialReloadButtonRightOffset: CGFloat = 8
     static let TutorialReloadButtonSideSize: CGFloat = 52
@@ -370,28 +367,31 @@ struct Text {
     static let Restart = NSLocalizedString("Restart", comment: "For a button. To restart the game")
     static let Quit = NSLocalizedString("Quit", comment: "For a button. To quit a game")
     static let Score = NSLocalizedString("Score", comment: "Noun. For a label to show the score. e.g. 'Score: 123'")
-    static let Best = NSLocalizedString("Best", comment: "For a label to show the best score. 'Best 456'")
+    static let Best = NSLocalizedString("Best", comment: "For a label to show the best score. 'Best: 456'")
     static let TryAgain = NSLocalizedString("Try again", comment: "For a button, to play again and try to get a better score")
-    static let RemoveAds = NSLocalizedString("Remove Ads", comment: "For a button, to pay for removing advertising.")
+    static let RemoveAds = NSLocalizedString("Remove Ads", comment: "For a button, to pay to remove advertising.")
     static let Purchase = NSLocalizedString("Purchase", comment: "Verb. For a button, to purchase a product")
-    static let Buy = NSLocalizedString("Buy", comment: "e.g. 'Buy a stock'")
-    static let Sell = NSLocalizedString("Sell", comment: "e.g. 'Sell a stock'")
-    static let RejectOffer = NSLocalizedString("Reject offer", comment: "To reject an offer to buy a stock.")
+    static let Buy = NSLocalizedString("Buy", comment: "e.g. 'Buy stock'")
+    static let Sell = NSLocalizedString("Sell", comment: "e.g. 'Sell stock'")
+    static let RejectOffer = NSLocalizedString("Reject offer", comment: "To reject an offer to buy stock.")
     static let Restore = NSLocalizedString("Restore", comment: "Verb. For a button to restore previous purchases.")
     static let Cancel = NSLocalizedString("Cancel", comment: "Verb. For a button to cancel an operation")
     static let Ok = NSLocalizedString("Ok", comment: "For a button to close an alert view.")
-    static let GetCash = NSLocalizedString("Low cash!", comment: "For an alert label, no let the user know that she needs to get more cash.")
-    static let NoPreviousPurchases = NSLocalizedString("No previous purchases could be restored.", comment: "For an alert view.")
-    static let PurchasesRestored = NSLocalizedString("Purchases restored successfully.", comment: "For an alert view")
-    static let CanYouBeatMe = NSLocalizedString("Can you beat me?", comment: "To send a friend when you want to challenge him to beat your score.")
-    static let HowToPlay = NSLocalizedString("How to play", comment: "The title for a game tutorial. Not a question.")
+    static let GetCash = NSLocalizedString("Low cash!", comment: "For an alert label, to let the user know that she/he needs to get more cash.")
+    static let NoPreviousPurchases = NSLocalizedString("No previous purchases could be restored.", comment: "For an alert view message.")
+    static let PurchasesRestored = NSLocalizedString("Purchases restored successfully.", comment: "For an alert view message.")
+    static let CanYouBeatMe = NSLocalizedString("Can you beat me?", comment: "To send to a friend when you want to challenge him to beat your score.")
+    static let HowToPlay = NSLocalizedString("How to play", comment: "The title for a game tutorial. NOT a question.")
     // tutorial
     static let TutorialSentence0 = NSLocalizedString("This is", comment: "To introduce someone. e.g. 'This is John'")
     static let TutorialSentence1 = NSLocalizedString("Is he bipolar? You bet he is.", comment: "First asks if he is bipolar. Then answers the question that you can be sure he is.")
     static let TutorialSentence2 = NSLocalizedString("But despite of his obvious mood disorder, millions of people follow his lead.", comment: "Its a continuation of the sentence: 'Is he bipolar? you bet he is'...")
-    static let TutorialSentence3 = NSLocalizedString("Think for yourself! But don't ignore him, instead, do business with him.", comment: "The first sentence if possible, should have an exclamation mark 'Think for yourself!")
-    static let TutorialSentence4 = NSLocalizedString("He provides you with prices. You decide whether or not to accept them.", comment: "Stock prices.")
+    static let TutorialSentence3 = NSLocalizedString("Think for yourself! But don't ignore him, instead, do business with him.", comment: "The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself!")
+    static let TutorialSentence4 = NSLocalizedString("He provides you with prices. You decide whether or not to accept them.", comment: "Referring to stock prices.")
     static let TutorialSentence5 = NSLocalizedString("'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett", comment: "Quote. The name of the author is 'Warren Buffett'")
+    static let Assumptions = NSLocalizedString("Assumptions", comment: "Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)...")
+    static let Assumption0 = NSLocalizedString("All prices in the game belong to companies with good performance.", comment: "It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit.")
+    static let Assumption1 = NSLocalizedString("Amount of each purchase", comment: "e.g. 'Amount of each purchase: $100'")
 }
 
 struct URLString {
