@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dbB-kk-FeK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -198,8 +197,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTI-4q-ac9" userLabel="Twitter Button">
                                 <rect key="frame" x="308" y="333" width="52" height="52"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="BXY-wf-6Gx"/>
-                                    <constraint firstAttribute="width" constant="52" id="i6s-jK-ftT"/>
+                                    <constraint firstAttribute="width" constant="52" id="nzd-7Z-G9q"/>
+                                    <constraint firstAttribute="height" constant="52" id="vzg-Cp-HBU"/>
                                 </constraints>
                                 <state key="normal" image="twitter">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,8 +210,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpK-9x-ZDc" userLabel="Facebook Button">
                                 <rect key="frame" x="240" y="333" width="52" height="52"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="52" id="giJ-GA-jsh"/>
-                                    <constraint firstAttribute="height" constant="52" id="l4S-ML-pVB"/>
+                                    <constraint firstAttribute="height" constant="52" id="oG1-Xj-zz9"/>
+                                    <constraint firstAttribute="width" constant="52" id="xm1-VA-rTQ"/>
                                 </constraints>
                                 <state key="normal" image="facebook">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,16 +223,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.45490196078431372" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hpK-9x-ZDc" firstAttribute="trailing" secondItem="GPQ-bk-IoQ" secondAttribute="centerXWithinMargins" constant="-8" id="GpF-P4-3Sc"/>
-                            <constraint firstItem="hpK-9x-ZDc" firstAttribute="top" secondItem="ryi-6m-8Gk" secondAttribute="bottom" constant="8" symbolic="YES" id="OyW-Qv-zFS"/>
+                            <constraint firstItem="GTI-4q-ac9" firstAttribute="centerX" secondItem="GPQ-bk-IoQ" secondAttribute="centerX" constant="34" id="7dO-WR-pPt"/>
+                            <constraint firstAttribute="centerX" secondItem="hpK-9x-ZDc" secondAttribute="centerX" constant="34" id="8dV-wg-ND2"/>
+                            <constraint firstItem="hpK-9x-ZDc" firstAttribute="top" secondItem="ryi-6m-8Gk" secondAttribute="bottom" constant="8" symbolic="YES" id="Q5z-hZ-XUX"/>
                             <constraint firstItem="ryi-6m-8Gk" firstAttribute="top" secondItem="T9h-Qb-9Jn" secondAttribute="bottom" constant="8" symbolic="YES" id="WB8-Ij-81i"/>
-                            <constraint firstItem="GTI-4q-ac9" firstAttribute="leading" secondItem="GPQ-bk-IoQ" secondAttribute="centerXWithinMargins" constant="8" id="XV4-pm-9rE"/>
                             <constraint firstItem="s7V-Ai-cLP" firstAttribute="top" secondItem="A16-aW-pkN" secondAttribute="bottom" constant="8" symbolic="YES" id="bPd-1W-EVz"/>
                             <constraint firstAttribute="centerX" secondItem="ryi-6m-8Gk" secondAttribute="centerX" id="j3y-km-9PG"/>
                             <constraint firstItem="T9h-Qb-9Jn" firstAttribute="centerX" secondItem="ryi-6m-8Gk" secondAttribute="centerX" id="mP7-J1-cd8"/>
-                            <constraint firstItem="GTI-4q-ac9" firstAttribute="top" secondItem="ryi-6m-8Gk" secondAttribute="bottom" constant="8" symbolic="YES" id="mlJ-EM-xjU"/>
                             <constraint firstItem="ryi-6m-8Gk" firstAttribute="centerY" secondItem="GPQ-bk-IoQ" secondAttribute="centerY" id="p2O-o7-y2f"/>
                             <constraint firstItem="s7V-Ai-cLP" firstAttribute="leading" secondItem="GPQ-bk-IoQ" secondAttribute="leadingMargin" id="roe-ne-1Oa"/>
+                            <constraint firstItem="GTI-4q-ac9" firstAttribute="top" secondItem="ryi-6m-8Gk" secondAttribute="bottom" constant="8" symbolic="YES" id="tpc-Xd-RW0"/>
                         </constraints>
                     </view>
                 </viewController>

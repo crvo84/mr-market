@@ -383,15 +383,24 @@ struct Text {
     static let CanYouBeatMe = NSLocalizedString("Can you beat me?", comment: "To send to a friend when you want to challenge him to beat your score.")
     static let HowToPlay = NSLocalizedString("How to play", comment: "The title for a game tutorial. NOT a question.")
     // tutorial
-    static let TutorialSentence0 = NSLocalizedString("This is", comment: "To introduce someone. e.g. 'This is John'")
-    static let TutorialSentence1 = NSLocalizedString("Is he bipolar? You bet he is.", comment: "First asks if he is bipolar. Then answers the question that you can be sure he is.")
-    static let TutorialSentence2 = NSLocalizedString("But despite of his obvious mood disorder, millions of people follow his lead.", comment: "Its a continuation of the sentence: 'Is he bipolar? you bet he is'...")
-    static let TutorialSentence3 = NSLocalizedString("Think for yourself! But don't ignore him, instead, do business with him.", comment: "The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself!")
-    static let TutorialSentence4 = NSLocalizedString("He provides you with prices. You decide whether or not to accept them.", comment: "Referring to stock prices.")
-    static let TutorialSentence5 = NSLocalizedString("'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett", comment: "Quote. The name of the author is 'Warren Buffett'")
-    static let Assumptions = NSLocalizedString("Assumptions", comment: "Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)...")
-    static let Assumption0 = NSLocalizedString("All prices in the game belong to companies with good performance.", comment: "It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit.")
-    static let Assumption1 = NSLocalizedString("Amount of each purchase", comment: "e.g. 'Amount of each purchase: $100'")
+    static let TutorialSentence0 = NSLocalizedString("This is Mr. Market.",
+        comment: "To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name.")
+    static let TutorialSentence1 = NSLocalizedString("Is he bipolar? You bet he is.",
+        comment: "First asks if he is bipolar. Then answers the question that you can be sure he is.")
+    static let TutorialSentence2 = NSLocalizedString("But despite of his obvious mood disorder, millions of people follow his lead.",
+        comment: "Its a continuation of the sentence: 'Is he bipolar? you bet he is'...")
+    static let TutorialSentence3 = NSLocalizedString("Think for yourself! But don't ignore him, instead, do business with him.",
+        comment: "The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself!")
+    static let TutorialSentence4 = NSLocalizedString("He provides you with prices. You decide whether or not to accept them.",
+        comment: "Referring to stock prices.")
+    static let TutorialSentence5 = NSLocalizedString("'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett",
+        comment: "Quote. The name of the author is 'Warren Buffett'")
+    static let Assumptions = NSLocalizedString("Assumptions",
+        comment: "Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)...")
+    static let Assumption0 = NSLocalizedString("All prices in the game belong to companies with good performance.",
+        comment: "It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit.")
+    static let Assumption1 = NSLocalizedString("Amount of each purchase",
+        comment: "e.g. 'Amount of each purchase: $100'")
 }
 
 struct URLString {
