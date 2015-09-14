@@ -45,29 +45,55 @@ class Company: NSObject
         
         var number = min(numberOfCompanies, Texture.numberOfBlockImages)
         
-        let betaDiff = (CompanyInfo.MaxBeta - CompanyInfo.MinBeta) / Double(numberOfCompanies - 1)
+        // generate all names
+        var allNames: [String] = []
+        for i in 0..<Texture.numberOfBlockImages {
+            allNames.append(Texture.blockImageNamePrefix + "\(i)")
+        }
         
-        for i in 0..<numberOfCompanies {
+        let betaDiff = number > 1 ? (CompanyInfo.MaxBeta - CompanyInfo.MinBeta) / Double(numberOfCompanies - 1) : 0.0
+        
+        // create random companies
+        for i in 0..<number {
+            let beta = number > 1 ? CompanyInfo.MinBeta + Double(i) * betaDiff : (CompanyInfo.MaxBeta - CompanyInfo.MinBeta) / 2.0
             
-            let beta = numberOfCompanies > 1 ? CompanyInfo.MinBeta + Double(i) * betaDiff : 1.0
-
-            let name = Texture.blockImageNamePrefix + "\(i)"
-            companies.append(Company(uniqueName: name, beta: beta))
+            let randomIndex = Int(arc4random_uniform(UInt32(allNames.count)))
+            companies.append(Company(uniqueName: allNames[randomIndex], beta: beta))
+            allNames.removeAtIndex(randomIndex)
         }
         
         return companies
     }
     
-    class func newCompanyForIndex(index: Int) -> Company?
-    { // TODO: items aleatorios
+
+    class func newCompanyForCurrentCompanies(currentCompanies: [Company]) -> Company?
+    {
         var company: Company? = nil
-        
-        if index < Texture.numberOfBlockImages {
-            let name = Texture.blockImageNamePrefix + "\(index)"
-            let randomLimit = UInt32(CompanyInfo.MaxBeta - CompanyInfo.MinBeta + 1)
-            let beta = Double(arc4random_uniform(randomLimit)) + CompanyInfo.MinBeta
-            company = Company(uniqueName: name, beta: beta)
+
+        // existing names
+        var existingNames: [String] = []
+        for i in 0..<currentCompanies.count {
+            existingNames.append(currentCompanies[i].name)
         }
+        
+        // generate remaining names
+        var remainingNames: [String] = []
+        for i in 0..<Texture.numberOfBlockImages {
+            let newName = Texture.blockImageNamePrefix + "\(i)"
+            if !contains(existingNames, newName) {
+                remainingNames.append(newName)
+            }
+        }
+        
+        if remainingNames.count > 0 {
+            let randomLimit = UInt32(CompanyInfo.MaxBeta - CompanyInfo.MinBeta + 1)
+            let randomBeta = Double(arc4random_uniform(randomLimit)) + CompanyInfo.MinBeta
+            
+            let randomIndex = Int(arc4random_uniform(UInt32(remainingNames.count)))
+            
+            company = Company(uniqueName: remainingNames[randomIndex], beta: randomBeta )
+        }
+        
         return company
     }
 

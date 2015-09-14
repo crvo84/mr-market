@@ -213,7 +213,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
 
                     let price = Price(company: company, value: company.currentPriceValue)
                     
-                    let itemTexture = SKTexture(imageNamed: Texture.blockImageNamePrefix + "\(j)")
+                    let itemTexture = SKTexture(imageNamed: company.name)
                     let newBlock = Block(price: price, itemTexture: itemTexture, size: self.blockSize)
                     //random position
                     let randomBlockPosition = CGFloat(arc4random_uniform(UInt32(Geometry.BlocksPerLine))) // Random number between 0 and n-1
@@ -386,6 +386,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
 
         emitterNode.position = position
+        emitterNode.zPosition = ZPosition.Explosion
         
         let explodeAction = SKAction.runBlock { self.addChild(emitterNode) }
         let waitAction = SKAction.waitForDuration(Time.BlockExplosion)

@@ -60,7 +60,7 @@ struct Geometry {
     // pause button
     static let PauseButtonRightOffset: CGFloat = 6.0
     static let PauseButtonUpperOffset: CGFloat = 8.0
-    static let PauseButtonMinimumSideSize: CGFloat = 30
+    static let PauseButtonMinimumSideSize: CGFloat = 32
     // pause node
     static let PauseNodeRelativeHeight: CGFloat = 1.0 // Relative to scene height
     static let PauseNodeRelativeWidth: CGFloat = 1.0 // Relative to scene width
@@ -272,7 +272,7 @@ struct ZPosition {
     static let Block: CGFloat = 4
     static let Floor: CGFloat = 5
     static let Button: CGFloat = 5
-    static let Exposion: CGFloat = 6
+    static let Explosion: CGFloat = 6
     static let PausedLabel: CGFloat = 6
     static let PauseNode: CGFloat = 7
     static let GameOverNode: CGFloat = 7
@@ -308,11 +308,11 @@ struct GameOption {
     static let UpdateAllPricesSimultaneously: Bool = true
     static let PeriodsInitial: Int = 4 // 4
     static let PeriodsIncrease: Int = 0 // 0
-    static let PeriodsMax: Int = 4 // 6
-    static let NumberOfCompaniesInitial: Int = 2 // 2
+    static let PeriodsMax: Int = 6 // 6
+    static let NumberOfCompaniesInitial: Int = 1 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 0.8 // 0.70
+    static let NumberOfCompaniesMax: Int = 15 // <= 0 for no maximum
+    static let SpeedInitial: CGFloat = 4 // 0.75
     static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
