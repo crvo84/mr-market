@@ -107,8 +107,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             backgroundColor = Color.MainBackground
             registerAppTransitionObservers()
             floorSetup()
-            pauseGameSetup()
-            scoreLabelSetup()
+            scoreLabelAndPauseButtonSetup()
             physicsWorldSetup()
             mrMarketSetup()
             audioSetup()
@@ -145,19 +144,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     // MARK: Setup functions
-    private func pauseGameSetup()
+    private func scoreLabelAndPauseButtonSetup()
     {
-        // pause button
-        pauseButtonNode.size = CGSize(width: Geometry.PauseButtonSideSize, height: Geometry.PauseButtonSideSize)
-        pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
-        pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
-        pauseButtonNode.name = NodeName.PauseButton
-        pauseButtonNode.zPosition = ZPosition.Button
-        addChild(pauseButtonNode)
-    }
-    
-    private func scoreLabelSetup()
-    {
+        // score label
         scoreLabelNode.text = Price.cashString(game.cash)!
         scoreLabelNode.fontColor = Color.ScoreLabelInitial
         scoreLabelNode.fontSize = isIpad ? FontSize.ScoreLabelIpad : FontSize.ScoreLabelIphone
@@ -166,6 +155,16 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         scoreLabelNode.position = CGPoint(x: size.width / 2.0 , y: size.height - Geometry.ScoreLabelUpperOffset)
         scoreLabelNode.zPosition = ZPosition.ScoreLabel
         addChild(scoreLabelNode)
+        
+        // pause button
+        let calculatedPauseButtonSide = scoreLabelNode.frame.size.height + (Geometry.ScoreLabelUpperOffset - Geometry.PauseButtonUpperOffset) * 2
+        let pauseButtonSide = max(Geometry.PauseButtonMinimumSideSize, calculatedPauseButtonSide)
+        pauseButtonNode.size = CGSize(width: pauseButtonSide, height: pauseButtonSide)
+        pauseButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        pauseButtonNode.position = CGPoint(x: size.width - Geometry.PauseButtonRightOffset, y: size.height - Geometry.PauseButtonUpperOffset)
+        pauseButtonNode.name = NodeName.PauseButton
+        pauseButtonNode.zPosition = ZPosition.Button
+        addChild(pauseButtonNode)
     }
     
     private func physicsWorldSetup()
@@ -186,7 +185,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let mrMarketHeight: CGFloat = mrMarketWidth / Geometry.MrMarketAspectRatio
         mrMarket = MrMarket(textureAtlas: textureAtlas, size: CGSizeMake(mrMarketWidth, mrMarketHeight), level: game.market.level)
         mrMarket?.anchorPoint = CGPoint(x: 0.0, y: 1.0)
-        mrMarket!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketTopOffset)
+        mrMarket!.position = CGPoint(x: Geometry.MrMarketLeftOffset, y: size.height - Geometry.MrMarketUpperOffset)
         mrMarket!.name = NodeName.MrMarket
         mrMarket!.level = game.market.level
         addChild(mrMarket!)

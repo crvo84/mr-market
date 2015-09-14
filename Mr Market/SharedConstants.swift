@@ -40,8 +40,8 @@ struct Geometry {
     // mr market
     static let MrMarketRelativeWidth: CGFloat = 1.0 / 5.0 // Relative to scene width
     static let MrMarketAspectRatio: CGFloat = 290.0 / 450.0
-    static let MrMarketLeftOffset: CGFloat = 15.0
-    static let MrMarketTopOffset: CGFloat = 15.0
+    static let MrMarketLeftOffset: CGFloat = 10.0
+    static let MrMarketUpperOffset: CGFloat = 10.0
     
     // block
     static let BlockItemRelativeHeight: CGFloat = 0.8 // Relative to block height
@@ -58,9 +58,9 @@ struct Geometry {
     static let GetCashCounterUpperOffset: CGFloat = 10
     
     // pause button
-    static let PauseButtonRightOffset: CGFloat = 10.0
-    static let PauseButtonUpperOffset: CGFloat = 10.0
-    static let PauseButtonSideSize: CGFloat = 40
+    static let PauseButtonRightOffset: CGFloat = 6.0
+    static let PauseButtonUpperOffset: CGFloat = 8.0
+    static let PauseButtonMinimumSideSize: CGFloat = 30
     // pause node
     static let PauseNodeRelativeHeight: CGFloat = 1.0 // Relative to scene height
     static let PauseNodeRelativeWidth: CGFloat = 1.0 // Relative to scene width
@@ -170,8 +170,8 @@ struct Color {
 
 struct FontSize {
     // block
-    static let BlockTextIphone: CGFloat = 17
-    static let BlockTextIpad: CGFloat = 34
+    static let BlockTextIphone: CGFloat = 19
+    static let BlockTextIpad: CGFloat = 38
     // get cash
     static let GetCashCounterIphone: CGFloat = 30
     static let GetCashCounterIpad: CGFloat = 60
@@ -267,10 +267,10 @@ struct Physics {
 }
 
 struct ZPosition {
+    static let MrMarket: CGFloat = 3
+    static let ScoreLabel: CGFloat = 3
     static let Block: CGFloat = 4
     static let Floor: CGFloat = 5
-    static let MrMarket: CGFloat = 5
-    static let ScoreLabel: CGFloat = 5
     static let Button: CGFloat = 5
     static let Exposion: CGFloat = 6
     static let PausedLabel: CGFloat = 6
