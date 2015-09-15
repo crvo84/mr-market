@@ -15,7 +15,8 @@ struct Filename {
     static let SparkEmitter = "SparkParticle.sks"
     static let PopSound = "pop.wav"
     static let SlamSound = "slam.wav"
-    static let GameOverSound = "gameOver.wav"
+    static let GameOverSound = "failure.wav"
+    static let SuccessSound = "success.wav"
     static let MoneySound = "money.wav"
     static let BackgroundMusicInitial = "hopping-along.mp3"
     static let BackgroundMusic = "ping-pong.mp3"
@@ -58,7 +59,7 @@ struct Geometry {
     static let GetCashCounterUpperOffset: CGFloat = 10
     
     // level label
-    static let LevelLabelBackgroundOffset: CGFloat = 8.0
+    static let LevelLabelBackgroundOffset: CGFloat = 16.0
     static let LevelLabelRelativeCornerRadius: CGFloat = 0.03 // relative to background width
     static let LevelLabelBorderWidth: CGFloat = 0.0
     
@@ -137,9 +138,9 @@ struct Color {
     static let GetCashLabel = Color.GetCashCounter
     
     // level label
-    static let LevelLabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.85)
+    static let LevelLabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.50)
     static let LevelLabelBackgroundBorder = SKColor.grayColor()
-    static let LevelLabel = SKColor.lightGrayColor()
+    static let LevelLabel = SKColor.orangeColor()
     
     // score label
     static let ScoreLabelInitial = SKColor(red: 0.90, green: 0.90, blue: 0.90, alpha: 1.0)
@@ -188,8 +189,8 @@ struct FontSize {
     static let GetCashLabelIphone: CGFloat = 30
     static let GetCashLabelIpad: CGFloat = 60
     // level label
-    static let LevelLabelIphone: CGFloat = 35
-    static let LevelLabelIpad: CGFloat = 70
+    static let LevelLabelIphone: CGFloat = 30
+    static let LevelLabelIpad: CGFloat = 60
     // score
     static let ScoreLabelIphone: CGFloat = 24
     static let ScoreLabelIpad: CGFloat = 48
@@ -264,7 +265,7 @@ struct Time {
     static let GetCashLabelTimesShowed: Int = Int(Time.GetCashTotalCount / ((Time.GetCashLabelOnScreen + Time.GetCashLabelFadeInOut) * 2)) // label animation cannot last more than counter
     
     // level label
-    static let LevelLabelFadeInOut: Double = 0.3
+    static let LevelLabelFadeInOut: Double = 0.6
     static let LevelLabelOnScreen: Double = 1.5
     
     // tutorial
@@ -323,21 +324,28 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let GameLevelsPerUILevel: Int = 1
-    static let UILevels: Int = 10
-    static let UpdateAllPricesSimultaneously: Bool = true // true
+    // game level
+    static let GameLevelsPerUILevelInitial: Int = 1
+    static let GameLevelsPerUILevelIncrease: Int = 1 // increased every UI level
+    static let UILevelBonusInitial: Double = 100
+    static let UILevelBonusIncrease: Double = 100
+    // period variables
     static let PeriodsInitial: Int = 1 // 1
     static let PeriodsIncrease: Int = 0 // 0
     static let PeriodsMax: Int = 1 // 1
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.70 // 0.70
+    static let SpeedInitial: CGFloat = 2.0 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
+    // initial setup
     static let InitialCash: Double = 500.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
+    // profit/loss
+    static let UpdateAllPricesSimultaneously: Bool = true // true
+    static let GameOverRecoverOriginalInvestments: Bool = false
 }
 
 struct MarketOption {

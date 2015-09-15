@@ -39,6 +39,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Pause
     private var isGamePaused = false
     private var isGameOver = false
+    private var successfulGame = false
     private var ranOutOfCash = false
     private let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
     private var pauseNode: PauseNode?
@@ -63,6 +64,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private let popSoundAction = SKAction.playSoundFileNamed(Filename.PopSound, waitForCompletion: false)
     private let slamSoundAction = SKAction.playSoundFileNamed(Filename.SlamSound, waitForCompletion: false)
     private let moneySoundAction = SKAction.playSoundFileNamed(Filename.MoneySound, waitForCompletion: false)
+    private let newLevelSoundAction = SKAction.playSoundFileNamed(Filename.SuccessSound, waitForCompletion: false)
     private let gameOverSoundAction = SKAction.playSoundFileNamed(Filename.GameOverSound, waitForCompletion: false)
     private var isMusicOn: Bool {
         get { return NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn) }
@@ -85,6 +87,12 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
         println("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
         return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
+    }
+    
+    // UI Level
+    private var UILevel: Int = 1
+    private var gameLevelsForNextUILevel: Int = GameOption.GameLevelsPerUILevelInitial {
+        didSet { if gameLevelsForNextUILevel < 0 { gameLevelsForNextUILevel == 0 } }
     }
     
     // Texture
@@ -201,13 +209,15 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         var result: [SKAction] = []
         
-        if (game.gameLevel - 1) % GameOption.GameLevelsPerUILevel == 0 {
-            let showLevelAction = SKAction.runBlock {
+        if gameLevelsForNextUILevel == 0 || game.gameLevel == 1 {
+            let newLevelAction = SKAction.runBlock {
                 self.showLevelLabel()
+                self.updateUILevelInfo()
             }
             let waitLevelAction = SKAction.waitForDuration(Time.LevelLabelFadeInOut * 2 + Time.LevelLabelOnScreen)
-            result.append(SKAction.sequence([showLevelAction, waitLevelAction]))
+            result.append(SKAction.sequence([newLevelAction, waitLevelAction]))
         }
+        gameLevelsForNextUILevel--
         
         for i in 0..<numberOfPeriods {
             
@@ -240,6 +250,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 result.append(oneBlockAction)
                 result.append(waitAction)
             }
+            
             result.append(SKAction.waitForDuration(timeBetweenPeriods))
             result.append(SKAction.runBlock{
                     self.mrMarket!.level = self.game.market.newMarketLevel()
@@ -272,15 +283,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    // MARK: Level label
+    // MARK: UI Level
     private func showLevelLabel() {
         
-        if (game.gameLevel - 1) % GameOption.GameLevelsPerUILevel != 0 {
-            return
-        }
-        
         // level label
-        let UILevel: Int = (game.gameLevel - 1) / GameOption.GameLevelsPerUILevel + 1
         let levelLabel = SKLabelNode(text: Text.Level + " \(UILevel)")
         levelLabel.fontSize = isIpad ? FontSize.LevelLabelIpad : FontSize.LevelLabelIphone
         levelLabel.fontName = FontName.LevelLabel
@@ -310,7 +316,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         levelBackground.runAction(SKAction.sequence([fadeInAction, waitAction, fadeOutAction, SKAction.removeFromParent()]))
     }
-    
+
+    private func updateUILevelInfo() {
+        // UI Level info at game level 1 is already set as default value for properties
+        if self.game.gameLevel > 1 {
+            self.gameLevelsForNextUILevel = GameOption.GameLevelsPerUILevelInitial + (self.UILevel - 1) * GameOption.GameLevelsPerUILevelIncrease - 1
+            self.game.addCash(GameOption.UILevelBonusInitial + Double(self.UILevel - 2) * GameOption.UILevelBonusIncrease)
+            self.runAction(self.newLevelSoundAction)
+            self.updateScoreLabel()
+        }
+        self.UILevel++
+    }
     
     // MARK: Get Cash Count
     private func startGetCashCount() {
@@ -594,7 +610,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func deleteBlock(block: Block) {
         if let index = find(existingBlocks, block) {
-            if !isGameOver || ranOutOfCash {
+            if !isGameOver || ranOutOfCash || GameOption.GameOverRecoverOriginalInvestments {
                 // If still playing or ran out of cash, block is sold at current value
                 game.portfolio.sellPrice(block.price)
             } else {

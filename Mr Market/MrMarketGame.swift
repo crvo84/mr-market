@@ -32,6 +32,12 @@ class MrMarketGame
         return portfolio.cash
     }
     
+    func addCash(cash: Double) {
+        if cash > 0 {
+            portfolio.cash += cash
+        }
+    }
+    
     func hasProfit() -> Bool {
         return portfolio.cash > GameOption.InitialCash
     }
