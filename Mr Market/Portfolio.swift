@@ -41,7 +41,13 @@ class Portfolio
             cash += (priceToSell.company.currentPriceValue / priceToSell.value) * transactionAmount
             prices.removeAtIndex(index)
 //            if cash <= 0.0 { cash = 0.0 }
-            println("Block Sold. Portfolio cash: \(cash)")
+        }
+    }
+    
+    func sellPriceWithoutProfitOrLoss(priceToSell: Price) {
+        if let index = find(prices, priceToSell) {
+            cash += transactionAmount
+            prices.removeAtIndex(index)
         }
     }
 }

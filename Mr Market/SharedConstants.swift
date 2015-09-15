@@ -222,7 +222,7 @@ struct FontName {
 
 struct Texture {
     static let blockImageNamePrefix = "blockImage"
-    static let numberOfBlockImages = 11
+    static let numberOfBlockImages = 17
 }
 
 struct Category {
@@ -308,11 +308,11 @@ struct GameOption {
     static let UpdateAllPricesSimultaneously: Bool = true
     static let PeriodsInitial: Int = 4 // 4
     static let PeriodsIncrease: Int = 0 // 0
-    static let PeriodsMax: Int = 6 // 6
-    static let NumberOfCompaniesInitial: Int = 1 // 2
+    static let PeriodsMax: Int = 4 // 6
+    static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
-    static let NumberOfCompaniesMax: Int = 15 // <= 0 for no maximum
-    static let SpeedInitial: CGFloat = 4 // 0.75
+    static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
+    static let SpeedInitial: CGFloat = 0.75 // 0.75
     static let SpeedIncrease: CGFloat = 0.20 // 0.20
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0

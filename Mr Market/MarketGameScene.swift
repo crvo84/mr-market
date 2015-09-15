@@ -39,6 +39,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Pause
     private var isGamePaused = false
     private var isGameOver = false
+    private var ranOutOfCash = false
     private let pauseButtonNode = SKSpriteNode(imageNamed: Filename.PauseButton)
     private var pauseNode: PauseNode?
     
@@ -289,6 +290,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
         counterActions.append(SKAction.runBlock({
             self.stopGetCashCount(gameOver: true)
+            self.ranOutOfCash = true
             self.gameOver()
         }))
         getCashCounterAction = SKAction.sequence(counterActions)
@@ -543,7 +545,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func deleteBlock(block: Block) {
         if let index = find(existingBlocks, block) {
-            game.portfolio.sellPrice(block.price)
+            if !isGameOver || ranOutOfCash {
+                // If still playing or ran out of cash, block is sold at current value
+                game.portfolio.sellPrice(block.price)
+            } else {
+                // If game over without running out of cash, block is sold at original value
+                game.portfolio.sellPriceWithoutProfitOrLoss(block.price)
+            }
+            
             updateScoreLabel()
             existingBlocks.removeAtIndex(index)
             block.disappear()
@@ -577,6 +586,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         shakeNode(mrMarket!)
         shakeNode(pauseButtonNode)
         shakeNode(scoreLabelNode)
+        
+        isGameOver = true
 
         explodeAllBlocks()
         backgroundMusicPlayer.stop()
@@ -586,7 +597,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {
-            self.isGameOver = true
+//            self.isGameOver = true
             self.pauseButtonNode.hidden = true
             self.scoreLabelNode.hidden = true
             if self.gameOverNode == nil {
