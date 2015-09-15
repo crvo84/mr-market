@@ -119,6 +119,11 @@
 		739FE11D1BA8ABEC00517D04 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		739FE11E1BA8ABEC00517D04 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		739FE11F1BA8ABEC00517D04 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		739FE1251BA8BBAF00517D04 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		739FE1261BA8BBAF00517D04 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		739FE1271BA8BBAF00517D04 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		739FE1281BA8BBAF00517D04 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		739FE1291BA8BBAF00517D04 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		73A974531B7EA4BB00CACF04 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		73A974551B7EA4F600CACF04 /* slam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = slam.wav; sourceTree = "<group>"; };
 		73A974611B82717400CACF04 /* SparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SparkParticle.sks; sourceTree = "<group>"; };
@@ -497,6 +502,7 @@
 				739FE1111BA8ABDB00517D04 /* pt-BR */,
 				739FE1161BA8ABE400517D04 /* ru */,
 				739FE11B1BA8ABEC00517D04 /* zh-CN */,
+				739FE1251BA8BBAF00517D04 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 				739FE1141BA8ABDB00517D04 /* pt-BR */,
 				739FE1191BA8ABE500517D04 /* ru */,
 				739FE11E1BA8ABEC00517D04 /* zh-CN */,
+				739FE1281BA8BBAF00517D04 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -527,6 +534,7 @@
 				739FE1151BA8ABDB00517D04 /* pt-BR */,
 				739FE11A1BA8ABE500517D04 /* ru */,
 				739FE11F1BA8ABEC00517D04 /* zh-CN */,
+				739FE1291BA8BBAF00517D04 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -543,6 +551,7 @@
 				739FE1131BA8ABDB00517D04 /* pt-BR */,
 				739FE1171BA8ABE400517D04 /* ru */,
 				739FE11C1BA8ABEC00517D04 /* zh-CN */,
+				739FE1271BA8BBAF00517D04 /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -559,6 +568,7 @@
 				739FE1121BA8ABDB00517D04 /* pt-BR */,
 				739FE1181BA8ABE500517D04 /* ru */,
 				739FE11D1BA8ABEC00517D04 /* zh-CN */,
+				739FE1261BA8BBAF00517D04 /* es */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
