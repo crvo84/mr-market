@@ -1,0 +1,90 @@
+/* Quote. The name of the author is 'Warren Buffett' */
+"'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett" = "”在别人恐慌时贪婪,在别人贪婪时恐慌“——沃伦*巴菲特";
+
+/* It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit. */
+"All prices in the game belong to companies with good performance." = "游戏中的所有价格都属于拥有良好业绩的公司。";
+
+/* e.g. 'Amount of each purchase: $100' */
+"Amount of each purchase" = "每次采购量";
+
+/* Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)... */
+"Assumptions" = "假设";
+
+/* For a label to show the best score. 'Best: 456' */
+"Best" = "最佳价格";
+
+/* Its a continuation of the sentence: 'Is he bipolar? you bet he is'... */
+"But despite of his obvious mood disorder, millions of people follow his lead." = "尽管存在明显的情绪障碍，但仍会有数百万人对他马首是瞻。";
+
+/* e.g. 'Buy stock' */
+"Buy" = "购买";
+
+/* To send to a friend when you want to challenge him to beat your score. */
+"Can you beat me?" = "你能打败我吗？";
+
+/* Verb. For a button to cancel an operation */
+"Cancel" = "取消";
+
+/* For a button. To continue playing a game */
+"Continue" = "继续";
+
+/* Referring to stock prices. */
+"He provides you with prices. You decide whether or not to accept them." = "他提供价格，您可自行决定是否接受。";
+
+/* The title for a game tutorial. NOT a question. */
+"How to play" = "游戏玩法";
+
+/* First asks if he is bipolar. Then answers the question that you can be sure he is. */
+"Is he bipolar? You bet he is." = "他是双性恋吗？肯定是。";
+
+/* Noun. e.g. 'Level 2' */
+"Level" = "水平";
+
+/* For an alert label, to let the user know that she/he needs to get more cash. */
+"Low cash!" = "现金不足！";
+
+/* For an alert view message. */
+"No previous purchases could be restored." = "无法恢复以前的购买。";
+
+/* For a button to close an alert view. */
+"Ok" = "确定";
+
+/* Used for a label showed when the game is paused */
+"Paused" = "已暂停";
+
+/* Verb. For a button, to purchase a product */
+"Purchase" = "购买";
+
+/* For an alert view message. */
+"Purchases restored successfully." = "成功恢复购买。";
+
+/* For a button. To quit a game */
+"Quit" = "退出";
+
+/* To reject an offer to buy stock. */
+"Reject offer" = "拒绝提供";
+
+/* For a button, to pay to remove advertising. */
+"Remove Ads" = "移除广告";
+
+/* For a button. To restart the game */
+"Restart" = "重新启动";
+
+/* Verb. For a button to restore previous purchases. */
+"Restore" = "恢复";
+
+/* Noun. For a label to show the score. e.g. 'Score: 123' */
+"Score" = "得分";
+
+/* e.g. 'Sell stock' */
+"Sell" = "出售";
+
+/* The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself! */
+"Think for yourself! But don't ignore him, instead, do business with him." = "自己再考虑考虑！但不要忽略他，相反，要与他做生意。";
+
+/* To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name. */
+"This is Mr. Market." = "这就是 Mr. Market。";
+
+/* For a button, to play again and try to get a better score */
+"Try again" = "再试一次";
+

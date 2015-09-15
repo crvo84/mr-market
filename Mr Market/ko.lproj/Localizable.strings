@@ -1,0 +1,90 @@
+/* Quote. The name of the author is 'Warren Buffett' */
+"'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett" = "\"다른 사람들이 욕심을 부릴 때 신중하고 다른 사람들이 신중할 때 욕심을 부려라\" - 워렌 버핏";
+
+/* It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit. */
+"All prices in the game belong to companies with good performance." = "이 게임의 모든 가격은 성과가 좋은 회사들의 것입니다.";
+
+/* e.g. 'Amount of each purchase: $100' */
+"Amount of each purchase" = "각 구매 금액";
+
+/* Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)... */
+"Assumptions" = "추정";
+
+/* For a label to show the best score. 'Best: 456' */
+"Best" = "최고 점수";
+
+/* Its a continuation of the sentence: 'Is he bipolar? you bet he is'... */
+"But despite of his obvious mood disorder, millions of people follow his lead." = "그러나 그의 분명한 기분 장애에도 불구하고 수백만 명의 사람이 그를 따라갑니다.";
+
+/* e.g. 'Buy stock' */
+"Buy" = "매입";
+
+/* To send to a friend when you want to challenge him to beat your score. */
+"Can you beat me?" = "제 기록을 깰 수 있으세요?";
+
+/* Verb. For a button to cancel an operation */
+"Cancel" = "취소";
+
+/* For a button. To continue playing a game */
+"Continue" = "계속";
+
+/* Referring to stock prices. */
+"He provides you with prices. You decide whether or not to accept them." = "그는 귀하에게 가격을 제시합니다. 귀하는 이를 받아들일지 말지 결정합니다.";
+
+/* The title for a game tutorial. NOT a question. */
+"How to play" = "게임 방법";
+
+/* First asks if he is bipolar. Then answers the question that you can be sure he is. */
+"Is he bipolar? You bet he is." = "그는 변덕쟁이입니까? 분명히 그렇습니다.";
+
+/* Noun. e.g. 'Level 2' */
+"Level" = "레벨";
+
+/* For an alert label, to let the user know that she/he needs to get more cash. */
+"Low cash!" = "현금 부족!";
+
+/* For an alert view message. */
+"No previous purchases could be restored." = "이전 구매 항목이 복원되지 않았습니다.";
+
+/* For a button to close an alert view. */
+"Ok" = "확인";
+
+/* Used for a label showed when the game is paused */
+"Paused" = "일시 중지";
+
+/* Verb. For a button, to purchase a product */
+"Purchase" = "구매";
+
+/* For an alert view message. */
+"Purchases restored successfully." = "구매 항목이 성공적으로 복원되었습니다.";
+
+/* For a button. To quit a game */
+"Quit" = "끝내기";
+
+/* To reject an offer to buy stock. */
+"Reject offer" = "제안 거절";
+
+/* For a button, to pay to remove advertising. */
+"Remove Ads" = "광고 제거";
+
+/* For a button. To restart the game */
+"Restart" = "다시 시작";
+
+/* Verb. For a button to restore previous purchases. */
+"Restore" = "복원";
+
+/* Noun. For a label to show the score. e.g. 'Score: 123' */
+"Score" = "점수";
+
+/* e.g. 'Sell stock' */
+"Sell" = "매도";
+
+/* The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself! */
+"Think for yourself! But don't ignore him, instead, do business with him." = "스스로 생각하세요. 그러나 그를 무시하진 말고 대신 그와 거래하세요.";
+
+/* To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name. */
+"This is Mr. Market." = "이 사람이 Mr. Market입니다.";
+
+/* For a button, to play again and try to get a better score */
+"Try again" = "다시 시도";
+

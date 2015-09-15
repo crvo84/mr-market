@@ -1,0 +1,24 @@
+/* Class = "UIButton"; normalTitle = "Tutorial"; ObjectID = "4Rg-Ao-9wg"; */
+"4Rg-Ao-9wg.normalTitle" = "教程";
+
+/* Class = "UIButton"; normalTitle = "REMOVE ADS"; ObjectID = "7Hw-G9-AE6"; */
+"7Hw-G9-AE6.normalTitle" = "移除广告";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KLz-6z-R7H"; */
+"KLz-6z-R7H.text" = "标签";
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "aN0-YL-z1k"; */
+"aN0-YL-z1k.normalTitle" = "开始游戏";
+
+/* Class = "UIButton"; normalTitle = "More games"; ObjectID = "gWj-0a-FuR"; */
+"gWj-0a-FuR.normalTitle" = "更多游戏";
+
+/* Class = "UILabel"; text = "MR. MARKET"; ObjectID = "k4s-64-CvO"; */
+"k4s-64-CvO.text" = "MR. MARKET";
+
+/* Class = "UILabel"; text = "Based on \"The Intelligent Investor\" by B. Graham"; ObjectID = "qQu-3d-ZWM"; */
+"qQu-3d-ZWM.text" = "以 B. Graham 的“聪明投资者”为立足点";
+
+/* Class = "UIButton"; normalTitle = "villou.com"; ObjectID = "ryi-6m-8Gk"; */
+"ryi-6m-8Gk.normalTitle" = "villou.com";
+

@@ -1,0 +1,90 @@
+/* Quote. The name of the author is 'Warren Buffett' */
+"'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett" = "\"Soyez craintif quand les autres sont avides. Soyez avide quand les autres sont craintifs.\" - Warren Buffet";
+
+/* It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit. */
+"All prices in the game belong to companies with good performance." = "Tous les prix dans le jeu sont associés à des sociétés qui ont de bons résultats.";
+
+/* e.g. 'Amount of each purchase: $100' */
+"Amount of each purchase" = "Montant de chaque achat";
+
+/* Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)... */
+"Assumptions" = "Hypothèses";
+
+/* For a label to show the best score. 'Best: 456' */
+"Best" = "Meilleur";
+
+/* Its a continuation of the sentence: 'Is he bipolar? you bet he is'... */
+"But despite of his obvious mood disorder, millions of people follow his lead." = "Malgré ses problèmes d'humeur évidents, des millions de personnes suivent son exemple.";
+
+/* e.g. 'Buy stock' */
+"Buy" = "Acheter";
+
+/* To send to a friend when you want to challenge him to beat your score. */
+"Can you beat me?" = "Pouvez-vous faire mieux?";
+
+/* Verb. For a button to cancel an operation */
+"Cancel" = "Annuler";
+
+/* For a button. To continue playing a game */
+"Continue" = "Continuer";
+
+/* Referring to stock prices. */
+"He provides you with prices. You decide whether or not to accept them." = "Il vous offre des prix. Vous décidez si vous voulez les accepter ou pas.";
+
+/* The title for a game tutorial. NOT a question. */
+"How to play" = "Comment jouer";
+
+/* First asks if he is bipolar. Then answers the question that you can be sure he is. */
+"Is he bipolar? You bet he is." = "Est-ce qu'il est bipolaire? Tout à fait.";
+
+/* Noun. e.g. 'Level 2' */
+"Level" = "Niveau";
+
+/* For an alert label, to let the user know that she/he needs to get more cash. */
+"Low cash!" = "Peu d'argent!";
+
+/* For an alert view message. */
+"No previous purchases could be restored." = "Pas d'achats précédents à restaurer.";
+
+/* For a button to close an alert view. */
+"Ok" = "Ok";
+
+/* Used for a label showed when the game is paused */
+"Paused" = "Pause";
+
+/* Verb. For a button, to purchase a product */
+"Purchase" = "Acheter";
+
+/* For an alert view message. */
+"Purchases restored successfully." = "Achat restauré avec succès.";
+
+/* For a button. To quit a game */
+"Quit" = "Quitter";
+
+/* To reject an offer to buy stock. */
+"Reject offer" = "Décliner l'offre";
+
+/* For a button, to pay to remove advertising. */
+"Remove Ads" = "Supprimer les annonces";
+
+/* For a button. To restart the game */
+"Restart" = "Recommencer";
+
+/* Verb. For a button to restore previous purchases. */
+"Restore" = "Restaurer";
+
+/* Noun. For a label to show the score. e.g. 'Score: 123' */
+"Score" = "Score";
+
+/* e.g. 'Sell stock' */
+"Sell" = "Vendre";
+
+/* The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself! */
+"Think for yourself! But don't ignore him, instead, do business with him." = "Pensez par vous-même! Mais ne l'ignorez pas, faites plutôt des affaires avec lui.";
+
+/* To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name. */
+"This is Mr. Market." = "Voici Mr. Market.";
+
+/* For a button, to play again and try to get a better score */
+"Try again" = "Ré-essayer";
+

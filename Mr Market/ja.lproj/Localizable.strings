@@ -1,0 +1,90 @@
+/* Quote. The name of the author is 'Warren Buffett' */
+"'Be fearful when others are greedy and greedy when others are fearful.' -Warren Buffett" = "「みんながどん欲な時に恐怖心を抱き、みんなが恐怖心を抱いている時にどん欲であれ。」- ウォーレン・バフェット";
+
+/* It is referring to prices for company stock (shares). From stock market. Good performance, is refering to companies that have enough profit. */
+"All prices in the game belong to companies with good performance." = "ゲーム内の株価はすべて業績の良い (十分な利益の出ている) 会社のものです。";
+
+/* e.g. 'Amount of each purchase: $100' */
+"Amount of each purchase" = "1 回ごとの購入金額";
+
+/* Noun. Plural. Something taken for granted. e.g. 'Assumptions: 1)... 2)... */
+"Assumptions" = "前提";
+
+/* For a label to show the best score. 'Best: 456' */
+"Best" = "最高スコア";
+
+/* Its a continuation of the sentence: 'Is he bipolar? you bet he is'... */
+"But despite of his obvious mood disorder, millions of people follow his lead." = "彼の躁うつにもかかわらず、数百万人が彼の提案に従っています。";
+
+/* e.g. 'Buy stock' */
+"Buy" = "購入";
+
+/* To send to a friend when you want to challenge him to beat your score. */
+"Can you beat me?" = "私のスコアを超えられますか？";
+
+/* Verb. For a button to cancel an operation */
+"Cancel" = "キャンセル";
+
+/* For a button. To continue playing a game */
+"Continue" = "続行";
+
+/* Referring to stock prices. */
+"He provides you with prices. You decide whether or not to accept them." = "彼は違う価格で株の売買を持ちかけてきます。彼の提示した価格に同意して取引するか、彼を完全に無視するかはあなたの自由です。";
+
+/* The title for a game tutorial. NOT a question. */
+"How to play" = "遊び方";
+
+/* First asks if he is bipolar. Then answers the question that you can be sure he is. */
+"Is he bipolar? You bet he is." = "彼が両極端な性格ですかって？当たり前でしょう！";
+
+/* Noun. e.g. 'Level 2' */
+"Level" = "レベル";
+
+/* For an alert label, to let the user know that she/he needs to get more cash. */
+"Low cash!" = "キャッシュが足りません！";
+
+/* For an alert view message. */
+"No previous purchases could be restored." = "購入情報を復元できませんでした。";
+
+/* For a button to close an alert view. */
+"Ok" = "OK";
+
+/* Used for a label showed when the game is paused */
+"Paused" = "一時停止";
+
+/* Verb. For a button, to purchase a product */
+"Purchase" = "購入";
+
+/* For an alert view message. */
+"Purchases restored successfully." = "購入情報が復元されました。";
+
+/* For a button. To quit a game */
+"Quit" = "終了";
+
+/* To reject an offer to buy stock. */
+"Reject offer" = "提示を無視する";
+
+/* For a button, to pay to remove advertising. */
+"Remove Ads" = "広告を除去";
+
+/* For a button. To restart the game */
+"Restart" = "再スタート";
+
+/* Verb. For a button to restore previous purchases. */
+"Restore" = "購入情報を復元";
+
+/* Noun. For a label to show the score. e.g. 'Score: 123' */
+"Score" = "スコア";
+
+/* e.g. 'Sell stock' */
+"Sell" = "売る";
+
+/* The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself! */
+"Think for yourself! But don't ignore him, instead, do business with him." = "意思決定はあくまでも自分で！でも彼を無視するのではなく、彼をうまく利用しましょう。";
+
+/* To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name. */
+"This is Mr. Market." = "これは Mr. Market です。";
+
+/* For a button, to play again and try to get a better score */
+"Try again" = "再トライ";
+

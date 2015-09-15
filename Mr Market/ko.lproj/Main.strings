@@ -1,0 +1,24 @@
+/* Class = "UIButton"; normalTitle = "Tutorial"; ObjectID = "4Rg-Ao-9wg"; */
+"4Rg-Ao-9wg.normalTitle" = "튜토리얼";
+
+/* Class = "UIButton"; normalTitle = "REMOVE ADS"; ObjectID = "7Hw-G9-AE6"; */
+"7Hw-G9-AE6.normalTitle" = "광고 제거";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KLz-6z-R7H"; */
+"KLz-6z-R7H.text" = "레이블";
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "aN0-YL-z1k"; */
+"aN0-YL-z1k.normalTitle" = "게임 시작";
+
+/* Class = "UIButton"; normalTitle = "More games"; ObjectID = "gWj-0a-FuR"; */
+"gWj-0a-FuR.normalTitle" = "게임 더 보기";
+
+/* Class = "UILabel"; text = "MR. MARKET"; ObjectID = "k4s-64-CvO"; */
+"k4s-64-CvO.text" = "MR. MARKET";
+
+/* Class = "UILabel"; text = "Based on \"The Intelligent Investor\" by B. Graham"; ObjectID = "qQu-3d-ZWM"; */
+"qQu-3d-ZWM.text" = "B. 그레이엄의 '현명한 투자자'에 기반을 둠.";
+
+/* Class = "UIButton"; normalTitle = "villou.com"; ObjectID = "ryi-6m-8Gk"; */
+"ryi-6m-8Gk.normalTitle" = "villou.com";
+

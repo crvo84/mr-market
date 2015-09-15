@@ -1,0 +1,24 @@
+/* Class = "UIButton"; normalTitle = "Tutorial"; ObjectID = "4Rg-Ao-9wg"; */
+"4Rg-Ao-9wg.normalTitle" = "Учебник";
+
+/* Class = "UIButton"; normalTitle = "REMOVE ADS"; ObjectID = "7Hw-G9-AE6"; */
+"7Hw-G9-AE6.normalTitle" = "УБРАТЬ РЕКЛАМУ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KLz-6z-R7H"; */
+"KLz-6z-R7H.text" = "Метка";
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "aN0-YL-z1k"; */
+"aN0-YL-z1k.normalTitle" = "Играть";
+
+/* Class = "UIButton"; normalTitle = "More games"; ObjectID = "gWj-0a-FuR"; */
+"gWj-0a-FuR.normalTitle" = "Другие игры";
+
+/* Class = "UILabel"; text = "MR. MARKET"; ObjectID = "k4s-64-CvO"; */
+"k4s-64-CvO.text" = "MR. MARKET";
+
+/* Class = "UILabel"; text = "Based on \"The Intelligent Investor\" by B. Graham"; ObjectID = "qQu-3d-ZWM"; */
+"qQu-3d-ZWM.text" = "По мотивам книги Б. Грэма \"Разумный инвестор\"";
+
+/* Class = "UIButton"; normalTitle = "villou.com"; ObjectID = "ryi-6m-8Gk"; */
+"ryi-6m-8Gk.normalTitle" = "villou.com";
+
