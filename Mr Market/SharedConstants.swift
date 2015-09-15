@@ -59,6 +59,8 @@ struct Geometry {
     
     // level label
     static let LevelLabelBackgroundOffset: CGFloat = 8.0
+    static let LevelLabelRelativeCornerRadius: CGFloat = 0.03 // relative to background width
+    static let LevelLabelBorderWidth: CGFloat = 0.0
     
     // pause button
     static let PauseButtonRightOffset: CGFloat = 6.0
@@ -136,6 +138,7 @@ struct Color {
     
     // level label
     static let LevelLabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.85)
+    static let LevelLabelBackgroundBorder = SKColor.grayColor()
     static let LevelLabel = SKColor.lightGrayColor()
     
     // score label
@@ -225,10 +228,10 @@ struct FontName {
     static let GameOverButton = "Arial"
     static let GetCashCounter = "Arial"
     static let GetCashLabel = "Arial"
+    static let LevelLabel = "Arial"
     static let TutorialMainTitle = "Arial"
     static let TutorialLabel = "Arial"
     static let TutorialTextView = "Arial"
-
 }
 
 struct Texture {
@@ -260,6 +263,10 @@ struct Time {
     static let GetCashLabelFadeInOut: Double = 0.2
     static let GetCashLabelTimesShowed: Int = Int(Time.GetCashTotalCount / ((Time.GetCashLabelOnScreen + Time.GetCashLabelFadeInOut) * 2)) // label animation cannot last more than counter
     
+    // level label
+    static let LevelLabelFadeInOut: Double = 0.3
+    static let LevelLabelOnScreen: Double = 1.5
+    
     // tutorial
     static let TutorialLabelFadeInOut: Double = 1.0
     static let TutorialWaitBetweenActions: Double = 1.5
@@ -284,14 +291,14 @@ struct ZPosition {
     static let Floor: CGFloat = 5
     static let Button: CGFloat = 5
     static let Explosion: CGFloat = 6
-    static let PausedLabel: CGFloat = 6
-    static let PauseNode: CGFloat = 7
-    static let GameOverNode: CGFloat = 7
     static let GetCashCounter: CGFloat = 7
     static let GetCashLabel: CGFloat = 7
-    static let TutorialLabel: CGFloat = 7
-    static let TutorialMainTitle: CGFloat = 7
-    static let TouchScreen: CGFloat = 8
+    static let LevelLabel: CGFloat = 8
+    static let TutorialLabel: CGFloat = 8
+    static let TutorialMainTitle: CGFloat = 8
+    static let PauseNode: CGFloat = 9
+    static let GameOverNode: CGFloat = 9
+    static let TouchScreen: CGFloat = 9
 }
 
 struct Shake {
@@ -316,7 +323,7 @@ struct CompanyInfo {
 }
 
 struct GameOption {
-    static let GameLevelsPerUILevel: Int = 12
+    static let GameLevelsPerUILevel: Int = 1
     static let UILevels: Int = 10
     static let UpdateAllPricesSimultaneously: Bool = true // true
     static let PeriodsInitial: Int = 1 // 1

@@ -72,7 +72,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Speed
     private var gameSpeed: CGFloat {
         get {
-            println("Game speed: \(gameSpeed)")
             return GameOption.SpeedInitial + GameOption.SpeedIncrease * CGFloat(game.gameLevel - 1)
         }
     }
@@ -140,6 +139,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let recursionAction = SKAction.runBlock {
             self.game.gameLevel++
             self.physicsWorld.speed = self.gameSpeed
+            println("Game speed: \(self.gameSpeed)")
             self.performOneLevelActions()
         }
         runAction(SKAction.sequence([currentLevelAction, recursionAction]))
@@ -200,6 +200,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let numberOfCompanies = game.companies.count
         
         var result: [SKAction] = []
+        
+        if (game.gameLevel - 1) % GameOption.GameLevelsPerUILevel == 0 {
+            let showLevelAction = SKAction.runBlock {
+                self.showLevelLabel()
+            }
+            let waitLevelAction = SKAction.waitForDuration(Time.LevelLabelFadeInOut * 2 + Time.LevelLabelOnScreen)
+            result.append(SKAction.sequence([showLevelAction, waitLevelAction]))
+        }
         
         for i in 0..<numberOfPeriods {
             
@@ -263,6 +271,46 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             alertBackgroundMusicPlayer!.volume = Volume.AlertBackgroundMusic
         }
     }
+    
+    // MARK: Level label
+    private func showLevelLabel() {
+        
+        if (game.gameLevel - 1) % GameOption.GameLevelsPerUILevel != 0 {
+            return
+        }
+        
+        // level label
+        let UILevel: Int = (game.gameLevel - 1) / GameOption.GameLevelsPerUILevel + 1
+        let levelLabel = SKLabelNode(text: Text.Level + " \(UILevel)")
+        levelLabel.fontSize = isIpad ? FontSize.LevelLabelIpad : FontSize.LevelLabelIphone
+        levelLabel.fontName = FontName.LevelLabel
+        levelLabel.fontColor = Color.LevelLabel
+        levelLabel.verticalAlignmentMode = .Center
+        levelLabel.horizontalAlignmentMode = .Center
+        
+        // level background
+        let backgroundWidth = levelLabel.frame.size.width + Geometry.LevelLabelBackgroundOffset * 2
+        let backgroundHeight = levelLabel.frame.size.height + Geometry.LevelLabelBackgroundOffset * 2
+        let backgroundCornerRadius = backgroundWidth * Geometry.LevelLabelRelativeCornerRadius
+        let backgroundSize = CGSize(width: backgroundWidth, height: backgroundHeight)
+        let levelBackground = SKShapeNode(rectOfSize: backgroundSize, cornerRadius: backgroundCornerRadius)
+        levelBackground.fillColor = Color.LevelLabelBackground
+        levelBackground.strokeColor = Color.LevelLabelBackgroundBorder
+        levelBackground.lineWidth = Geometry.LevelLabelBorderWidth
+        levelBackground.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+        levelBackground.zPosition = ZPosition.LevelLabel
+        levelBackground.alpha = 0.0
+        
+        addChild(levelBackground)
+        levelBackground.addChild(levelLabel)
+        
+        let fadeInAction = SKAction.fadeInWithDuration(Time.LevelLabelFadeInOut)
+        let waitAction = SKAction.waitForDuration(Time.LevelLabelOnScreen)
+        let fadeOutAction = SKAction.fadeOutWithDuration(Time.LevelLabelFadeInOut)
+        
+        levelBackground.runAction(SKAction.sequence([fadeInAction, waitAction, fadeOutAction, SKAction.removeFromParent()]))
+    }
+    
     
     // MARK: Get Cash Count
     private func startGetCashCount() {
