@@ -44,7 +44,7 @@ struct Geometry {
     static let MrMarketUpperOffset: CGFloat = 10.0
     
     // block
-    static let BlockItemRelativeHeight: CGFloat = 0.8 // Relative to block height
+    static let BlockItemRelativeHeight: CGFloat = 0.80 // Relative to block height
     static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlocksPerLine: CGFloat = 3.0
     static let BlocksPerColumn: CGFloat = 9.5
@@ -56,6 +56,9 @@ struct Geometry {
     
     // get cash counter
     static let GetCashCounterUpperOffset: CGFloat = 10
+    
+    // level label
+    static let LevelLabelBackgroundOffset: CGFloat = 8.0
     
     // pause button
     static let PauseButtonRightOffset: CGFloat = 6.0
@@ -131,6 +134,10 @@ struct Color {
     static let GetCashCounter =  SKColor(red: 1.0, green: 0.30, blue: 0.30, alpha: 1.0)
     static let GetCashLabel = Color.GetCashCounter
     
+    // level label
+    static let LevelLabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.85)
+    static let LevelLabel = SKColor.lightGrayColor()
+    
     // score label
     static let ScoreLabelInitial = SKColor(red: 0.90, green: 0.90, blue: 0.90, alpha: 1.0)
     static let ScoreLabelProfit = SKColor(red: 0.50, green: 1.0, blue: 0.50, alpha: 1.0)
@@ -170,13 +177,16 @@ struct Color {
 
 struct FontSize {
     // block
-    static let BlockTextIphone: CGFloat = 19
-    static let BlockTextIpad: CGFloat = 38
+    static let BlockTextIphone: CGFloat = 18
+    static let BlockTextIpad: CGFloat = 36
     // get cash
     static let GetCashCounterIphone: CGFloat = 30
     static let GetCashCounterIpad: CGFloat = 60
     static let GetCashLabelIphone: CGFloat = 30
     static let GetCashLabelIpad: CGFloat = 60
+    // level label
+    static let LevelLabelIphone: CGFloat = 35
+    static let LevelLabelIpad: CGFloat = 70
     // score
     static let ScoreLabelIphone: CGFloat = 24
     static let ScoreLabelIpad: CGFloat = 48
@@ -218,6 +228,7 @@ struct FontName {
     static let TutorialMainTitle = "Arial"
     static let TutorialLabel = "Arial"
     static let TutorialTextView = "Arial"
+
 }
 
 struct Texture {
@@ -296,34 +307,30 @@ struct ActionKey {
 }
 
 struct CompanyInfo {
-    static let MaxBeta: Double = 1.0
-    static let MinBeta: Double = 1.0
-    static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50%
+    static let MaxBeta: Double = 1.0 // 1
+    static let MinBeta: Double = 1.0 // 1
+    static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50% // 50
     static let MaxInitialPriceInteger: UInt32 = 1 // 1
     static let MinInitialPriceInteger: UInt32 = 1 // 1
     static let MaxDecimals: Int = 1
 }
 
 struct GameOption {
-    static let UpdateAllPricesSimultaneously: Bool = true
-    static let PeriodsInitial: Int = 4 // 4
+    static let GameLevelsPerUILevel: Int = 12
+    static let UILevels: Int = 10
+    static let UpdateAllPricesSimultaneously: Bool = true // true
+    static let PeriodsInitial: Int = 1 // 1
     static let PeriodsIncrease: Int = 0 // 0
-    static let PeriodsMax: Int = 4 // 6
+    static let PeriodsMax: Int = 1 // 1
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.75 // 0.75
-    static let SpeedIncrease: CGFloat = 0.20 // 0.20
+    static let SpeedInitial: CGFloat = 0.70 // 0.70
+    static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     static let InitialCash: Double = 500.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
-}
-
-struct Tutorial {
-    static let Speed: CGFloat = 1.5
-    static let TouchScreenInitialAlpha: CGFloat = 0.3
-    static let TouchScreenFinalAlpha: CGFloat = 0.8
 }
 
 struct MarketOption {
@@ -331,6 +338,12 @@ struct MarketOption {
     static let MaxPercentReturn: Double = 20 // 20
     static let MinPercentReturn: Double = 20 // 20
     static let BurstReturnFactor: Double = 0.85 // 0.85
+}
+
+struct Tutorial {
+    static let Speed: CGFloat = 1.5
+    static let TouchScreenInitialAlpha: CGFloat = 0.3
+    static let TouchScreenFinalAlpha: CGFloat = 0.8
 }
 
 struct NodeName {

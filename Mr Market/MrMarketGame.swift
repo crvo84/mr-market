@@ -12,6 +12,7 @@ class MrMarketGame
 {
     var gameLevel: Int = 1 {
         didSet {
+            println("Game level: \(gameLevel)")
             updateCompanies()
             portfolio.transactionAmount += GameOption.TransactionAmountIncrease
         }

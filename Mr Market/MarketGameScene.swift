@@ -72,6 +72,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Speed
     private var gameSpeed: CGFloat {
         get {
+            println("Game speed: \(gameSpeed)")
             return GameOption.SpeedInitial + GameOption.SpeedIncrease * CGFloat(game.gameLevel - 1)
         }
     }

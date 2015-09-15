@@ -55,7 +55,7 @@ class Company: NSObject
         
         // create random companies
         for i in 0..<number {
-            let beta = number > 1 ? CompanyInfo.MinBeta + Double(i) * betaDiff : (CompanyInfo.MaxBeta - CompanyInfo.MinBeta) / 2.0
+            let beta = number > 1 ? CompanyInfo.MinBeta + Double(i) * betaDiff : (CompanyInfo.MaxBeta + CompanyInfo.MinBeta) / 2.0
             
             let randomIndex = Int(arc4random_uniform(UInt32(allNames.count)))
             companies.append(Company(uniqueName: allNames[randomIndex], beta: beta))
