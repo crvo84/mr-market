@@ -29,7 +29,7 @@
 "Continue" = "Continuar";
 
 /* Referring to stock prices. */
-"He provides you with prices. You decide whether or not to accept them." = "Él te provee con precios. Tu decides si aceptarlos o no.";
+"He provides you with prices. You decide whether or not to accept them." = "Él te provee con precios. Tú decides si aceptarlos o no.";
 
 /* The title for a game tutorial. NOT a question. */
 "How to play" = "Cómo jugar";
@@ -80,7 +80,7 @@
 "Sell" = "Vender";
 
 /* The first sentence is an exclamation (hence the exclamation mark) 'Think for yourself! */
-"Think for yourself! But don't ignore him, instead, do business with him." = "Piensa por ti mismo! Pero no lo ignores, en lugar de ello, haz negocio con él.";
+"Think for yourself! But don't ignore him, instead, do business with him." = "¡Piensa por ti mismo! Pero no lo ignores, en lugar de ello, haz negocio con él.";
 
 /* To introduce a person named 'Mr. Market'. The name 'Mr. Market' should not be translated, it is a name. */
 "This is Mr. Market." = "Él es Mr. Market.";

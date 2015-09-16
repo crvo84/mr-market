@@ -32,7 +32,8 @@ class PauseNode: SKSpriteNode {
         addChild(backgroundNode!)
         
         // CONTINUE BUTTON
-        let continueButtonSize = CGSize(width: backgroundSize.width * Geometry.PauseNodeLargeButtonRelativeWidth, height: backgroundSize.height * Geometry.PauseNodeButtonRelativeHeight)
+        let continueButtonWidth = max(Geometry.PauseNodeLargeButtonMinimumWidth, backgroundSize.width * Geometry.PauseNodeLargeButtonRelativeWidth)
+        let continueButtonSize = CGSize(width: continueButtonWidth, height: backgroundSize.height * Geometry.PauseNodeButtonRelativeHeight)
         let continueButtonCornerRadius = Geometry.PauseNodeButtonRelativeCornerRadius * continueButtonSize.width
         
         continueButton = ButtonNode(size: continueButtonSize, cornerRadius: continueButtonCornerRadius, labelText: Text.Continue, imageTexture: nil)

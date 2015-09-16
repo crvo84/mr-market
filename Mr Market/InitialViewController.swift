@@ -68,6 +68,18 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // buttons setup
+        playButton.titleLabel?.minimumScaleFactor = 0.5
+        playButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        tutorialButton.titleLabel?.minimumScaleFactor = 0.5
+        tutorialButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        removeAdsButton.titleLabel?.minimumScaleFactor = 0.5
+        removeAdsButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        
+        
         // game center
         authenticatePlayer()
         

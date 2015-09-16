@@ -74,6 +74,7 @@ struct Geometry {
     static let PauseNodeBorderWidth: CGFloat = 0.0
     // pause node buttons
     static let PauseNodeLargeButtonRelativeWidth: CGFloat = 0.80 // Relative to pause node width
+    static let PauseNodeLargeButtonMinimumWidth: CGFloat = 280
     static let PauseNodeButtonRelativeHeight: CGFloat = 1/8 // Relative to pause node height
     static let PauseNodeSmallButtonHorizontalSeparation: CGFloat = 8
     static let PauseNodeButtonVerticalSeparation: CGFloat = 8
@@ -91,6 +92,7 @@ struct Geometry {
     static let GameOverNodeBorderWidth: CGFloat = 0.0
     // game over node buttons
     static let GameOverNodeLargeButtonRelativeWidth: CGFloat = 0.80 // Relative to gameOver node width
+    static let GameOverNodeLargeButtonMinimumWidth: CGFloat = 280
     static let GameOverNodeLargeButtonRelativeHeight: CGFloat = 1/8 // Relative to gameOver node heigh
     static let GameOverNodeSmallButtonHorizontalSeparation: CGFloat = 16
     static let GameOverNodeSmallButtonImageRelativeWidth: CGFloat = 0.90 // Relative to button background
@@ -109,11 +111,11 @@ struct Geometry {
     // Tutorial
     static let TutorialExitButtonUpperOffset: CGFloat = 8
     static let TutorialExitButtonLeftOffset: CGFloat = 8
-    static let TutorialExitButtonSideSize: CGFloat = 52
+    static let TutorialExitButtonSideSize: CGFloat = 40
     static let TutorialReloadButtonUpperOffset: CGFloat = 8
     static let TutorialReloadButtonRightOffset: CGFloat = 8
-    static let TutorialReloadButtonSideSize: CGFloat = 52
-    static let TutorialLabelUpperOffset: CGFloat = 64
+    static let TutorialReloadButtonSideSize: CGFloat = 40
+    static let TutorialLabelUpperOffset: CGFloat = 80
     static let TutorialTouchScreenVerticalOffsetFromCenter: CGFloat = -20
     static let TutorialMrMarketSizeMultiplierFactor: CGFloat = 2.0 // relative to normal game size
     static let TutorialMrMarketVerticalOffsetFromCenter: CGFloat = 16
@@ -186,8 +188,8 @@ struct FontSize {
     // get cash
     static let GetCashCounterIphone: CGFloat = 30
     static let GetCashCounterIpad: CGFloat = 60
-    static let GetCashLabelIphone: CGFloat = 30
-    static let GetCashLabelIpad: CGFloat = 60
+    static let GetCashLabelIphone: CGFloat = 25
+    static let GetCashLabelIpad: CGFloat = 50
     // level label
     static let LevelLabelIphone: CGFloat = 30
     static let LevelLabelIpad: CGFloat = 60
@@ -199,7 +201,7 @@ struct FontSize {
     static let PausedLabelIpad: CGFloat = 80
     static let PauseNodeLargeButtonIphone: CGFloat = 30
     static let PauseNodeLargeButtonIpad: CGFloat = 50
-    static let PauseNodeSmallButtonIphone: CGFloat = 25
+    static let PauseNodeSmallButtonIphone: CGFloat = 20
     static let PauseNodeSmallButtonIpad: CGFloat = 40
     // game over
     static let GameOverScoreLabelIphone: CGFloat = 30
@@ -325,10 +327,11 @@ struct CompanyInfo {
 
 struct GameOption {
     // game level
-    static let GameLevelsPerUILevelInitial: Int = 1
-    static let GameLevelsPerUILevelIncrease: Int = 1 // increased every UI level
-    static let UILevelBonusInitial: Double = 100
+    static let GameLevelsPerUILevelInitial: Int = 5 // 5
+    static let GameLevelsPerUILevelIncrease: Int = 5 // increased every UI level // 5
+    static let UILevelBonusInitial: Double = 50
     static let UILevelBonusIncrease: Double = 100
+
     // period variables
     static let PeriodsInitial: Int = 1 // 1
     static let PeriodsIncrease: Int = 0 // 0
@@ -336,7 +339,7 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 5.0 // 0.70
+    static let SpeedInitial: CGFloat = 0.7 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0

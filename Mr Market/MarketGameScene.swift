@@ -209,6 +209,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         var result: [SKAction] = []
         
+        // Level label
         if gameLevelsForNextUILevel == 0 || game.gameLevel == 1 {
             let newLevelAction = SKAction.runBlock {
                 self.showLevelLabel()
@@ -219,6 +220,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         }
         gameLevelsForNextUILevel--
         
+        // Blocks generation
         for i in 0..<numberOfPeriods {
             
             for j in 0..<numberOfCompanies {
@@ -242,7 +244,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     newBlock.position = CGPoint(x: blockX, y: blockY)
                     self.existingBlocks.append(newBlock)
                     self.addChild(newBlock)
-                    self.updateBlockColors()
+                    if !GameOption.UpdateAllPricesSimultaneously {
+                        self.updateBlockColors()
+                    }
                 }
                 
                 let waitAction = SKAction.waitForDuration(timeBetweenBlocks)
@@ -256,6 +260,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                     self.mrMarket!.level = self.game.market.newMarketLevel()
                     if GameOption.UpdateAllPricesSimultaneously {
                         Company.newPricesWithMarketReturn(self.game.market.latestReturn, forCompanies: self.game.companies)
+                        self.updateBlockColors()
                     }
                 })
         }

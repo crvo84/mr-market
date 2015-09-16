@@ -39,7 +39,8 @@ class GameOverNode: SKSpriteNode {
         addChild(backgroundNode!)
         
         // TRY AGAIN BUTTON
-        let tryAgainButtonSize = CGSize(width: backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth, height: backgroundNode!.frame.size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
+        let tryAgainButtonWidth = max(Geometry.GameOverNodeLargeButtonMinimumWidth, backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth)
+        let tryAgainButtonSize = CGSize(width: tryAgainButtonWidth, height: backgroundNode!.frame.size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
         let tryAgainButtonCornerRadius = Geometry.GameOverNodeButtonRelativeCornerRadius * tryAgainButtonSize.width
         tryAgainButton = ButtonNode(size: tryAgainButtonSize, cornerRadius: tryAgainButtonCornerRadius, labelText: Text.TryAgain, imageTexture: nil)
         tryAgainButton!.backgroundColor = Color.GameOverNodeLargeButton

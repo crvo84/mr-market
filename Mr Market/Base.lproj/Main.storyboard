@@ -46,7 +46,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aN0-YL-z1k">
-                                <rect key="frame" x="200" y="211" width="200" height="54"/>
+                                <rect key="frame" x="180" y="211" width="240" height="54"/>
                                 <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="32"/>
                                 <state key="normal" title="Play">
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-Ao-9wg">
-                                <rect key="frame" x="200" y="273" width="200" height="54"/>
+                                <rect key="frame" x="180" y="273" width="240" height="54"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fv4-ns-K17"/>
@@ -88,7 +88,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hw-G9-AE6">
-                                <rect key="frame" x="200" y="335" width="200" height="38"/>
+                                <rect key="frame" x="180" y="335" width="240" height="38"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="22"/>
                                 <state key="normal" title="REMOVE ADS">
@@ -114,7 +114,7 @@
                             <constraint firstItem="4Rg-Ao-9wg" firstAttribute="top" secondItem="aN0-YL-z1k" secondAttribute="bottom" constant="8" symbolic="YES" id="Gpy-po-6Uw"/>
                             <constraint firstAttribute="centerX" secondItem="rbf-Pm-9KC" secondAttribute="centerX" id="I7b-Px-24f"/>
                             <constraint firstItem="ez4-Mq-2yQ" firstAttribute="trailing" secondItem="oLE-J4-mfJ" secondAttribute="centerXWithinMargins" multiplier="0.7" id="J9z-WE-0BG"/>
-                            <constraint firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" multiplier="3" priority="750" id="LCU-gC-YqB"/>
+                            <constraint firstAttribute="width" secondItem="4Rg-Ao-9wg" secondAttribute="width" multiplier="2.5" priority="750" id="LCU-gC-YqB"/>
                             <constraint firstItem="rbf-Pm-9KC" firstAttribute="top" secondItem="7Hw-G9-AE6" secondAttribute="bottom" constant="8" symbolic="YES" id="Pcf-Dh-A0n"/>
                             <constraint firstItem="gWj-0a-FuR" firstAttribute="leading" secondItem="oLE-J4-mfJ" secondAttribute="leadingMargin" constant="399" id="Pz6-zH-0jl"/>
                             <constraint firstAttribute="height" secondItem="4Rg-Ao-9wg" secondAttribute="height" multiplier="12" priority="750" id="aDr-ba-z7Z"/>
@@ -284,7 +284,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLz-6z-R7H">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KLz-6z-R7H">
                                 <rect key="frame" x="16" y="28" width="568" height="564"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
