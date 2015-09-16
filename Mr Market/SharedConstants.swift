@@ -51,7 +51,8 @@ struct Geometry {
     static let BlocksPerColumn: CGFloat = 9.5
     static let BlockRelativeHeight: CGFloat = 0.45 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
-    static let BlockTextLeftOffset: CGFloat = 4.0 // From item node
+    static let BlockTextLeftOffsetIphone: CGFloat = 4.0 // From item node
+    static let BlockTextLeftOffsetIpad: CGFloat = 8.0 // From item node
     static let BlockTextVerticalOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
     
@@ -100,7 +101,9 @@ struct Geometry {
     static let GameOverNodeButtonBorderWidth: CGFloat = 0.0
     static let GameOverNodeButtonRelativeCornerRadius: CGFloat = 0.00 // Relative to large button width
     // game over score labels
-    static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 16
+    static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 12
+    static let GameOverNodeBestLabelsVerticalSeparation: CGFloat = 8
+    static let GameOverNodeScoreAndBestLabelsVerticalSeparation: CGFloat = 24
     
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
@@ -339,7 +342,7 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.7 // 0.70
+    static let SpeedInitial: CGFloat = 7 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0

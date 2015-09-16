@@ -70,7 +70,7 @@ class Block: SKSpriteNode
         textNode!.fontSize = isIpad ? FontSize.BlockTextIpad : FontSize.BlockTextIphone
         textNode!.horizontalAlignmentMode = .Left
         textNode!.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        let textX = itemNode!.position.x + itemNode!.size.width + Geometry.BlockTextLeftOffset
+        let textX = itemNode!.position.x + itemNode!.size.width + (isIpad ? Geometry.BlockTextLeftOffsetIpad : Geometry.BlockTextLeftOffsetIphone)
         let textY = Geometry.BlockTextVerticalOffset // origin Y is 0
         textNode!.position = CGPoint(x: textX, y: textY)
         blockNode!.addChild(textNode!)

@@ -13,9 +13,6 @@ class GameOverNode: SKSpriteNode {
     private let isIpad = UIDevice.currentDevice().userInterfaceIdiom == .Pad
     
     private var backgroundNode: SKShapeNode?
-    // score labels
-    private var scoreLabel: SKLabelNode?
-    private var bestScoreLabel: SKLabelNode?
     // large button
     private var tryAgainButton: ButtonNode?
     // small buttons
@@ -38,6 +35,7 @@ class GameOverNode: SKSpriteNode {
         backgroundNode!.strokeColor = Color.PauseNodeBorder
         addChild(backgroundNode!)
         
+        
         // TRY AGAIN BUTTON
         let tryAgainButtonWidth = max(Geometry.GameOverNodeLargeButtonMinimumWidth, backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth)
         let tryAgainButtonSize = CGSize(width: tryAgainButtonWidth, height: backgroundNode!.frame.size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
@@ -52,6 +50,7 @@ class GameOverNode: SKSpriteNode {
         tryAgainButton!.labelFontColor = Color.GameOverNodeLargeButtonText
         tryAgainButton!.name = NodeName.RestartButton
         backgroundNode!.addChild(tryAgainButton!)
+        
         
         // SMALL BUTTONS
         let smallButtonsNum: CGFloat = 4.0
@@ -91,25 +90,28 @@ class GameOverNode: SKSpriteNode {
         quitButton!.name = NodeName.QuitButton
         backgroundNode!.addChild(quitButton!)
         
-        let labelsMiddlePointY = backgroundNode!.frame.size.height / 4.0 + tryAgainButton!.size.height / 2.0
+
+        let labelsMiddlePointY = backgroundNode!.frame.size.height / 4.0 + tryAgainButton!.size.height / 4.0
         // SCORE LABEL
-        scoreLabel = SKLabelNode(text: Text.Score + ": " + score)
-        scoreLabel!.fontColor = Color.GameOverNodeScoreLabel
-        scoreLabel!.fontSize = isIpad ? FontSize.GameOverScoreLabelIpad : FontSize.GameOverScoreLabelIphone
-        scoreLabel!.fontName = FontName.GameOverScoreLabel
-        scoreLabel!.verticalAlignmentMode = .Bottom
-        scoreLabel!.horizontalAlignmentMode = .Center
-        scoreLabel!.position = CGPoint(x: 0.0, y: labelsMiddlePointY + Geometry.GameOverNodeScoreLabelsVerticalSeparation / 2.0)
-        backgroundNode!.addChild(scoreLabel!)
+        let scoreLabel = SKLabelNode(text: score)
+        scoreLabel.fontColor = Color.GameOverNodeScoreLabel
+        scoreLabel.fontSize = isIpad ? FontSize.GameOverScoreLabelIpad : FontSize.GameOverScoreLabelIphone
+        scoreLabel.fontName = FontName.GameOverScoreLabel
+        scoreLabel.verticalAlignmentMode = .Bottom
+        scoreLabel.horizontalAlignmentMode = .Center
+        scoreLabel.position = CGPoint(x: 0.0, y: labelsMiddlePointY + Geometry.GameOverNodeScoreAndBestLabelsVerticalSeparation / 2.0)
+        backgroundNode!.addChild(scoreLabel)
+        
         // BEST SCORE LABEL
-        bestScoreLabel = SKLabelNode(text: Text.Best + ": " + bestScore)
-        bestScoreLabel!.fontColor = Color.GameOverNodeBestScoreLabel
-        bestScoreLabel!.fontSize = isIpad ? FontSize.GameOverBestScoreLabelIpad : FontSize.GameOverBestScoreLabelIphone
-        bestScoreLabel!.fontName = FontName.GameOverScoreLabel
-        bestScoreLabel!.verticalAlignmentMode = .Top
-        bestScoreLabel!.horizontalAlignmentMode = .Center
-        bestScoreLabel!.position = CGPoint(x: 0.0, y: labelsMiddlePointY - Geometry.GameOverNodeScoreLabelsVerticalSeparation)
-        backgroundNode!.addChild(bestScoreLabel!)
+        let bestTextLabel = SKLabelNode(text: Text.Best + ": " + bestScore)
+        bestTextLabel.fontColor = Color.GameOverNodeBestScoreLabel
+        bestTextLabel.fontSize = isIpad ? FontSize.GameOverBestScoreLabelIpad : FontSize.GameOverBestScoreLabelIphone
+        bestTextLabel.fontName = FontName.GameOverScoreLabel
+        bestTextLabel.verticalAlignmentMode = .Top
+        bestTextLabel.horizontalAlignmentMode = .Center
+        bestTextLabel.position = CGPoint(x: 0.0, y: labelsMiddlePointY - Geometry.GameOverNodeScoreAndBestLabelsVerticalSeparation / 2.0)
+        backgroundNode!.addChild(bestTextLabel)
+
         
 //        // MUSIC ON/OFF NODE
 //        musicOnOffButton = SKSpriteNode(imageNamed: musicOn ? Filename.MusicOn : Filename.MusicOff)

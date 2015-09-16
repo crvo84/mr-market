@@ -128,8 +128,8 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     private struct TutorialBlock {
         static let NameA = "blockA"
         static let NameB = "blockB"
-        static let PriceValueA: Double = 10
-        static let PriceValueB: Double = 12
+        static let PriceValueA: Double = 5
+        static let PriceValueB: Double = 6
         static let CompanyName = "TutorialCompany"
         static let CompanyBeta: Double = 1.0
         static let ItemSuffix: Int = 3
