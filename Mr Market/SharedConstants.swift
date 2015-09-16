@@ -45,16 +45,18 @@ struct Geometry {
     static let MrMarketUpperOffset: CGFloat = 10.0
     
     // block
-    static let BlockItemRelativeHeight: CGFloat = 0.80 // Relative to block height
-    static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlocksPerLine: CGFloat = 3.0
     static let BlocksPerColumn: CGFloat = 9.5
-    static let BlockRelativeHeight: CGFloat = 0.45 // Relative to block width
+    static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
-    static let BlockTextLeftOffsetIphone: CGFloat = 4.0 // From item node
-    static let BlockTextLeftOffsetIpad: CGFloat = 8.0 // From item node
-    static let BlockTextVerticalOffset: CGFloat = -1.0 // From to Y origin
+    // block item
+    static let BlockItemRelativeHeight: CGFloat = 0.80 // Relative to block height
+    // block text
+    static let BlockTextRelativeHeight: CGFloat = 0.7 // relative to block height
+    static let BlockTextRelativeWidth: CGFloat = 0.8 // of block width left after adding item image
+    static let BlockTextYOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
+    
     
     // get cash counter
     static let GetCashCounterUpperOffset: CGFloat = 10
@@ -81,7 +83,7 @@ struct Geometry {
     static let PauseNodeButtonVerticalSeparation: CGFloat = 8
     static let PauseNodeMusicOnOffButtonOffset: CGFloat = 10
     static let PauseNodeButtonBorderWidth: CGFloat = 0.0
-    static let PauseNodeButtonRelativeCornerRadius: CGFloat = 0.0 // Relative to large button width
+    static let PauseNodeButtonRelativeCornerRadius: CGFloat = 0.03 // Relative to large button width
     // paused music on/off node
     static let PausedMusicOnOffNodeLeftOffset: CGFloat = 16.0
     static let PausedMusicOnOffNodeLowerOffset: CGFloat = 8.0
@@ -99,7 +101,7 @@ struct Geometry {
     static let GameOverNodeSmallButtonImageRelativeWidth: CGFloat = 0.90 // Relative to button background
     static let GameOverNodeButtonVerticalSeparation: CGFloat = 24
     static let GameOverNodeButtonBorderWidth: CGFloat = 0.0
-    static let GameOverNodeButtonRelativeCornerRadius: CGFloat = 0.00 // Relative to large button width
+    static let GameOverNodeButtonRelativeCornerRadius: CGFloat = 0.03 // Relative to large button width
     // game over score labels
     static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 12
     static let GameOverNodeBestLabelsVerticalSeparation: CGFloat = 8
@@ -122,6 +124,9 @@ struct Geometry {
     static let TutorialTouchScreenVerticalOffsetFromCenter: CGFloat = -20
     static let TutorialMrMarketSizeMultiplierFactor: CGFloat = 2.0 // relative to normal game size
     static let TutorialMrMarketVerticalOffsetFromCenter: CGFloat = 16
+    
+    // Initial View
+    static let InitialViewButtonRelativeCornerRadius: CGFloat = 0.03
 }
 
 struct Color {
@@ -131,7 +136,8 @@ struct Color {
     // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
-    static let BlockTextDefault = SKColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
+//    static let BlockTextDefault = SKColor(red: 0.30, green: 0.30, blue: 0.30, alpha: 1.0)
+    static let BlockTextDefault = SKColor(red: 0.0, green: 58/255, blue: 70/255, alpha: 1.0)
     static let BlockPurchased = SKColor.whiteColor()
     static let BlockMaxProfit: Double = 0.75 // positive value
     static let BlockMaxLoss: Double = -0.75 // negative value
@@ -154,7 +160,7 @@ struct Color {
     
     // pause
     static let PausedLabel = SKColor.lightGrayColor()
-    static let PauseNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.85)
+    static let PauseNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
     static let PauseNodeBorder = Color.PauseNodeBackground
     static let PauseNodeButton = SKColor.lightGrayColor()
     static let PauseNodeButtonBorder = Color.PauseNodeButton
@@ -163,7 +169,7 @@ struct Color {
     // game over
     static let GameOverNodeScoreLabel = SKColor.lightGrayColor()
     static let GameOverNodeBestScoreLabel = SKColor.lightGrayColor()
-    static let GameOverNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.85)
+    static let GameOverNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
     static let GameOverNodeBorder = Color.GameOverNodeBackground
     static let GameOverNodeLargeButton = SKColor.lightGrayColor()
     static let GameOverNodeSmallButton = SKColor.clearColor()
@@ -186,8 +192,10 @@ struct Color {
 
 struct FontSize {
     // block
-    static let BlockTextIphone: CGFloat = 18
-    static let BlockTextIpad: CGFloat = 36
+//    static let BlockTextIphone: CGFloat = 18
+//    static let BlockTextIpad: CGFloat = 18
+    static let BlockPriceInitial: CGFloat = 10.0
+    static let BlockLargestPriceText = "$99.9"
     // get cash
     static let GetCashCounterIphone: CGFloat = 30
     static let GetCashCounterIpad: CGFloat = 60
@@ -342,7 +350,7 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 7 // 0.70
+    static let SpeedInitial: CGFloat = 0.7 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0

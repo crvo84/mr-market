@@ -59,20 +59,30 @@ class Block: SKSpriteNode
         let side: CGFloat = size.height * Geometry.BlockItemRelativeHeight
         itemNode = SKSpriteNode(texture: itemTexture, color: SKColor.clearColor(), size: CGSize(width: side, height: side))
         itemNode!.anchorPoint = CGPoint(x: 0.0, y: 0.5)
-        let leftOffset: CGFloat = (size.height - side) / 2.0
-        itemNode!.position = CGPoint(x: -size.width / 2 + leftOffset, y: 0) // relative to center of node
+        let itemNodeLeftOffset: CGFloat = (size.height - side) / 2.0
+        itemNode!.position = CGPoint(x: -size.width / 2 + itemNodeLeftOffset, y: 0) // relative to center of node
         blockNode!.addChild(itemNode!)
         
+
+        // text node rect
+        let blockSpaceLeftAfterItem = blockNode!.frame.size.width - itemNode!.size.width - itemNodeLeftOffset
+        let textRectHorizontalOffset = blockSpaceLeftAfterItem * (1 - Geometry.BlockTextRelativeWidth) / 2.0
+        let textRectVerticalOffset = blockNode!.frame.size.height * (1 - Geometry.BlockTextRelativeHeight) / 2.0
+        let textRectX = itemNode!.position.x + itemNode!.frame.size.width + textRectHorizontalOffset
+        let textRectY = blockNode!.frame.size.height / 2.0 - textRectVerticalOffset
+        let textRectWidth = blockSpaceLeftAfterItem * Geometry.BlockTextRelativeWidth
+        let textRectHeight = blockNode!.frame.size.height * Geometry.BlockTextRelativeHeight
+        let textRect = CGRect(x: textRectX, y: textRectY, width: textRectWidth, height: textRectHeight)
         // text node
         textNode = SKLabelNode(fontNamed: FontName.BlockText)
-        textNode!.text = price.toString()
         textNode!.fontColor = textColor
-        textNode!.fontSize = isIpad ? FontSize.BlockTextIpad : FontSize.BlockTextIphone
         textNode!.horizontalAlignmentMode = .Left
         textNode!.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        let textX = itemNode!.position.x + itemNode!.size.width + (isIpad ? Geometry.BlockTextLeftOffsetIpad : Geometry.BlockTextLeftOffsetIphone)
-        let textY = Geometry.BlockTextVerticalOffset // origin Y is 0
-        textNode!.position = CGPoint(x: textX, y: textY)
+        textNode!.text = FontSize.BlockLargestPriceText // provisional largest text for font size adjustment
+        textNode!.fontSize = FontSize.BlockPriceInitial // font size before adjustment
+        adjustLabelFontSizeToFitRect(labelNode: textNode!, rect: textRect, centeredOnRect: false)
+        textNode!.text = price.toString() // real text
+        textNode!.position = CGPoint(x: textRectX, y: Geometry.BlockTextYOffset)
         blockNode!.addChild(textNode!)
         
         // create physics body
@@ -84,9 +94,22 @@ class Block: SKSpriteNode
         physicsBody?.restitution = Physics.BlockRestitution
         physicsBody?.categoryBitMask = Category.Block
         physicsBody?.contactTestBitMask = Category.Block | Category.Floor
-        //        physicsBody?.collisionBitMask = 0
         
         zPosition = ZPosition.Block
+    }
+    
+    private func adjustLabelFontSizeToFitRect(#labelNode:SKLabelNode, rect:CGRect, centeredOnRect: Bool) {
+
+        // Determine the font scaling factor that should let the label text fit in the given rectangle.
+        let scalingFactor = min(rect.width / labelNode.frame.width, rect.height / labelNode.frame.height)
+
+        // Change the fontSize.
+        labelNode.fontSize *= scalingFactor
+
+        // Optionally move the SKLabelNode to the center of the rectangle.
+        if centeredOnRect {
+            labelNode.position = CGPoint(x: rect.midX, y: rect.midY - labelNode.frame.height / 2.0)
+        }
     }
     
     func updateColor() {

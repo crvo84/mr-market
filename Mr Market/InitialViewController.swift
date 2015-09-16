@@ -68,17 +68,23 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let cornerRadius = playButton.frame.size.width * Geometry.InitialViewButtonRelativeCornerRadius
+        
         // buttons setup
         playButton.titleLabel?.minimumScaleFactor = 0.5
         playButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        playButton.layer.cornerRadius = cornerRadius
+        playButton.layer.masksToBounds = true
         
         tutorialButton.titleLabel?.minimumScaleFactor = 0.5
         tutorialButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        tutorialButton.layer.cornerRadius = cornerRadius
+        tutorialButton.layer.masksToBounds = true
         
         removeAdsButton.titleLabel?.minimumScaleFactor = 0.5
         removeAdsButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-        
+        removeAdsButton.layer.cornerRadius = cornerRadius
+        removeAdsButton.layer.masksToBounds = true
         
         // game center
         authenticatePlayer()

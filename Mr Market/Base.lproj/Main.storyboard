@@ -46,9 +46,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aN0-YL-z1k">
-                                <rect key="frame" x="180" y="211" width="240" height="54"/>
+                                <rect key="frame" x="180" y="208" width="240" height="56"/>
                                 <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="32"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="36"/>
                                 <state key="normal" title="Play">
                                     <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,7 +58,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbf-Pm-9KC">
-                                <rect key="frame" x="272" y="381" width="56" height="56"/>
+                                <rect key="frame" x="272" y="384" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="5Wx-oQ-TM0"/>
                                     <constraint firstAttribute="width" constant="56" id="8be-6M-dQN"/>
@@ -71,26 +71,10 @@
                                     <action selector="leaderboardButtonPressed:" destination="dbB-kk-FeK" eventType="touchUpInside" id="ai9-LN-tcz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-Ao-9wg">
-                                <rect key="frame" x="180" y="273" width="240" height="54"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fv4-ns-K17"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="eYX-br-BFO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="32"/>
-                                <state key="normal" title="Tutorial">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="XD5-Ch-RTD" kind="presentation" identifier="Tutorial" id="TLf-5S-IaS"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hw-G9-AE6">
-                                <rect key="frame" x="180" y="335" width="240" height="38"/>
+                                <rect key="frame" x="180" y="336" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="24"/>
                                 <state key="normal" title="REMOVE ADS">
                                     <color key="titleColor" red="0.0" green="0.43921568630000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,6 +89,22 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-Ao-9wg">
+                                <rect key="frame" x="180" y="272" width="240" height="56"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fv4-ns-K17"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="eYX-br-BFO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="36"/>
+                                <state key="normal" title="Tutorial">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XD5-Ch-RTD" kind="presentation" identifier="Tutorial" id="TLf-5S-IaS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.4549019608" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
