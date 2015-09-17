@@ -50,7 +50,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Get Cash
     private var isGetCashCountActive = false
     // get cash label
-    private var getCashLabel: SKLabelNode?
     private var getCashLabelBackground: SKShapeNode?
     private var getCashLabelAction: SKAction?
     // get cash counter
@@ -349,7 +348,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
         getCashCounter!.verticalAlignmentMode = .Center
         getCashCounter!.horizontalAlignmentMode = .Center
-        // TODO: add background to counter label
         // counter background
         getCashCounterBackground = backgroundNodeForLabel(getCashCounter!, verticalOffset: Geometry.GetCashCounterBackgroundOffset, horizontalOffset: Geometry.GetCashCounterBackgroundOffset, relativeCornerRadius: Geometry.GetCashCounterBackgroundRelativeCornerRadius)
         getCashCounterBackground!.fillColor = Color.LabelBackground
@@ -379,19 +377,26 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         // LABEL
         // add label
-        // TODO: if width is larger than width left after counter, adjust font size
-        // TODO: add background to get cash label
-        getCashLabel = SKLabelNode(text: Text.GetCash)
-        getCashLabel!.fontColor = Color.GetCashLabel
-        getCashLabel!.fontName = FontName.GetCashLabel
-        getCashLabel!.fontSize = isIpad ? FontSize.GetCashLabelIpad : FontSize.GetCashLabelIphone
-//        let maxGetCashLabelWidth = size.width - (getCashCounter!.frame.size.width + Geometry.GetCash)
-        getCashLabel!.verticalAlignmentMode = .Top
-        getCashLabel!.horizontalAlignmentMode = .Center
-        getCashLabel!.position = CGPoint(x: size.width / 2.0, y: getCashCounter!.position.y)
-        getCashLabel!.zPosition = ZPosition.GetCashLabel
+        let getCashLabel = SKLabelNode(text: Text.GetCash)
+        getCashLabel.fontColor = Color.GetCashLabel
+        getCashLabel.fontName = FontName.GetCashLabel
+        getCashLabel.fontSize = isIpad ? FontSize.GetCashLabelIpad : FontSize.GetCashLabelIphone
         
-        getCashLabel!.alpha = 0.0 // starts hidden
+        let getCashBackgroundHorizontalOffset = mrMarket == nil ? getCashCounterBackground!.frame.size.width + Geometry.PauseButtonRightOffset : mrMarket!.frame.size.width + Geometry.MrMarketLeftOffset
+        let maxGetCashLabelWidth = (size.width - (getCashBackgroundHorizontalOffset + Geometry.GetCashLabelBackgroundOffset) * 2) * Geometry.GetCashLabelMaxRelativeWidth
+        adjustLabelFontSizeToMaximumWidth(labelNode: getCashLabel, maxWidth: maxGetCashLabelWidth)
+        
+        getCashLabel.verticalAlignmentMode = .Center
+        getCashLabel.horizontalAlignmentMode = .Center
+        // label background
+        getCashLabelBackground = backgroundNodeForLabel(getCashLabel, verticalOffset: Geometry.GetCashLabelBackgroundOffset, horizontalOffset: Geometry.GetCashLabelBackgroundOffset, relativeCornerRadius: Geometry.GetCashLabelBackgroundRelativeCornerRadius)
+        getCashLabelBackground!.fillColor = Color.LabelBackground
+        getCashLabelBackground!.strokeColor = Color.LabelBackgroundBorder
+        getCashLabelBackground!.lineWidth = Geometry.LabelBackgroundBorderWidth
+        getCashLabelBackground!.position = CGPoint(x: size.width / 2.0, y: getCashCounterBackground!.position.y)
+        getCashLabelBackground!.zPosition = ZPosition.GetCashLabel
+        getCashLabelBackground!.addChild(getCashLabel)
+        getCashLabelBackground!.alpha = 0.0 // starts hidden
         
         // label action
         var showLabelActions: [SKAction] = []
@@ -406,19 +411,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         getCashLabelAction = SKAction.sequence(showLabelActions)
     
         // add nodes and run actions
-        addChild(getCashLabel!)
-//        addChild(getCashCounter!)
+        addChild(getCashLabelBackground!)
         addChild(getCashCounterBackground!)
-        getCashLabel!.runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
+        getCashLabelBackground!.runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
         runAction(getCashCounterAction!, withKey: ActionKey.GetCashCounter)
     }
     
     private func stopGetCashCount(#gameOver: Bool) {
         // remove actions
-        getCashLabel?.removeActionForKey(ActionKey.GetCashLabel)
+        getCashLabelBackground?.removeActionForKey(ActionKey.GetCashLabel)
         removeActionForKey(ActionKey.GetCashCounter)
         // remove nodes
-        getCashLabel?.removeFromParent()
         getCashLabelBackground?.removeFromParent()
         getCashCounter?.removeFromParent()
         getCashCounterBackground?.removeFromParent()
@@ -427,7 +430,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         if isMusicOn && !gameOver {
             backgroundMusicPlayer.play()
         }
-        getCashLabel = nil
         getCashLabelBackground = nil
         getCashCounter = nil
         getCashCounterBackground = nil

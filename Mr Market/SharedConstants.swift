@@ -57,13 +57,14 @@ struct Geometry {
     static let BlockTextYOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
     
-    
     // get cash counter
     static let GetCashCounterUpperOffset: CGFloat = 10
     static let GetCashCounterBackgroundOffset: CGFloat = 8.0
-    static let GetCashCounterBackgroundRelativeCornerRadius: CGFloat = 0.3
+    static let GetCashCounterBackgroundRelativeCornerRadius: CGFloat = 0.15
     // get cash label
-    static let GetCashCounterMaxRelativeWidth: CGFloat = 0.90 // relative to space left after get cash counter, centered
+    static let GetCashLabelMaxRelativeWidth: CGFloat = 0.90 // relative to space left after get cash counter, centered
+    static let GetCashLabelBackgroundOffset: CGFloat = 8.0
+    static let GetCashLabelBackgroundRelativeCornerRadius: CGFloat = 0.03
     
     // level label
     static let LevelLabelBackgroundOffset: CGFloat = 16.0
@@ -158,12 +159,12 @@ struct Color {
     static let GetCashCounter =  SKColor(red: 1.0, green: 0.30, blue: 0.30, alpha: 1.0)
     static let GetCashLabel = Color.GetCashCounter
     
-    // label background
-    static let LabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.60)
-    static let LabelBackgroundBorder = SKColor.grayColor()
-    
     // level label
     static let LevelLabel = SKColor.orangeColor()
+    
+    // label background
+    static let LabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.50)
+    static let LabelBackgroundBorder = SKColor.grayColor()
     
     // score label
     static let ScoreLabelInitial = SKColor(red: 0.90, green: 0.90, blue: 0.90, alpha: 1.0)
@@ -316,9 +317,9 @@ struct ZPosition {
 
 struct Shake {
     static let Key = "shakeKey"
-    static let Movements: Int = 15 // Number of individual movements
-    static let Distance: Double = 20.0 // How big
-    static let Duration: Double = 0.25 // How long
+    static let Movements: Int = 10 // Number of individual movements
+    static let Distance: Double = 150.0 // How big
+    static let Duration: Double = 0.50 // How long
 }
 
 struct ActionKey {

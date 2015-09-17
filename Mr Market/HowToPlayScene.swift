@@ -255,7 +255,6 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
     private func setLabelNodeWithText(text: String)
     {
-        // TODO: add background to tutorialLabelNode
         tutorialLabelNode?.removeFromParent()
         tutorialLabelNode = nil
         
