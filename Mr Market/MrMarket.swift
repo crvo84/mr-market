@@ -49,7 +49,6 @@ class MrMarket: SKSpriteNode
             if level > Info.MaxLevel { level = Info.MinLevel }
             if level < Info.MinLevel { level = Info.MaxLevel }
             texture = textureForLevel(level)
-//            println("Mr Market. Level: \(level)")
         }
     }
     

@@ -20,7 +20,9 @@ class Company: NSObject
         self.beta = beta
         let randomLimit: UInt32 = CompanyInfo.MaxInitialPriceInteger - CompanyInfo.MinInitialPriceInteger + 1
         let priceInteger = Double(arc4random_uniform(randomLimit) + CompanyInfo.MinInitialPriceInteger)
-        self.currentPriceValue = priceInteger + Double(arc4random_uniform(10)) / 10.0 // one decimal only
+        
+        let decimalLimit = pow(Double(10), Double(CompanyInfo.PriceDecimals))
+        self.currentPriceValue = priceInteger + Double(arc4random_uniform(UInt32(decimalLimit))) / decimalLimit
     }
     
 //    func newPriceWithMarketReturn(marketReturn: Double) -> Price
@@ -29,10 +31,11 @@ class Company: NSObject
         // Add random deviation to the company beta
         let betaDeviation = (Double(arc4random_uniform(CompanyInfo.BetaMaxPercentDeviation * 2 + 1)) - Double(CompanyInfo.BetaMaxPercentDeviation)) / 100.0
         let companyReturn = marketReturn * beta * (1 + betaDeviation)
+        
+        let decimalLimit = pow(Double(10), Double(CompanyInfo.PriceDecimals))
+        currentPriceValue = round(currentPriceValue * (1 + companyReturn) * decimalLimit) / decimalLimit
+        
 //        currentPriceValue *= (1 + companyReturn)
-        currentPriceValue = round(currentPriceValue * (1 + companyReturn) * 10) / 10 // one decimal only
-
-//        return Price(company: self, value: currentPriceValue)
     }
     
     class func newPricesWithMarketReturn(marketReturn: Double, forCompanies companies: [Company]) {

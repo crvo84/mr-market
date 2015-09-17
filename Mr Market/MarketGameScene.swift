@@ -478,7 +478,10 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func explosion(position: CGPoint)
     {
         let emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
-
+        let positionRangeX = blockSize.width * Geometry.BlockExplosionRelativeWidth
+        let positionRangeY = blockSize.height * Geometry.BlockExplosionRelativeHeight
+        emitterNode!.particlePositionRange = CGVector(dx: positionRangeX, dy: positionRangeY)
+        
         emitterNode!.position = position
         emitterNode!.zPosition = ZPosition.Explosion
         

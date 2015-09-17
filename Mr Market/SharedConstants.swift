@@ -56,6 +56,9 @@ struct Geometry {
     static let BlockTextRelativeWidth: CGFloat = 0.8 // of block width left after adding item image
     static let BlockTextYOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
+    // block explosion
+    static let BlockExplosionRelativeWidth: CGFloat = 0.4 // Relative to block width
+    static let BlockExplosionRelativeHeight: CGFloat = 0.2 // Relative to block height
     
     // get cash counter
     static let GetCashCounterUpperOffset: CGFloat = 10
@@ -149,7 +152,7 @@ struct Color {
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor(red: 0.0, green: 58/255, blue: 70/255, alpha: 1.0)
-    static let BlockPurchased = SKColor.whiteColor()
+    static let BlockPurchased = Color.ScoreLabelInitial
     static let BlockMaxProfit: Double = 0.75 // positive value
     static let BlockMaxLoss: Double = -0.75 // negative value
     static let BlockMinValueForSecondaryColor: CGFloat = 0.30 // for red, green or blue
@@ -216,8 +219,8 @@ struct FontSize {
     static let LevelLabelIphone: CGFloat = 40
     static let LevelLabelIpad: CGFloat = 80
     // score
-    static let ScoreLabelIphone: CGFloat = 32
-    static let ScoreLabelIpad: CGFloat = 64
+    static let ScoreLabelIphone: CGFloat = 28
+    static let ScoreLabelIpad: CGFloat = 56
     // pause
     static let PausedLabelIphone: CGFloat = 50
     static let PausedLabelIpad: CGFloat = 100
@@ -333,7 +336,7 @@ struct CompanyInfo {
     static let BetaMaxPercentDeviation: UInt32 = 50 // +/- 0% to 50% // 50
     static let MaxInitialPriceInteger: UInt32 = 1 // 1
     static let MinInitialPriceInteger: UInt32 = 1 // 1
-    static let MaxDecimals: Int = 1
+    static let PriceDecimals: UInt = 1
 }
 
 struct GameOption {
