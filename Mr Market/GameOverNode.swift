@@ -37,7 +37,7 @@ class GameOverNode: SKSpriteNode {
         
         
         // TRY AGAIN BUTTON
-        let tryAgainButtonWidth = max(Geometry.GameOverNodeLargeButtonMinimumWidth, backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth)
+        let tryAgainButtonWidth = backgroundNode!.frame.size.width * Geometry.GameOverNodeLargeButtonRelativeWidth
         let tryAgainButtonSize = CGSize(width: tryAgainButtonWidth, height: backgroundNode!.frame.size.height * Geometry.GameOverNodeLargeButtonRelativeHeight)
         let tryAgainButtonCornerRadius = Geometry.GameOverNodeButtonRelativeCornerRadius * tryAgainButtonSize.width
         tryAgainButton = ButtonNode(size: tryAgainButtonSize, cornerRadius: tryAgainButtonCornerRadius, labelText: Text.TryAgain, imageTexture: nil)
@@ -46,7 +46,6 @@ class GameOverNode: SKSpriteNode {
         tryAgainButton!.borderColor = Color.GameOverNodeBorder
         tryAgainButton!.position = CGPoint(x: 0.0, y: 0.0)
         tryAgainButton!.labelFontName = FontName.GameOverButton
-        tryAgainButton!.labelFontSize = isIpad ? FontSize.GameOverNodeLargeButtonIpad : FontSize.GameOverNodeLargeButtonIphone
         tryAgainButton!.labelFontColor = Color.GameOverNodeLargeButtonText
         tryAgainButton!.name = NodeName.RestartButton
         backgroundNode!.addChild(tryAgainButton!)

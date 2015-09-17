@@ -107,6 +107,7 @@ class ButtonNode: SKSpriteNode
         textLabelNode!.fontColor = labelFontColor
         textLabelNode!.verticalAlignmentMode = .Center
         textLabelNode!.horizontalAlignmentMode = .Center
+        adjustLabelFontSize()
         backgroundNode!.addChild(textLabelNode!)
         
         // Sprite Node
@@ -115,6 +116,22 @@ class ButtonNode: SKSpriteNode
         let imageSide = backgroundNode!.frame.size.width * Default.ImageRelativeWidth
         imageNode!.size = CGSize(width: imageSide, height: imageSide)
         backgroundNode!.addChild(imageNode!)
+    }
+    
+    private func adjustLabelFontSize() {
+        
+        if backgroundNode == nil || textLabelNode == nil {
+            return
+        }
+        
+        let widthToFit = backgroundNode!.frame.size.width * Geometry.ButtonNodeLabelRelativeWidth
+        let heightToFit = backgroundNode!.frame.size.height * Geometry.ButtonNodeLabelRelativeHeight
+
+        // Determine the font scaling factor that should let the label text fit in the given rectangle.
+        let scalingFactor = min(widthToFit / textLabelNode!.frame.width, heightToFit / textLabelNode!.frame.height)
+        
+        // Change the fontSize.
+        labelFontSize *= scalingFactor
     }
 
     required init?(coder aDecoder: NSCoder) {

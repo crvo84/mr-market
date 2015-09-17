@@ -32,7 +32,7 @@ class PauseNode: SKSpriteNode {
         addChild(backgroundNode!)
         
         // CONTINUE BUTTON
-        let continueButtonWidth = max(Geometry.PauseNodeLargeButtonMinimumWidth, backgroundSize.width * Geometry.PauseNodeLargeButtonRelativeWidth)
+        let continueButtonWidth = backgroundSize.width * Geometry.PauseNodeLargeButtonRelativeWidth
         let continueButtonSize = CGSize(width: continueButtonWidth, height: backgroundSize.height * Geometry.PauseNodeButtonRelativeHeight)
         let continueButtonCornerRadius = Geometry.PauseNodeButtonRelativeCornerRadius * continueButtonSize.width
         
@@ -42,7 +42,6 @@ class PauseNode: SKSpriteNode {
         continueButton!.borderColor = Color.PauseNodeButtonBorder
         continueButton!.position = CGPoint(x: 0.0, y: Geometry.PauseNodeButtonVerticalSeparation + continueButtonSize.height / 2.0)
         continueButton!.labelFontName = FontName.PauseNodeButton
-        continueButton!.labelFontSize = isIpad ? FontSize.PauseNodeLargeButtonIpad : FontSize.PauseNodeLargeButtonIphone
         continueButton!.labelFontColor = Color.PauseNodeButtonText
         continueButton!.name = NodeName.ContinueButton
         backgroundNode!.addChild(continueButton!)
@@ -58,7 +57,6 @@ class PauseNode: SKSpriteNode {
         restartButton!.borderColor = Color.PauseNodeButtonBorder
         restartButton!.position = CGPoint(x: -smallButtonSize.width / 2.0 - Geometry.PauseNodeSmallButtonHorizontalSeparation, y: -Geometry.PauseNodeButtonVerticalSeparation - smallButtonSize.height / 2.0)
         restartButton!.labelFontName = FontName.PauseNodeButton
-        restartButton!.labelFontSize = isIpad ? FontSize.PauseNodeSmallButtonIpad : FontSize.PauseNodeSmallButtonIphone
         restartButton!.labelFontColor = Color.PauseNodeButtonText
         restartButton!.name = NodeName.RestartButton
         backgroundNode!.addChild(restartButton!)
@@ -70,10 +68,14 @@ class PauseNode: SKSpriteNode {
         quitButton!.borderColor = Color.PauseNodeButtonBorder
         quitButton!.position = CGPoint(x: +smallButtonSize.width / 2.0 + Geometry.PauseNodeSmallButtonHorizontalSeparation, y: -Geometry.PauseNodeButtonVerticalSeparation - smallButtonSize.height / 2.0)
         quitButton!.labelFontName = FontName.PauseNodeButton
-        quitButton!.labelFontSize = isIpad ? FontSize.PauseNodeSmallButtonIpad : FontSize.PauseNodeSmallButtonIphone
         quitButton!.labelFontColor = Color.PauseNodeButtonText
         quitButton!.name = NodeName.QuitButton
         backgroundNode!.addChild(quitButton!)
+        
+        // set equal size to restart and quit button labels
+        let smallestFontSize = min(restartButton!.labelFontSize, quitButton!.labelFontSize)
+        restartButton!.labelFontSize = smallestFontSize
+        quitButton!.labelFontSize = smallestFontSize
         
         // PAUSED LABEL
         pausedLabelNode = SKLabelNode(text: Text.Paused)

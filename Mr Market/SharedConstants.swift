@@ -52,7 +52,7 @@ struct Geometry {
     // block item
     static let BlockItemRelativeHeight: CGFloat = 0.80 // Relative to block height
     // block text
-    static let BlockTextRelativeHeight: CGFloat = 0.7 // relative to block height
+    static let BlockTextRelativeHeight: CGFloat = 0.6 // relative to block height
     static let BlockTextRelativeWidth: CGFloat = 0.8 // of block width left after adding item image
     static let BlockTextYOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
@@ -77,7 +77,6 @@ struct Geometry {
     static let PauseNodeBorderWidth: CGFloat = 0.0
     // pause node buttons
     static let PauseNodeLargeButtonRelativeWidth: CGFloat = 0.80 // Relative to pause node width
-    static let PauseNodeLargeButtonMinimumWidth: CGFloat = 280
     static let PauseNodeButtonRelativeHeight: CGFloat = 1/8 // Relative to pause node height
     static let PauseNodeSmallButtonHorizontalSeparation: CGFloat = 8
     static let PauseNodeButtonVerticalSeparation: CGFloat = 8
@@ -95,7 +94,6 @@ struct Geometry {
     static let GameOverNodeBorderWidth: CGFloat = 0.0
     // game over node buttons
     static let GameOverNodeLargeButtonRelativeWidth: CGFloat = 0.80 // Relative to gameOver node width
-    static let GameOverNodeLargeButtonMinimumWidth: CGFloat = 280
     static let GameOverNodeLargeButtonRelativeHeight: CGFloat = 1/8 // Relative to gameOver node heigh
     static let GameOverNodeSmallButtonHorizontalSeparation: CGFloat = 16
     static let GameOverNodeSmallButtonImageRelativeWidth: CGFloat = 0.90 // Relative to button background
@@ -106,6 +104,10 @@ struct Geometry {
     static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 12
     static let GameOverNodeBestLabelsVerticalSeparation: CGFloat = 8
     static let GameOverNodeScoreAndBestLabelsVerticalSeparation: CGFloat = 24
+    
+    // Button node
+    static let ButtonNodeLabelRelativeWidth: CGFloat = 0.80 // relative to button width
+    static let ButtonNodeLabelRelativeHeight: CGFloat = 0.50 // relative to button height
     
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
@@ -136,8 +138,7 @@ struct Color {
     // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
-//    static let BlockTextDefault = SKColor(red: 0.30, green: 0.30, blue: 0.30, alpha: 1.0)
-    static let BlockTextDefault = SKColor(red: 0.0, green: 58/255, blue: 70/255, alpha: 1.0)
+    static let BlockTextDefault = SKColor(red: 0.0, green: 70/255, blue: 84/255, alpha: 1.0)
     static let BlockPurchased = SKColor.whiteColor()
     static let BlockMaxProfit: Double = 0.75 // positive value
     static let BlockMaxLoss: Double = -0.75 // negative value
@@ -148,9 +149,11 @@ struct Color {
     static let GetCashCounter =  SKColor(red: 1.0, green: 0.30, blue: 0.30, alpha: 1.0)
     static let GetCashLabel = Color.GetCashCounter
     
+    // label background
+    static let LabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.60)
+    static let LabelBackgroundBorder = SKColor.grayColor()
+    
     // level label
-    static let LevelLabelBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.50)
-    static let LevelLabelBackgroundBorder = SKColor.grayColor()
     static let LevelLabel = SKColor.orangeColor()
     
     // score label
@@ -192,45 +195,32 @@ struct Color {
 
 struct FontSize {
     // block
-//    static let BlockTextIphone: CGFloat = 18
-//    static let BlockTextIpad: CGFloat = 18
     static let BlockPriceInitial: CGFloat = 10.0
     static let BlockLargestPriceText = "$99.9"
     // get cash
-    static let GetCashCounterIphone: CGFloat = 30
-    static let GetCashCounterIpad: CGFloat = 60
-    static let GetCashLabelIphone: CGFloat = 25
-    static let GetCashLabelIpad: CGFloat = 50
+    static let GetCashCounterIphone: CGFloat = 35
+    static let GetCashCounterIpad: CGFloat = 70
+    static let GetCashLabelIphone: CGFloat = 32
+    static let GetCashLabelIpad: CGFloat = 64
     // level label
-    static let LevelLabelIphone: CGFloat = 30
-    static let LevelLabelIpad: CGFloat = 60
+    static let LevelLabelIphone: CGFloat = 40
+    static let LevelLabelIpad: CGFloat = 80
     // score
-    static let ScoreLabelIphone: CGFloat = 24
-    static let ScoreLabelIpad: CGFloat = 48
+    static let ScoreLabelIphone: CGFloat = 28
+    static let ScoreLabelIpad: CGFloat = 56
     // pause
-    static let PausedLabelIphone: CGFloat = 40
-    static let PausedLabelIpad: CGFloat = 80
-    static let PauseNodeLargeButtonIphone: CGFloat = 30
-    static let PauseNodeLargeButtonIpad: CGFloat = 50
-    static let PauseNodeSmallButtonIphone: CGFloat = 20
-    static let PauseNodeSmallButtonIpad: CGFloat = 40
+    static let PausedLabelIphone: CGFloat = 50
+    static let PausedLabelIpad: CGFloat = 100
     // game over
-    static let GameOverScoreLabelIphone: CGFloat = 30
-    static let GameOverScoreLabelIpad: CGFloat = 50
-    static let GameOverBestScoreLabelIphone: CGFloat = 20
-    static let GameOverBestScoreLabelIpad: CGFloat = 40
-    static let GameOverNodeLargeButtonIphone: CGFloat = 30
-    static let GameOverNodeLargeButtonIpad: CGFloat = 50
-    static let GameOverNodeSmallButtonIphone: CGFloat = 18
-    static let GameOverNodeSmallButtonIpad: CGFloat = 30
+    static let GameOverScoreLabelIphone: CGFloat = 34
+    static let GameOverScoreLabelIpad: CGFloat = 68
+    static let GameOverBestScoreLabelIphone: CGFloat = 24
+    static let GameOverBestScoreLabelIpad: CGFloat = 48
     // tutorial
-    static let TutorialMainTitleIphone: CGFloat = 32
-    static let TutorialMainTitleIpad: CGFloat = 64
-    static let TutorialLabelIphone: CGFloat = 34
-    static let TutorialLabelIpad: CGFloat = 68
-    static let TutorialTextViewIphone: CGFloat = 20
-    static let TutorialTextViewIpad: CGFloat = 40
-    
+    static let TutorialMainTitleIphone: CGFloat = 40
+    static let TutorialMainTitleIpad: CGFloat = 80
+    static let TutorialLabelIphone: CGFloat = 44
+    static let TutorialLabelIpad: CGFloat = 88
 }
 
 struct FontName {
@@ -350,12 +340,12 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.7 // 0.70
+    static let SpeedInitial: CGFloat = 10 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
-    static let InitialCash: Double = 500.0 // 500
+    static let InitialCash: Double = 500000.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true

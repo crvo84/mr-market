@@ -305,8 +305,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let backgroundCornerRadius = backgroundWidth * Geometry.LevelLabelRelativeCornerRadius
         let backgroundSize = CGSize(width: backgroundWidth, height: backgroundHeight)
         let levelBackground = SKShapeNode(rectOfSize: backgroundSize, cornerRadius: backgroundCornerRadius)
-        levelBackground.fillColor = Color.LevelLabelBackground
-        levelBackground.strokeColor = Color.LevelLabelBackgroundBorder
+        levelBackground.fillColor = Color.LabelBackground
+        levelBackground.strokeColor = Color.LabelBackgroundBorder
         levelBackground.lineWidth = Geometry.LevelLabelBorderWidth
         levelBackground.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
         levelBackground.zPosition = ZPosition.LevelLabel
