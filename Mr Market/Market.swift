@@ -24,7 +24,7 @@ class Market
         // probability of breaking market trend
         let continueTrend = Double(arc4random_uniform(UInt32(100 + 1))) / 100.0 > MarketOption.ProbabilityOfBreakingTrend
         
-        var newLevel = continueTrend ? level + 1 : level - 1
+        let newLevel = continueTrend ? level + 1 : level - 1
         
         // From maxLevel to minLevel
         if newLevel > MrMarket.Info.MaxLevel {
@@ -34,7 +34,7 @@ class Market
         } else {
             level = newLevel
         }
-        println("New Market Level")
+        print("New Market Level")
 
         // new random return
         let randomLimit = (MarketOption.MaxPercentReturn - MarketOption.MinPercentReturn) * 10 + 1
@@ -51,7 +51,7 @@ class Market
         
         latestReturn = newReturn
         
-        println("Market. Latest Return: \(latestReturn), Level: \(level)")
+        print("Market. Latest Return: \(latestReturn), Level: \(level)")
         
         return level
     }

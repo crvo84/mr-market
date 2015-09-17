@@ -123,7 +123,7 @@ class GameOverNode: SKSpriteNode {
     
     }
     
-    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    private func adjustLabelFontSizeToMaximumWidth(labelNode labelNode:SKLabelNode, maxWidth: CGFloat)
     {
         let currentWidth = labelNode.frame.size.width
         

@@ -98,7 +98,7 @@ class Block: SKSpriteNode
         zPosition = ZPosition.Block
     }
     
-    private func adjustLabelFontSizeToFitRect(#labelNode:SKLabelNode, rect:CGRect, centeredOnRect: Bool) {
+    private func adjustLabelFontSizeToFitRect(labelNode labelNode:SKLabelNode, rect:CGRect, centeredOnRect: Bool) {
 
         // Determine the font scaling factor that should let the label text fit in the given rectangle.
         let scalingFactor = min(rect.width / labelNode.frame.width, rect.height / labelNode.frame.height)

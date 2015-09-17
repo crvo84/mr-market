@@ -44,7 +44,7 @@ class Company: NSObject
     class func generateCompanies(numberOfCompanies: Int) -> [Company] {
         var companies: [Company] = []
         
-        var number = min(numberOfCompanies, Texture.numberOfBlockImages)
+        let number = min(numberOfCompanies, Texture.numberOfBlockImages)
         
         // generate all names
         var allNames: [String] = []
@@ -81,7 +81,7 @@ class Company: NSObject
         var remainingNames: [String] = []
         for i in 0..<Texture.numberOfBlockImages {
             let newName = Texture.blockImageNamePrefix + "\(i)"
-            if !contains(existingNames, newName) {
+            if !existingNames.contains(newName) {
                 remainingNames.append(newName)
             }
         }

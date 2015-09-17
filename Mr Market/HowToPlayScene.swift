@@ -21,7 +21,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     // Floor offset
     var floorOffset: CGFloat {
         get {
-            var offset = size.height * Geometry.FloorRelativeHeight
+            let offset = size.height * Geometry.FloorRelativeHeight
             return max(adBottomOffset, offset)
         }
     }
@@ -72,7 +72,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         let tileRatio = tileTexture.size().width / tileTexture.size().height
         let tileSize = CGSize(width: floorOffset * tileRatio, height: floorOffset)
         
-        var numberOfTiles: Int = Int(size.width / tileSize.width) + 1
+        let numberOfTiles: Int = Int(size.width / tileSize.width) + 1
         for i in 0..<numberOfTiles {
             let tileNode = SKSpriteNode(texture: tileTexture, color: SKColor.clearColor(), size: tileSize)
             tileNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
@@ -271,7 +271,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         addChild(tutorialLabelNode!)
     }
     
-    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    private func adjustLabelFontSizeToMaximumWidth(labelNode labelNode:SKLabelNode, maxWidth: CGFloat)
     {
         let currentWidth = labelNode.frame.size.width
         
@@ -313,7 +313,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         touchScreenNode!.runAction(SKAction.fadeAlphaTo(Tutorial.TouchScreenFinalAlpha, duration: Time.TutorialTouchScreenHighlight))
     }
     
-    private func removeTouchScreen(#animated: Bool) {
+    private func removeTouchScreen(animated animated: Bool) {
         if touchScreenNode != nil {
             if animated {
                 touchScreenNode!.runAction(SKAction.fadeOutWithDuration(Time.TutorialTouchScreenFadeInOut), completion: {
@@ -367,7 +367,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
                 // when block hits the bottom, wait, fade out node and call rejectOfferTutorial
                 if let blockName = blockToPurchase.name {
                     if blockName == TutorialBlock.NameA {
-                        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
+//                        let waitAction = SKAction.waitForDuration(Time.TutorialWaitBetweenActions)
                         let fadeOutTutorialLabelAction = SKAction.fadeOutWithDuration(Time.TutorialLabelFadeInOut)
                         let rejectOfferTutorialAction = SKAction.runBlock {
                             self.buyTutorialDone = true
@@ -419,8 +419,8 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
     
     // MARK: User Interaction
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
         let location = touch.locationInNode(self)
         
         let touchedNode = self.nodeAtPoint(location)
@@ -450,7 +450,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
     
     private func deleteBlock(block: Block) {
-        if let index = find(existingBlocks, block) {
+        if let index = existingBlocks.indexOf(block) {
             existingBlocks.removeAtIndex(index)
             block.disappear()
         }
@@ -458,13 +458,13 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
     private func explosion(position: CGPoint)
     {
-        var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
+        let emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
         
-        emitterNode.position = position
+        emitterNode!.position = position
         
-        let explodeAction = SKAction.runBlock { self.addChild(emitterNode) }
+        let explodeAction = SKAction.runBlock { self.addChild(emitterNode!) }
         let waitAction = SKAction.waitForDuration(Time.BlockExplosion)
-        let disappearAction = SKAction.runBlock { emitterNode.removeFromParent() }
+        let disappearAction = SKAction.runBlock { emitterNode!.removeFromParent() }
         
         runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
     }

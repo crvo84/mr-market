@@ -122,7 +122,6 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     {
         // Music On/Off Button
         let musicOn = NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultsKey.MusicOn)
-        let musicOnImage = UIImage(named: musicOn ? Filename.MusicOn : Filename.MusicOff)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         musicOnButton.setImage(UIImage(named: musicOn ? Filename.MusicOn : Filename.MusicOff), forState: UIControlState.Normal)
     }
     
@@ -136,7 +135,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         // setup background music
         if backgroundMusicPlayer == nil {
             if let backgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.BackgroundMusicInitial, withExtension: nil) {
-                backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error: nil)
+                backgroundMusicPlayer = try? AVAudioPlayer(contentsOfURL: backgroundMusicURL)
                 backgroundMusicPlayer.numberOfLoops = -1
             }
         }
@@ -176,42 +175,41 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     
     func authenticatePlayer()
     {
-        if let localPlayer = GKLocalPlayer.localPlayer() {
+        let localPlayer = GKLocalPlayer.localPlayer()
             // Assigning a block to the localPlayer's
             // authenticateHandler kicks off the process
             // of authenticating the user with Game Center.
-            localPlayer.authenticateHandler = { (viewController, error) in
+        localPlayer.authenticateHandler = { (viewController, error) in
+            
+            if viewController != nil {
+                // We need to present a view controller
+                // to finish the authentication process
+                self.presentViewController(viewController!, animated: true, completion: nil)
                 
-                if viewController != nil {
-                    // We need to present a view controller
-                    // to finish the authentication process
-                    self.presentViewController(viewController, animated: true, completion: nil)
-                    
-                } else if localPlayer.authenticated {
-                    // We're authenticated, and can now use Game Center features
-                    println("Authenticated")
-                    self.isGameCenterEnabled = true
-                    
-                } else if let theError = error {
-                    // We're not authenticated.
-                    println("Error! \(theError)")
-                    self.isGameCenterEnabled = false
-                }
+            } else if localPlayer.authenticated {
+                // We're authenticated, and can now use Game Center features
+                print("Authenticated")
+                self.isGameCenterEnabled = true
                 
+            } else if let theError = error {
+                // We're not authenticated.
+                print("Error! \(theError)")
+                self.isGameCenterEnabled = false
             }
+            
         }
     }
     
     @IBAction func leaderboardButtonPressed(sender: AnyObject)
     {
-        var gameCenterViewController: GKGameCenterViewController = GKGameCenterViewController()
+        let gameCenterViewController: GKGameCenterViewController = GKGameCenterViewController()
         gameCenterViewController.gameCenterDelegate = self
         gameCenterViewController.viewState = GKGameCenterViewControllerState.Leaderboards
         gameCenterViewController.leaderboardIdentifier = GameCenter.LeaderboardId
         self.presentViewController(gameCenterViewController, animated: true, completion: nil)
     }
     
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -229,10 +227,10 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         
         let removeAdsActionSheet = UIAlertController(title: Text.RemoveAds, message: alertMessage, preferredStyle: .ActionSheet)
         
-        let purchaseAction = UIAlertAction(title: Text.Purchase, style: .Default) { (action:UIAlertAction!) in
+        let purchaseAction = UIAlertAction(title: Text.Purchase, style: .Default) { (action:UIAlertAction) in
             self.removeAds()
         }
-        let restorePurchaseAction = UIAlertAction(title: Text.Restore, style: .Default) { (action: UIAlertAction!) in
+        let restorePurchaseAction = UIAlertAction(title: Text.Restore, style: .Default) { (action: UIAlertAction) in
             self.restorePurchases()
         }
         let cancelAction = UIAlertAction(title: Text.Cancel, style: .Cancel, handler: nil)
@@ -253,7 +251,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         if !showAds { return }
         
         if product != nil {
-            let payment = SKPayment(product: product)
+            let payment = SKPayment(product: product!)
             SKPaymentQueue.defaultQueue().addPayment(payment)
         } else {
             waitingForProduct = true
@@ -267,19 +265,20 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
     
     func getProductInfo() {
         if SKPaymentQueue.canMakePayments() {
-            let request = SKProductsRequest(productIdentifiers: NSSet(objects: InAppPurchase.RemoveAdsProductId) as Set<NSObject>)
+            let productIdsSet = Set([InAppPurchase.RemoveAdsProductId])
+            let request = SKProductsRequest(productIdentifiers: productIdsSet)
             request.delegate = self
             request.start()
         } else {
-            println("Please enable In App Purchase in Settings")
+            print("Please enable In App Purchase in Settings")
         }
     }
     
     // SKProduct request delegate
-    func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
+    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         var products = response.products
         if (products.count > 0) {
-            product = products[0] as? SKProduct
+            product = products[0]
             if waitingForProduct {
                 waitingForProduct = false
                 removeAds()
@@ -287,13 +286,13 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         }
         
         for product in response.invalidProductIdentifiers {
-            println("Product not found: \(product)")
+            print("Product not found: \(product)")
         }
     }
     
     // SKPayment transaction delegate
-    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
-        for transaction in transactions as! [SKPaymentTransaction] {
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
             switch transaction.transactionState {
                 
             case SKPaymentTransactionState.Failed:
@@ -312,7 +311,7 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         }
     }
     
-    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!) {
+    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
         //called when the user successfully restores a purchase
         var itemsRestored = false
         for transaction in queue.transactions {
@@ -323,10 +322,12 @@ class InitialViewController: UIViewController, GKGameCenterControllerDelegate, S
         let restoredTitle = itemsRestored ? Text.PurchasesRestored : Text.NoPreviousPurchases
         let restoredAlertController = UIAlertController(title: restoredTitle, message: nil, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: Text.Ok, style: .Default, handler: nil)
+        restoredAlertController.addAction(okAction)
+        self.presentViewController(restoredAlertController, animated: true, completion: nil)
     }
 
     
-    func paymentQueue(queue: SKPaymentQueue!, restoreCompletedTransactionsFailedWithError error: NSError!) {
+    func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
         let failToRestoreAlert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: Text.Ok, style: .Default, handler: nil)
         failToRestoreAlert.addAction(okAction)

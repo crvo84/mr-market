@@ -23,7 +23,7 @@ class HowToPlayViewController: UIViewController {
         if let skView = view as? SKView {
             
             // Create and configure scene
-            var scene = HowToPlayScene(size: skView.bounds.size)
+            let scene = HowToPlayScene(size: skView.bounds.size)
             scene.scaleMode = .AspectFill
             scene.howToPlayViewController = self
             

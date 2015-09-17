@@ -22,21 +22,21 @@ class Portfolio
     
     // Return true if the price was purchased, false otherwise (e.g. no enough cash)
     func buyPrice(price: Price) -> Bool {
-        let index = find(prices, price)
+        let index = prices.indexOf(price)
         if index == nil && cash >= transactionAmount {
             // If the price was not already purchased, or if enough cash available
             cash -= transactionAmount
             prices.append(price)
-            println("Block purchased")
+            print("Block purchased")
             return true
         }
         
-        println("Block not purchased")
+        print("Block not purchased")
         return false
     }
     
     func sellPrice(priceToSell: Price) {
-        if let index = find(prices, priceToSell) {
+        if let index = prices.indexOf(priceToSell) {
 //            cash += (priceToSell.company.currentPriceValue / priceToSell.value - 1) * transactionAmount
             cash += (priceToSell.company.currentPriceValue / priceToSell.value) * transactionAmount
             prices.removeAtIndex(index)
@@ -45,7 +45,7 @@ class Portfolio
     }
     
     func sellPriceWithoutProfitOrLoss(priceToSell: Price) {
-        if let index = find(prices, priceToSell) {
+        if let index = prices.indexOf(priceToSell) {
             cash += transactionAmount
             prices.removeAtIndex(index)
         }

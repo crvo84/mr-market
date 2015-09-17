@@ -216,8 +216,8 @@ struct FontSize {
     static let LevelLabelIphone: CGFloat = 40
     static let LevelLabelIpad: CGFloat = 80
     // score
-    static let ScoreLabelIphone: CGFloat = 28
-    static let ScoreLabelIpad: CGFloat = 56
+    static let ScoreLabelIphone: CGFloat = 32
+    static let ScoreLabelIpad: CGFloat = 64
     // pause
     static let PausedLabelIphone: CGFloat = 50
     static let PausedLabelIpad: CGFloat = 100
@@ -288,7 +288,7 @@ struct Time {
     static let TutorialTouchScreenHighlight: Double = 0.5
     static let TutorialMrMarketMoodFaceChange: Double = 1.2
     static let TutorialSentenceBetweenLabels: Double = 5.0
-    static let TutorialSentenceFadeInOut: Double = 0.6
+    static let TutorialSentenceFadeInOut: Double = 1.0
 }
 
 struct Physics {
@@ -350,16 +350,16 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 5 // 0.70
+    static let SpeedInitial: CGFloat = 0.7 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
-    static let InitialCash: Double = 100.0 // 500
+    static let InitialCash: Double = 500.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true
-    static let GameOverRecoverOriginalInvestments: Bool = false
+    static let GameOverRecoverOriginalInvestments: Bool = false // false
 }
 
 struct MarketOption {

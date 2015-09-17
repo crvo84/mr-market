@@ -35,7 +35,7 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         if let skView = view as? SKView {
             
             // Create and configure scene
-            var scene = MarketGameScene(size: skView.bounds.size)
+            let scene = MarketGameScene(size: skView.bounds.size)
             scene.scaleMode = .AspectFill
             scene.marketGameViewController = self
             
@@ -51,7 +51,7 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
     
     // MARK: UIActivity View Controller
     
-    func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?, sender: UIView, positionInView: CGPoint) {
+    func shareTextImageAndURL(sharingText sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?, sender: UIView, positionInView: CGPoint) {
         var sharingItems = [AnyObject]()
         
         if let text = sharingText {
@@ -83,9 +83,9 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
         
         GKScore.reportScores([score], withCompletionHandler: { (error) -> Void in
             if error != nil {
-                println("Failed to report score: \(error)")
+                print("Failed to report score: \(error)")
             } else {
-                println("Successfully logged score!")
+                print("Successfully logged score!")
             }
         })
     }

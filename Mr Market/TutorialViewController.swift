@@ -23,7 +23,7 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
         
         // mr market view setup
         // Create and configure scene
-        var scene = MrMarketFaceScene(size: mrMarketView.bounds.size)
+        let scene = MrMarketFaceScene(size: mrMarketView.bounds.size)
         scene.backgroundColor = Color.MainBackground
         scene.scaleMode = .AspectFill
         // Show the scene
@@ -117,14 +117,6 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
     
     
     // MARK: Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == SegueId.BookReference {
-            if let popoverPresentationController = segue.destinationViewController.popoverPresentationController {
-                
-            }
-        }
-    }
     
     @IBAction func unwindToTutorialViewController(segue: UIStoryboardSegue)
     {

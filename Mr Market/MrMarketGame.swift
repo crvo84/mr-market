@@ -12,7 +12,7 @@ class MrMarketGame
 {
     var gameLevel: Int = 1 {
         didSet {
-            println("Game level: \(gameLevel)")
+            print("Game level: \(gameLevel)")
             updateCompanies()
             portfolio.transactionAmount += GameOption.TransactionAmountIncrease
         }
@@ -62,7 +62,7 @@ class MrMarketGame
         
         if numberToAdd <= 0 { return }
         
-        for i in 0..<numberToAdd {
+        for _ in 0..<numberToAdd {
 //            let newCompany = Company.newCompanyForIndex(currentNumber + i)
             let newCompany = Company.newCompanyForCurrentCompanies(companies)
             if newCompany != nil {

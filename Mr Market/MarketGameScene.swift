@@ -25,7 +25,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Floor offset
     var floorOffset: CGFloat {
         get {
-            var offset = size.height * Geometry.FloorRelativeHeight
+            let offset = size.height * Geometry.FloorRelativeHeight
             return max(adBottomOffset, offset)
         }
     }
@@ -89,7 +89,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private var timeBetweenPeriods: Double {
         let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
-        println("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
+        print("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
         return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
     }
     
@@ -136,7 +136,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let tileRatio = tileTexture.size().width / tileTexture.size().height
         let tileSize = CGSize(width: floorOffset * tileRatio, height: floorOffset)
         
-        var numberOfTiles: Int = Int(size.width / tileSize.width) + 1
+        let numberOfTiles: Int = Int(size.width / tileSize.width) + 1
         for i in 0..<numberOfTiles {
             let tileNode = SKSpriteNode(texture: tileTexture, color: SKColor.clearColor(), size: tileSize)
             tileNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
@@ -152,7 +152,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         let recursionAction = SKAction.runBlock {
             self.game.gameLevel++
             self.physicsWorld.speed = self.gameSpeed
-            println("Game speed: \(self.gameSpeed)")
+            print("Game speed: \(self.gameSpeed)")
             self.performOneLevelActions()
         }
         runAction(SKAction.sequence([currentLevelAction, recursionAction]))
@@ -227,7 +227,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         gameLevelsForNextUILevel--
         
         // Blocks generation
-        for i in 0..<numberOfPeriods {
+        for _ in 0..<numberOfPeriods {
             
             for j in 0..<numberOfCompanies {
                 
@@ -278,7 +278,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // setup background music
         if backgroundMusicPlayer == nil {
             if let backgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.BackgroundMusic, withExtension: nil) {
-                backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error: nil)
+                backgroundMusicPlayer = try? AVAudioPlayer(contentsOfURL: backgroundMusicURL)
                 backgroundMusicPlayer.numberOfLoops = -1
             }
         }
@@ -288,7 +288,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         // setup alert background music
         if let alertBackgroundMusicURL = NSBundle.mainBundle().URLForResource(Filename.AlertBackgroundMusic, withExtension: nil) {
-            alertBackgroundMusicPlayer = AVAudioPlayer(contentsOfURL: alertBackgroundMusicURL, error: nil)
+            alertBackgroundMusicPlayer = try? AVAudioPlayer(contentsOfURL: alertBackgroundMusicURL)
             alertBackgroundMusicPlayer!.numberOfLoops = -1
             alertBackgroundMusicPlayer!.volume = Volume.AlertBackgroundMusic
         }
@@ -417,7 +417,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         runAction(getCashCounterAction!, withKey: ActionKey.GetCashCounter)
     }
     
-    private func stopGetCashCount(#gameOver: Bool) {
+    private func stopGetCashCount(gameOver gameOver: Bool) {
         // remove actions
         getCashLabelBackground?.removeActionForKey(ActionKey.GetCashLabel)
         removeActionForKey(ActionKey.GetCashCounter)
@@ -477,14 +477,14 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func explosion(position: CGPoint)
     {
-        var emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
+        let emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
 
-        emitterNode.position = position
-        emitterNode.zPosition = ZPosition.Explosion
+        emitterNode!.position = position
+        emitterNode!.zPosition = ZPosition.Explosion
         
-        let explodeAction = SKAction.runBlock { self.addChild(emitterNode) }
+        let explodeAction = SKAction.runBlock { self.addChild(emitterNode!) }
         let waitAction = SKAction.waitForDuration(Time.BlockExplosion)
-        let disappearAction = SKAction.runBlock { emitterNode.removeFromParent() }
+        let disappearAction = SKAction.runBlock { emitterNode!.removeFromParent() }
         
         runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
     }
@@ -550,9 +550,9 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     }
     
     // MARK: User Interaction
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
-        let location = touch.locationInNode(self)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let location = touch!.locationInNode(self)
         
         let touchedNode = self.nodeAtPoint(location)
         if let name = touchedNode.name {
@@ -599,7 +599,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 let sharingURL = NSURL(string: URLString.AppStoreDownload)
                 let sharingImage = ScoreImageGenerator().scoreImageWithText(cashString)
                 
-                let locationInView = touch.locationInView(view!)
+                let locationInView = touch!.locationInView(view!)
                 
                 marketGameViewController!.shareTextImageAndURL(sharingText: sharingText, sharingImage: sharingImage, sharingURL: sharingURL, sender: self.view!, positionInView: locationInView)
                 
@@ -636,7 +636,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
 
     
     private func deleteBlock(block: Block) {
-        if let index = find(existingBlocks, block) {
+        if let index = existingBlocks.indexOf(block) {
             if !isGameOver || ranOutOfCash || GameOption.GameOverRecoverOriginalInvestments {
                 // If still playing or ran out of cash, block is sold at current value
                 game.portfolio.sellPrice(block.price)
@@ -677,7 +677,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // MARK: helper functions
     
     // adjusts font size if needed
-    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    private func adjustLabelFontSizeToMaximumWidth(labelNode labelNode:SKLabelNode, maxWidth: CGFloat)
     {
         let currentWidth = labelNode.frame.size.width
         
