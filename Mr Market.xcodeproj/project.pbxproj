@@ -22,6 +22,7 @@
 		732D457E1BA87AAC00442340 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 732D457D1BA87AAC00442340 /* success.wav */; };
 		733FFA841B7E3C95004B842E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 733FFA821B7E3C95004B842E /* spark.png */; };
 		7349F8431B91152F009B6A16 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7349F8421B91152F009B6A16 /* AboutViewController.swift */; };
+		7354DB921BAA4D140097DB4C /* GameLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354DB911BAA4D140097DB4C /* GameLabelNode.swift */; };
 		739FE0EE1BA8ABB700517D04 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 739FE0F01BA8ABB700517D04 /* Localizable.strings */; };
 		739FE0F51BA8ABB700517D04 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 739FE0F71BA8ABB700517D04 /* InfoPlist.strings */; };
 		739FE0FA1BA8ABB700517D04 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 739FE0FC1BA8ABB700517D04 /* InfoPlist.strings */; };
@@ -79,6 +80,7 @@
 		732D457D1BA87AAC00442340 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
 		733FFA821B7E3C95004B842E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		7349F8421B91152F009B6A16 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		7354DB911BAA4D140097DB4C /* GameLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLabelNode.swift; sourceTree = "<group>"; };
 		739FE0EF1BA8ABB700517D04 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		739FE0F11BA8ABB700517D04 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		739FE0F21BA8ABB700517D04 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -304,11 +306,12 @@
 		73F5D6DE1B7C387E009C7A9A /* SpriteNodes */ = {
 			isa = PBXGroup;
 			children = (
-				73206A5D1B8789E700D2BA22 /* PauseNode.swift */,
 				73206A691B8CBD5D00D2BA22 /* GameOverNode.swift */,
+				73206A5D1B8789E700D2BA22 /* PauseNode.swift */,
 				73F5D61F1B76CA2B009C7A9A /* MrMarket.swift */,
 				73F5D6DC1B7C3877009C7A9A /* Block.swift */,
 				73206A611B87AF4B00D2BA22 /* ButtonNode.swift */,
+				7354DB911BAA4D140097DB4C /* GameLabelNode.swift */,
 				733FFA851B7E49BA004B842E /* Emitters */,
 			);
 			name = SpriteNodes;
@@ -455,6 +458,7 @@
 				73E1C3EF1B8641C400B3B57A /* InitialViewController.swift in Sources */,
 				730982EA1B94DE6E0067DA51 /* ScoreImageGenerator.swift in Sources */,
 				73E6582F1B9FCEA60091E762 /* TutorialPageContentViewController.swift in Sources */,
+				7354DB921BAA4D140097DB4C /* GameLabelNode.swift in Sources */,
 				73A974691B82BF2C00CACF04 /* Portfolio.swift in Sources */,
 				73F5D61A1B76918F009C7A9A /* MarketGameScene.swift in Sources */,
 				73E6582C1B9F6A160091E762 /* MrMarketFaceScene.swift in Sources */,

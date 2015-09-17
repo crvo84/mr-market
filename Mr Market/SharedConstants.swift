@@ -60,11 +60,17 @@ struct Geometry {
     
     // get cash counter
     static let GetCashCounterUpperOffset: CGFloat = 10
+    static let GetCashCounterBackgroundOffset: CGFloat = 8.0
+    static let GetCashCounterBackgroundRelativeCornerRadius: CGFloat = 0.3
+    // get cash label
+    static let GetCashCounterMaxRelativeWidth: CGFloat = 0.90 // relative to space left after get cash counter, centered
     
     // level label
     static let LevelLabelBackgroundOffset: CGFloat = 16.0
     static let LevelLabelRelativeCornerRadius: CGFloat = 0.03 // relative to background width
-    static let LevelLabelBorderWidth: CGFloat = 0.0
+    
+    // label background
+    static let LabelBackgroundBorderWidth: CGFloat = 0.0
     
     // pause button
     static let PauseButtonRightOffset: CGFloat = 6.0
@@ -104,13 +110,15 @@ struct Geometry {
     static let GameOverNodeScoreLabelsVerticalSeparation: CGFloat = 12
     static let GameOverNodeBestLabelsVerticalSeparation: CGFloat = 8
     static let GameOverNodeScoreAndBestLabelsVerticalSeparation: CGFloat = 24
+    static let GameOverNodeLabelsMaxRelativeWidth: CGFloat = 0.80 // Relative to gameOver node width
     
     // Button node
-    static let ButtonNodeLabelRelativeWidth: CGFloat = 0.80 // relative to button width
+    static let ButtonNodeLabelRelativeWidth: CGFloat = 0.90 // relative to button width
     static let ButtonNodeLabelRelativeHeight: CGFloat = 0.50 // relative to button height
     
     // score label
     static let ScoreLabelUpperOffset: CGFloat = 10.0
+    static let ScoreLabelMaxRelativeWidth: CGFloat = 0.90 // relative to space left after mr market, centered
     
     // floor
     static let FloorRelativeHeight: CGFloat = 1 / 10 // Relative to scene height
@@ -126,6 +134,7 @@ struct Geometry {
     static let TutorialTouchScreenVerticalOffsetFromCenter: CGFloat = -20
     static let TutorialMrMarketSizeMultiplierFactor: CGFloat = 2.0 // relative to normal game size
     static let TutorialMrMarketVerticalOffsetFromCenter: CGFloat = 16
+    static let TutorialLabelMaxRelativeWidth: CGFloat = 0.8 // relative to tutorial scene width
     
     // Initial View
     static let InitialViewButtonRelativeCornerRadius: CGFloat = 0.03
@@ -138,7 +147,7 @@ struct Color {
     // block
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
-    static let BlockTextDefault = SKColor(red: 0.0, green: 70/255, blue: 84/255, alpha: 1.0)
+    static let BlockTextDefault = SKColor(red: 0.0, green: 58/255, blue: 70/255, alpha: 1.0)
     static let BlockPurchased = SKColor.whiteColor()
     static let BlockMaxProfit: Double = 0.75 // positive value
     static let BlockMaxLoss: Double = -0.75 // negative value
@@ -163,7 +172,7 @@ struct Color {
     
     // pause
     static let PausedLabel = SKColor.lightGrayColor()
-    static let PauseNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
+    static let PauseNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.95)
     static let PauseNodeBorder = Color.PauseNodeBackground
     static let PauseNodeButton = SKColor.lightGrayColor()
     static let PauseNodeButtonBorder = Color.PauseNodeButton
@@ -172,7 +181,7 @@ struct Color {
     // game over
     static let GameOverNodeScoreLabel = SKColor.lightGrayColor()
     static let GameOverNodeBestScoreLabel = SKColor.lightGrayColor()
-    static let GameOverNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
+    static let GameOverNodeBackground = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.95)
     static let GameOverNodeBorder = Color.GameOverNodeBackground
     static let GameOverNodeLargeButton = SKColor.lightGrayColor()
     static let GameOverNodeSmallButton = SKColor.clearColor()
@@ -198,10 +207,10 @@ struct FontSize {
     static let BlockPriceInitial: CGFloat = 10.0
     static let BlockLargestPriceText = "$99.9"
     // get cash
-    static let GetCashCounterIphone: CGFloat = 35
-    static let GetCashCounterIpad: CGFloat = 70
-    static let GetCashLabelIphone: CGFloat = 32
-    static let GetCashLabelIpad: CGFloat = 64
+    static let GetCashCounterIphone: CGFloat = 50
+    static let GetCashCounterIpad: CGFloat = 100
+    static let GetCashLabelIphone: CGFloat = 40
+    static let GetCashLabelIpad: CGFloat = 80
     // level label
     static let LevelLabelIphone: CGFloat = 40
     static let LevelLabelIpad: CGFloat = 80
@@ -225,17 +234,17 @@ struct FontSize {
 
 struct FontName {
     static let BlockText = "Arial"
-    static let ScoreLabel = "Arial"
-    static let PausedLabel = "Arial"
-    static let PauseNodeButton = "Arial"
-    static let GameOverScoreLabel = "Arial"
-    static let GameOverButton = "Arial"
-    static let GetCashCounter = "Arial"
-    static let GetCashLabel = "Arial"
-    static let LevelLabel = "Arial"
-    static let TutorialMainTitle = "Arial"
-    static let TutorialLabel = "Arial"
-    static let TutorialTextView = "Arial"
+    static let ScoreLabel = "Gill Sans"
+    static let PausedLabel = "Gill Sans"
+    static let PauseNodeButton = "Gill Sans"
+    static let GameOverScoreLabel = "Gill Sans"
+    static let GameOverButton = "Gill Sans"
+    static let GetCashCounter = "Gill Sans"
+    static let GetCashLabel = "Gill Sans"
+    static let LevelLabel = "Gill Sans"
+    static let TutorialMainTitle = "Gill Sans"
+    static let TutorialLabel = "Gill Sans"
+    static let TutorialTextView = "Gill Sans"
 }
 
 struct Texture {
@@ -340,12 +349,12 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 10 // 0.70
+    static let SpeedInitial: CGFloat = 5 // 0.70
     static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
-    static let InitialCash: Double = 500000.0 // 500
+    static let InitialCash: Double = 100.0 // 500
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true

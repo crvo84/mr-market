@@ -95,6 +95,7 @@ class GameOverNode: SKSpriteNode {
         let scoreLabel = SKLabelNode(text: score)
         scoreLabel.fontColor = Color.GameOverNodeScoreLabel
         scoreLabel.fontSize = isIpad ? FontSize.GameOverScoreLabelIpad : FontSize.GameOverScoreLabelIphone
+        adjustLabelFontSizeToMaximumWidth(labelNode: scoreLabel, maxWidth: backgroundNode!.frame.size.width * Geometry.GameOverNodeLabelsMaxRelativeWidth)
         scoreLabel.fontName = FontName.GameOverScoreLabel
         scoreLabel.verticalAlignmentMode = .Bottom
         scoreLabel.horizontalAlignmentMode = .Center
@@ -102,14 +103,15 @@ class GameOverNode: SKSpriteNode {
         backgroundNode!.addChild(scoreLabel)
         
         // BEST SCORE LABEL
-        let bestTextLabel = SKLabelNode(text: Text.Best + ": " + bestScore)
-        bestTextLabel.fontColor = Color.GameOverNodeBestScoreLabel
-        bestTextLabel.fontSize = isIpad ? FontSize.GameOverBestScoreLabelIpad : FontSize.GameOverBestScoreLabelIphone
-        bestTextLabel.fontName = FontName.GameOverScoreLabel
-        bestTextLabel.verticalAlignmentMode = .Top
-        bestTextLabel.horizontalAlignmentMode = .Center
-        bestTextLabel.position = CGPoint(x: 0.0, y: labelsMiddlePointY - Geometry.GameOverNodeScoreAndBestLabelsVerticalSeparation / 2.0)
-        backgroundNode!.addChild(bestTextLabel)
+        let bestLabel = SKLabelNode(text: Text.Best + ": " + bestScore)
+        bestLabel.fontColor = Color.GameOverNodeBestScoreLabel
+        bestLabel.fontSize = isIpad ? FontSize.GameOverBestScoreLabelIpad : FontSize.GameOverBestScoreLabelIphone
+        adjustLabelFontSizeToMaximumWidth(labelNode: bestLabel, maxWidth: backgroundNode!.frame.size.width * Geometry.GameOverNodeLabelsMaxRelativeWidth)
+        bestLabel.fontName = FontName.GameOverScoreLabel
+        bestLabel.verticalAlignmentMode = .Top
+        bestLabel.horizontalAlignmentMode = .Center
+        bestLabel.position = CGPoint(x: 0.0, y: labelsMiddlePointY - Geometry.GameOverNodeScoreAndBestLabelsVerticalSeparation / 2.0)
+        backgroundNode!.addChild(bestLabel)
 
         
 //        // MUSIC ON/OFF NODE
@@ -119,6 +121,20 @@ class GameOverNode: SKSpriteNode {
 //        musicOnOffButton!.name = NodeName.MusicOnOff
 //        backgroundNode!.addChild(musicOnOffButton!)
     
+    }
+    
+    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    {
+        let currentWidth = labelNode.frame.size.width
+        
+        if currentWidth > maxWidth {
+            
+            // Determine the font scaling factor that should let the label text fit in the given rectangle.
+            let scalingFactor = maxWidth / currentWidth
+            
+            // Change the fontSize.
+            labelNode.fontSize *= scalingFactor
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

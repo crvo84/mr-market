@@ -104,15 +104,6 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         exitButtonNode.zPosition = ZPosition.Button
         addChild(exitButtonNode)
         
-//        // next button
-//        let nextButtonNode = SKSpriteNode(imageNamed: Filename.NextButton)
-//        nextButtonNode.size = CGSize(width: Geometry.TutorialNextButtonSideSize, height: Geometry.TutorialNextButtonSideSize)
-//        nextButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
-//        nextButtonNode.position = CGPoint(x: size.width - Geometry.TutorialNextButtonRightOffset, y: size.height - Geometry.TutorialNextButtonUpperOffset)
-//        nextButtonNode.name = NodeName.NextButton
-//        nextButtonNode.zPosition = ZPosition.Button
-//        addChild(nextButtonNode)
-        
         // reload Button
         let reloadButtonNode = SKSpriteNode(imageNamed: Filename.ReloadButton)
         reloadButtonNode.size = CGSize(width: Geometry.TutorialReloadButtonSideSize, height: Geometry.TutorialReloadButtonSideSize)
@@ -141,6 +132,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         mainTitleNode.fontColor = Color.TutorialMainTitle
         mainTitleNode.fontName = FontName.TutorialMainTitle
         mainTitleNode.fontSize = isIpad ? FontSize.TutorialMainTitleIpad : FontSize.TutorialMainTitleIphone
+        adjustLabelFontSizeToMaximumWidth(labelNode: mainTitleNode, maxWidth: size.width * Geometry.TutorialLabelMaxRelativeWidth)
         mainTitleNode.verticalAlignmentMode = .Top
         mainTitleNode.horizontalAlignmentMode = .Center
         mainTitleNode.position = CGPoint(x: size.width / 2.0, y: (size.height + floorOffset) / 2.0)
@@ -263,19 +255,35 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
     
     private func setLabelNodeWithText(text: String)
     {
-        if tutorialLabelNode == nil {
-            tutorialLabelNode = SKLabelNode()
-            tutorialLabelNode!.fontColor = Color.TutorialLabel
-            tutorialLabelNode!.fontName = FontName.TutorialLabel
-            tutorialLabelNode!.fontSize = isIpad ? FontSize.TutorialLabelIpad : FontSize.TutorialLabelIphone
-            tutorialLabelNode!.verticalAlignmentMode = .Top
-            tutorialLabelNode!.horizontalAlignmentMode = .Center
-            tutorialLabelNode!.position = CGPoint(x: size.width / 2.0, y: size.height - Geometry.TutorialLabelUpperOffset)
-            tutorialLabelNode!.zPosition = ZPosition.TutorialLabel
-            tutorialLabelNode!.alpha = 0.0
-            addChild(tutorialLabelNode!)
+        // TODO: add background to tutorialLabelNode
+        tutorialLabelNode?.removeFromParent()
+        tutorialLabelNode = nil
+        
+        tutorialLabelNode = SKLabelNode(text: text)
+        tutorialLabelNode!.fontColor = Color.TutorialLabel
+        tutorialLabelNode!.fontName = FontName.TutorialLabel
+        tutorialLabelNode!.fontSize = isIpad ? FontSize.TutorialLabelIpad : FontSize.TutorialLabelIphone
+        adjustLabelFontSizeToMaximumWidth(labelNode: tutorialLabelNode!, maxWidth: size.width * Geometry.TutorialLabelMaxRelativeWidth)
+        tutorialLabelNode!.verticalAlignmentMode = .Top
+        tutorialLabelNode!.horizontalAlignmentMode = .Center
+        tutorialLabelNode!.position = CGPoint(x: size.width / 2.0, y: size.height - Geometry.TutorialLabelUpperOffset)
+        tutorialLabelNode!.zPosition = ZPosition.TutorialLabel
+        tutorialLabelNode!.alpha = 0.0
+        addChild(tutorialLabelNode!)
+    }
+    
+    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    {
+        let currentWidth = labelNode.frame.size.width
+        
+        if currentWidth > maxWidth {
+            
+            // Determine the font scaling factor that should let the label text fit in the given rectangle.
+            let scalingFactor = maxWidth / currentWidth
+            
+            // Change the fontSize.
+            labelNode.fontSize *= scalingFactor
         }
-        tutorialLabelNode!.text = text
     }
     
     // pointing up

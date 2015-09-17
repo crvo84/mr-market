@@ -47,12 +47,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     // Alert background music
     private var alertBackgroundMusicPlayer: AVAudioPlayer!
     
-    // Get Cash count
+    // Get Cash
     private var isGetCashCountActive = false
+    // get cash label
     private var getCashLabel: SKLabelNode?
-    private var getCashCounter: SKLabelNode?
-    private var getCashCounterAction: SKAction?
+    private var getCashLabelBackground: SKShapeNode?
     private var getCashLabelAction: SKAction?
+    // get cash counter
+    private var getCashCounter: SKLabelNode?
+    private var getCashCounterBackground: SKShapeNode?
+    private var getCashCounterAction: SKAction?
+    
     
     // Game Over
     private var gameOverNode: GameOverNode?
@@ -114,15 +119,16 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         if !contentCreated {
             userInteractionEnabled = true
             backgroundColor = Color.MainBackground
+            audioSetup()
             registerAppTransitionObservers()
             floorSetup()
-            scoreLabelAndPauseButtonSetup()
-            physicsWorldSetup()
             mrMarketSetup()
-            audioSetup()
-            performOneLevelActions()
+            physicsWorldSetup()
+            scoreLabelAndPauseButtonSetup()
             
             contentCreated = true
+            
+            performOneLevelActions()
         }
     }
     
@@ -164,6 +170,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         scoreLabelNode.position = CGPoint(x: size.width / 2.0 , y: size.height - Geometry.ScoreLabelUpperOffset)
         scoreLabelNode.zPosition = ZPosition.ScoreLabel
+        updateScoreLabel()
         addChild(scoreLabelNode)
         
         // pause button
@@ -300,26 +307,22 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         levelLabel.horizontalAlignmentMode = .Center
         
         // level background
-        let backgroundWidth = levelLabel.frame.size.width + Geometry.LevelLabelBackgroundOffset * 2
-        let backgroundHeight = levelLabel.frame.size.height + Geometry.LevelLabelBackgroundOffset * 2
-        let backgroundCornerRadius = backgroundWidth * Geometry.LevelLabelRelativeCornerRadius
-        let backgroundSize = CGSize(width: backgroundWidth, height: backgroundHeight)
-        let levelBackground = SKShapeNode(rectOfSize: backgroundSize, cornerRadius: backgroundCornerRadius)
-        levelBackground.fillColor = Color.LabelBackground
-        levelBackground.strokeColor = Color.LabelBackgroundBorder
-        levelBackground.lineWidth = Geometry.LevelLabelBorderWidth
-        levelBackground.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-        levelBackground.zPosition = ZPosition.LevelLabel
-        levelBackground.alpha = 0.0
+        let levelBackgroundNode = backgroundNodeForLabel(levelLabel, verticalOffset: Geometry.LevelLabelBackgroundOffset, horizontalOffset: Geometry.LevelLabelBackgroundOffset, relativeCornerRadius: Geometry.LevelLabelRelativeCornerRadius)
+        levelBackgroundNode.fillColor = Color.LabelBackground
+        levelBackgroundNode.strokeColor = Color.LabelBackgroundBorder
+        levelBackgroundNode.lineWidth = Geometry.LabelBackgroundBorderWidth
+        levelBackgroundNode.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
+        levelBackgroundNode.zPosition = ZPosition.LevelLabel
+        levelBackgroundNode.alpha = 0.0
         
-        addChild(levelBackground)
-        levelBackground.addChild(levelLabel)
+        addChild(levelBackgroundNode)
+        levelBackgroundNode.addChild(levelLabel)
         
         let fadeInAction = SKAction.fadeInWithDuration(Time.LevelLabelFadeInOut)
         let waitAction = SKAction.waitForDuration(Time.LevelLabelOnScreen)
         let fadeOutAction = SKAction.fadeOutWithDuration(Time.LevelLabelFadeInOut)
         
-        levelBackground.runAction(SKAction.sequence([fadeInAction, waitAction, fadeOutAction, SKAction.removeFromParent()]))
+        levelBackgroundNode.runAction(SKAction.sequence([fadeInAction, waitAction, fadeOutAction, SKAction.removeFromParent()]))
     }
 
     private func updateUILevelInfo() {
@@ -344,10 +347,19 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         getCashCounter!.fontColor = Color.GetCashCounter
         getCashCounter!.fontName = FontName.GetCashCounter
         getCashCounter!.fontSize = isIpad ? FontSize.GetCashCounterIpad : FontSize.GetCashCounterIphone
-        getCashCounter!.verticalAlignmentMode = .Top
+        getCashCounter!.verticalAlignmentMode = .Center
         getCashCounter!.horizontalAlignmentMode = .Center
-        getCashCounter!.position = CGPoint(x: pauseButtonNode.position.x - pauseButtonNode.size.width / 2.0, y: pauseButtonNode.position.y - pauseButtonNode.size.height - Geometry.GetCashCounterUpperOffset)
-        getCashCounter!.zPosition = ZPosition.GetCashCounter
+        // TODO: add background to counter label
+        // counter background
+        getCashCounterBackground = backgroundNodeForLabel(getCashCounter!, verticalOffset: Geometry.GetCashCounterBackgroundOffset, horizontalOffset: Geometry.GetCashCounterBackgroundOffset, relativeCornerRadius: Geometry.GetCashCounterBackgroundRelativeCornerRadius)
+        getCashCounterBackground!.fillColor = Color.LabelBackground
+        getCashCounterBackground!.strokeColor = Color.LabelBackgroundBorder
+        getCashCounterBackground!.lineWidth = Geometry.LabelBackgroundBorderWidth
+        let getCashCounterBackgroundNodeX = size.width - Geometry.PauseButtonRightOffset - getCashCounterBackground!.frame.size.width / 2
+        let getCashCounterBackgroundNodeY = pauseButtonNode.position.y - pauseButtonNode.size.height - Geometry.GetCashCounterUpperOffset - getCashCounterBackground!.frame.size.height / 2.0
+        getCashCounterBackground!.position = CGPoint(x: getCashCounterBackgroundNodeX, y: getCashCounterBackgroundNodeY)
+        getCashCounterBackground!.zPosition = ZPosition.GetCashCounter
+        getCashCounterBackground!.addChild(getCashCounter!)
         
         // counter action
         var counterActions: [SKAction] = []
@@ -367,10 +379,13 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         // LABEL
         // add label
+        // TODO: if width is larger than width left after counter, adjust font size
+        // TODO: add background to get cash label
         getCashLabel = SKLabelNode(text: Text.GetCash)
         getCashLabel!.fontColor = Color.GetCashLabel
         getCashLabel!.fontName = FontName.GetCashLabel
         getCashLabel!.fontSize = isIpad ? FontSize.GetCashLabelIpad : FontSize.GetCashLabelIphone
+//        let maxGetCashLabelWidth = size.width - (getCashCounter!.frame.size.width + Geometry.GetCash)
         getCashLabel!.verticalAlignmentMode = .Top
         getCashLabel!.horizontalAlignmentMode = .Center
         getCashLabel!.position = CGPoint(x: size.width / 2.0, y: getCashCounter!.position.y)
@@ -392,7 +407,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
         // add nodes and run actions
         addChild(getCashLabel!)
-        addChild(getCashCounter!)
+//        addChild(getCashCounter!)
+        addChild(getCashCounterBackground!)
         getCashLabel!.runAction(getCashLabelAction!, withKey: ActionKey.GetCashLabel)
         runAction(getCashCounterAction!, withKey: ActionKey.GetCashCounter)
     }
@@ -403,14 +419,18 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         removeActionForKey(ActionKey.GetCashCounter)
         // remove nodes
         getCashLabel?.removeFromParent()
+        getCashLabelBackground?.removeFromParent()
         getCashCounter?.removeFromParent()
+        getCashCounterBackground?.removeFromParent()
         // stop alert music
         alertBackgroundMusicPlayer.stop()
         if isMusicOn && !gameOver {
             backgroundMusicPlayer.play()
         }
         getCashLabel = nil
+        getCashLabelBackground = nil
         getCashCounter = nil
+        getCashCounterBackground = nil
         getCashLabelAction = nil
         getCashCounterAction = nil
     }
@@ -645,7 +665,38 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 isGetCashCountActive = false
             }
         }
-
+        // font size check
+        if mrMarket != nil {
+            let maxScoreLabelWidth = (size.width - (mrMarket!.size.width + Geometry.MrMarketLeftOffset) * 2 ) * Geometry.ScoreLabelMaxRelativeWidth
+            adjustLabelFontSizeToMaximumWidth(labelNode: scoreLabelNode, maxWidth: maxScoreLabelWidth)
+        }
+    }
+    
+    // MARK: helper functions
+    
+    // adjusts font size if needed
+    private func adjustLabelFontSizeToMaximumWidth(#labelNode:SKLabelNode, maxWidth: CGFloat)
+    {
+        let currentWidth = labelNode.frame.size.width
+        
+        if currentWidth > maxWidth {
+            
+            // Determine the font scaling factor that should let the label text fit in the given rectangle.
+            let scalingFactor = maxWidth / currentWidth
+            
+            // Change the fontSize.
+            labelNode.fontSize *= scalingFactor
+        }
+    }
+    
+    private func backgroundNodeForLabel(labelNode: SKLabelNode, verticalOffset: CGFloat, horizontalOffset: CGFloat, relativeCornerRadius: CGFloat) -> SKShapeNode
+    {
+        let width = labelNode.frame.size.width + horizontalOffset * 2
+        let height = labelNode.frame.size.height + verticalOffset * 2
+        let backgroundCornerRadius = relativeCornerRadius * width
+        let backgroundSize = CGSize(width: width, height: height)
+        
+        return SKShapeNode(rectOfSize: backgroundSize, cornerRadius: backgroundCornerRadius)
     }
     
     // MARK: Game Finished
