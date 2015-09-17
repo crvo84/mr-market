@@ -55,23 +55,30 @@ class Block: SKSpriteNode
         blockNode!.strokeColor = Color.BlockBorder
         addChild(blockNode!)
         
+        // width and height left after border width
+        let realBlockWidth = size.width - Geometry.BlockBorderWidth * 2
+        let realBlockHeight = size.height - Geometry.BlockBorderWidth * 2
+        
         // item texture
-        let side: CGFloat = size.height * Geometry.BlockItemRelativeHeight
-        itemNode = SKSpriteNode(texture: itemTexture, color: SKColor.clearColor(), size: CGSize(width: side, height: side))
+//        let side: CGFloat = size.height * Geometry.BlockItemRelativeHeight
+        let itemSide: CGFloat = realBlockHeight * Geometry.BlockItemRelativeHeight
+        itemNode = SKSpriteNode(texture: itemTexture, color: SKColor.clearColor(), size: CGSize(width: itemSide, height: itemSide))
         itemNode!.anchorPoint = CGPoint(x: 0.0, y: 0.5)
-        let itemNodeLeftOffset: CGFloat = (size.height - side) / 2.0
-        itemNode!.position = CGPoint(x: -size.width / 2 + itemNodeLeftOffset, y: 0) // relative to center of node
+//        let itemNodeLeftOffset: CGFloat = (size.height - side) / 2.0
+        let itemNodeLeftOffset: CGFloat = (realBlockHeight - itemSide) / 2.0
+//        itemNode!.position = CGPoint(x: -size.width / 2 + itemNodeLeftOffset, y: 0) // relative to center of node
+        itemNode!.position = CGPoint(x: -realBlockWidth / 2 + itemNodeLeftOffset, y: 0)
         blockNode!.addChild(itemNode!)
         
 
         // text node rect
-        let blockSpaceLeftAfterItem = blockNode!.frame.size.width - itemNode!.size.width - itemNodeLeftOffset
+        let blockSpaceLeftAfterItem = realBlockWidth - itemNode!.size.width - itemNodeLeftOffset
         let textRectHorizontalOffset = blockSpaceLeftAfterItem * (1 - Geometry.BlockTextRelativeWidth) / 2.0
-        let textRectVerticalOffset = blockNode!.frame.size.height * (1 - Geometry.BlockTextRelativeHeight) / 2.0
+        let textRectVerticalOffset = realBlockHeight * (1 - Geometry.BlockTextRelativeHeight) / 2.0
         let textRectX = itemNode!.position.x + itemNode!.frame.size.width + textRectHorizontalOffset
-        let textRectY = blockNode!.frame.size.height / 2.0 - textRectVerticalOffset
+        let textRectY = realBlockHeight / 2.0 - textRectVerticalOffset
         let textRectWidth = blockSpaceLeftAfterItem * Geometry.BlockTextRelativeWidth
-        let textRectHeight = blockNode!.frame.size.height * Geometry.BlockTextRelativeHeight
+        let textRectHeight = realBlockHeight * Geometry.BlockTextRelativeHeight
         let textRect = CGRect(x: textRectX, y: textRectY, width: textRectWidth, height: textRectHeight)
         // text node
         textNode = SKLabelNode(fontNamed: FontName.BlockText)

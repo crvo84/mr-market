@@ -67,11 +67,11 @@ struct Geometry {
     // get cash label
     static let GetCashLabelMaxRelativeWidth: CGFloat = 0.90 // relative to space left after get cash counter, centered
     static let GetCashLabelBackgroundOffset: CGFloat = 8.0
-    static let GetCashLabelBackgroundRelativeCornerRadius: CGFloat = 0.03
+    static let GetCashLabelBackgroundRelativeCornerRadius: CGFloat = 0.05
     
     // level label
     static let LevelLabelBackgroundOffset: CGFloat = 16.0
-    static let LevelLabelRelativeCornerRadius: CGFloat = 0.03 // relative to background width
+    static let LevelLabelRelativeCornerRadius: CGFloat = 0.07 // relative to background width
     
     // label background
     static let LabelBackgroundBorderWidth: CGFloat = 0.0
@@ -341,10 +341,10 @@ struct CompanyInfo {
 
 struct GameOption {
     // game level
-    static let GameLevelsPerUILevelInitial: Int = 4 // 4
-    static let GameLevelsPerUILevelIncrease: Int = 2 // increased every UI level // 1
+    static let GameLevelsPerUILevelInitial: Int = 3 // 4
+    static let GameLevelsPerUILevelIncrease: Int = 2 // increased every UI level // 2
     static let UILevelBonusInitial: Double = 100
-    static let UILevelBonusIncrease: Double = 400
+    static let UILevelBonusIncrease: Double = 100
     // period variables
     static let PeriodsInitial: Int = 1 // 1
     static let PeriodsIncrease: Int = 0 // 0
@@ -353,7 +353,7 @@ struct GameOption {
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
     static let SpeedInitial: CGFloat = 0.7 // 0.70
-    static let SpeedIncrease: CGFloat = 0.08 // 0.07
+    static let SpeedIncrease: CGFloat = 0.05 // 0.07
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
