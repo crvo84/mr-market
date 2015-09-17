@@ -152,7 +152,7 @@ struct Color {
     static let BlockDefault = SKColor.whiteColor()
     static let BlockBorder = Color.MainBackground
     static let BlockTextDefault = SKColor(red: 0.0, green: 58/255, blue: 70/255, alpha: 1.0)
-    static let BlockPurchased = Color.ScoreLabelInitial
+    static let BlockPurchased = Color.BlockDefault
     static let BlockMaxProfit: Double = 0.75 // positive value
     static let BlockMaxLoss: Double = -0.75 // negative value
     static let BlockMinValueForSecondaryColor: CGFloat = 0.30 // for red, green or blue
@@ -341,11 +341,10 @@ struct CompanyInfo {
 
 struct GameOption {
     // game level
-    static let GameLevelsPerUILevelInitial: Int = 5 // 5
-    static let GameLevelsPerUILevelIncrease: Int = 5 // increased every UI level // 5
-    static let UILevelBonusInitial: Double = 50
-    static let UILevelBonusIncrease: Double = 100
-
+    static let GameLevelsPerUILevelInitial: Int = 4 // 4
+    static let GameLevelsPerUILevelIncrease: Int = 2 // increased every UI level // 1
+    static let UILevelBonusInitial: Double = 100
+    static let UILevelBonusIncrease: Double = 400
     // period variables
     static let PeriodsInitial: Int = 1 // 1
     static let PeriodsIncrease: Int = 0 // 0
@@ -354,7 +353,7 @@ struct GameOption {
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
     static let SpeedInitial: CGFloat = 0.7 // 0.70
-    static let SpeedIncrease: CGFloat = 0.08 // 0.08
+    static let SpeedIncrease: CGFloat = 0.08 // 0.07
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
@@ -394,14 +393,18 @@ struct NodeName {
 
 struct UserDefaultsKey {
     static let MusicOn = "musicOn"
-    static let BestScore = "bestScore"
     static let ShowAds = "showAds"
+    static let BestScore = "bestScore"
+    static let BestScoreLevel = "bestScoreLevel"
+    static let BestLevel = "bestLevel"
 }
 
 struct UserDefaults {
     static let MusicOn = true
-    static let BestScore: Double = 0.0
     static let ShowAds = true
+    static let BestScore: Double = 0.0
+    static let BestScoreLevel: Int = 1
+    static let BestLevel: Int = 1
 }
 
 struct Text {

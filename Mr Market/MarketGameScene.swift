@@ -729,10 +729,22 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             if self.gameOverNode == nil {
                 
                 let defaults = NSUserDefaults.standardUserDefaults()
+                
+                // new score
                 let newScore = self.game.cash
+                let newScoreLevel = self.UILevel
+                
+                // best level
+                let bestLevel = defaults.integerForKey(UserDefaultsKey.BestLevel)
+                if newScoreLevel > bestLevel {
+                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestLevel)
+                }
+                
+                // best score
                 var bestScore = defaults.doubleForKey(UserDefaultsKey.BestScore)
                 if newScore > bestScore {
                     defaults.setDouble(newScore, forKey: UserDefaultsKey.BestScore)
+                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestScoreLevel)
                     bestScore = newScore
                 }
                 self.marketGameViewController!.reportScoreForCash(newScore)

@@ -53,6 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if defaults.objectForKey(UserDefaultsKey.BestScore) == nil {
             defaults.setDouble(UserDefaults.BestScore, forKey: UserDefaultsKey.BestScore)
         }
+        if defaults.objectForKey(UserDefaultsKey.BestScoreLevel) == nil {
+            defaults.setInteger(UserDefaults.BestScoreLevel, forKey: UserDefaultsKey.BestScoreLevel)
+        }
+        if defaults.objectForKey(UserDefaultsKey.BestLevel) == nil {
+            defaults.setInteger(UserDefaults.BestLevel, forKey: UserDefaultsKey.BestLevel)
+        }
         if defaults.objectForKey(UserDefaultsKey.ShowAds) == nil {
             defaults.setBool(UserDefaults.ShowAds, forKey: UserDefaultsKey.ShowAds)
         }
