@@ -345,8 +345,9 @@ struct CompanyInfo {
 
 struct GameOption {
     // game level
-    static let GameLevelsPerUILevelInitial: Int = 4 // 4
-    static let GameLevelsPerUILevelIncrease: Int = 3 // increased every UI level // 2
+    static let UILevelActivated = false
+    static let GameLevelsPerUILevelInitial: Int = 5 // 5
+    static let GameLevelsPerUILevelIncrease: Int = 6 // increased every UI level // 6
     static let UILevelBonusInitial: Double = 100
     static let UILevelBonusIncrease: Double = 100
     // period variables
@@ -356,8 +357,8 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.70 // 0.70
-    static let SpeedIncrease: CGFloat = 0.08 // 0.05
+    static let SpeedInitial: CGFloat = 1.0 // 1.0
+    static let SpeedIncrease: CGFloat = 0.08 // 0.08
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
@@ -365,7 +366,7 @@ struct GameOption {
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true
-    static let GameOverRecoverOriginalInvestments: Bool = false // false
+    static let GameOverRecoverOriginalInvestments: Bool = true // true
 }
 
 struct MarketOption {

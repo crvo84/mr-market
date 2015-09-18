@@ -215,15 +215,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         var result: [SKAction] = []
         
         // Level label
-        if gameLevelsForNextUILevel == 0 || game.gameLevel == 1 {
-            let newLevelAction = SKAction.runBlock {
-                self.showLevelLabel()
-                self.updateUILevelInfo()
+        if GameOption.UILevelActivated {
+            if gameLevelsForNextUILevel == 0 || game.gameLevel == 1 {
+                let newLevelAction = SKAction.runBlock {
+                    self.showLevelLabel()
+                    self.updateUILevelInfo()
+                }
+                let waitLevelAction = SKAction.waitForDuration(Time.LevelLabelFadeInOut * 2 + Time.LevelLabelOnScreen)
+                result.append(SKAction.sequence([newLevelAction, waitLevelAction]))
             }
-            let waitLevelAction = SKAction.waitForDuration(Time.LevelLabelFadeInOut * 2 + Time.LevelLabelOnScreen)
-            result.append(SKAction.sequence([newLevelAction, waitLevelAction]))
+            gameLevelsForNextUILevel--
         }
-        gameLevelsForNextUILevel--
         
         // Blocks generation
         for _ in 0..<numberOfPeriods {
@@ -722,7 +724,6 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
         let presentGameOverScreenAction = SKAction.runBlock {
-//            self.isGameOver = true
             self.pauseButtonNode.hidden = true
             self.scoreLabelNode.hidden = true
             if self.gameOverNode == nil {
@@ -731,19 +732,19 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
                 // new score
                 let newScore = self.game.cash
-                let newScoreLevel = self.UILevel
+//                let newScoreLevel = self.UILevel
                 
-                // best level
-                let bestLevel = defaults.integerForKey(UserDefaultsKey.BestLevel)
-                if newScoreLevel > bestLevel {
-                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestLevel)
-                }
+//                // best level
+//                let bestLevel = defaults.integerForKey(UserDefaultsKey.BestLevel)
+//                if newScoreLevel > bestLevel {
+//                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestLevel)
+//                }
                 
                 // best score
                 var bestScore = defaults.doubleForKey(UserDefaultsKey.BestScore)
                 if newScore > bestScore {
                     defaults.setDouble(newScore, forKey: UserDefaultsKey.BestScore)
-                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestScoreLevel)
+//                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestScoreLevel)
                     bestScore = newScore
                 }
                 self.marketGameViewController!.reportScoreForCash(newScore)
