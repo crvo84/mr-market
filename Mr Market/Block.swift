@@ -60,17 +60,13 @@ class Block: SKSpriteNode
         let realBlockHeight = size.height - Geometry.BlockBorderWidth * 2
         
         // item texture
-//        let side: CGFloat = size.height * Geometry.BlockItemRelativeHeight
         let itemSide: CGFloat = realBlockHeight * Geometry.BlockItemRelativeHeight
         itemNode = SKSpriteNode(texture: itemTexture, color: SKColor.clearColor(), size: CGSize(width: itemSide, height: itemSide))
         itemNode!.anchorPoint = CGPoint(x: 0.0, y: 0.5)
-//        let itemNodeLeftOffset: CGFloat = (size.height - side) / 2.0
         let itemNodeLeftOffset: CGFloat = (realBlockHeight - itemSide) / 2.0
-//        itemNode!.position = CGPoint(x: -size.width / 2 + itemNodeLeftOffset, y: 0) // relative to center of node
         itemNode!.position = CGPoint(x: -realBlockWidth / 2 + itemNodeLeftOffset, y: 0)
         blockNode!.addChild(itemNode!)
         
-
         // text node rect
         let blockSpaceLeftAfterItem = realBlockWidth - itemNode!.size.width - itemNodeLeftOffset
         let textRectHorizontalOffset = blockSpaceLeftAfterItem * (1 - Geometry.BlockTextRelativeWidth) / 2.0
@@ -80,17 +76,31 @@ class Block: SKSpriteNode
         let textRectWidth = blockSpaceLeftAfterItem * Geometry.BlockTextRelativeWidth
         let textRectHeight = realBlockHeight * Geometry.BlockTextRelativeHeight
         let textRect = CGRect(x: textRectX, y: textRectY, width: textRectWidth, height: textRectHeight)
+        
         // text node
+        // always same size
         textNode = SKLabelNode(fontNamed: FontName.BlockText)
         textNode!.fontColor = textColor
-        textNode!.horizontalAlignmentMode = .Left
-        textNode!.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        textNode!.text = FontSize.BlockLargestPriceText // provisional largest text for font size adjustment
+        textNode!.text = price.value >= 10.0 ? FontSize.BlockLargestPriceText : FontSize.BlockSmallestPriceText // provisional largest text for font size adjustment
         textNode!.fontSize = FontSize.BlockPriceInitial // font size before adjustment
         adjustLabelFontSizeToFitRect(labelNode: textNode!, rect: textRect, centeredOnRect: false)
         textNode!.text = price.toString() // real text
+        textNode!.horizontalAlignmentMode = .Left
+        textNode!.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         textNode!.position = CGPoint(x: textRectX, y: Geometry.BlockTextYOffset)
         blockNode!.addChild(textNode!)
+        
+//        // adjust size to fit width
+//        textNode = SKLabelNode(fontNamed: FontName.BlockText)
+//        textNode!.fontColor = textColor
+//        textNode!.text = price.toString() // real text
+//        textNode!.fontSize = FontSize.BlockPriceInitial // font size before adjustment
+//        adjustLabelFontSizeToFitRect(labelNode: textNode!, rect: textRect, centeredOnRect: false)
+//        textNode!.horizontalAlignmentMode = .Left
+//        textNode!.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+//        textNode!.position = CGPoint(x: textRectX, y: Geometry.BlockTextYOffset)
+//        blockNode!.addChild(textNode!)
+
         
         // create physics body
         physicsBody = SKPhysicsBody(rectangleOfSize: size)

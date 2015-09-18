@@ -77,18 +77,17 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     // Speed
     private var gameSpeed: CGFloat {
-        get {
-            return GameOption.SpeedInitial + GameOption.SpeedIncrease * CGFloat(game.gameLevel - 1)
-        }
+        let deviceHeightAdjustingFactor = CGFloat((size.height - floorOffset) / Geometry.DeviceBaseHeight)
+        return (GameOption.SpeedInitial + GameOption.SpeedIncrease * CGFloat(game.gameLevel - 1)) * deviceHeightAdjustingFactor
     }
     
     private var timeBetweenBlocks: Double {
-        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
+        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Geometry.DeviceBaseHeight)
         return Time.BetweenBlocksForInitialSpeed / Double(gameSpeed) * deviceHeightAdjustingFactor
     }
     
     private var timeBetweenPeriods: Double {
-        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Time.DeviceBaseHeight)
+        let deviceHeightAdjustingFactor = Double((size.height - floorOffset) / Geometry.DeviceBaseHeight)
         print("Device height adjusting factor: \(deviceHeightAdjustingFactor)")
         return Time.BetweenPeriodsForInitialSpeed / Double(gameSpeed) / Double(game.companies.count) * deviceHeightAdjustingFactor
     }

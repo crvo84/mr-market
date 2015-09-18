@@ -38,6 +38,12 @@ struct Filename {
 }
 
 struct Geometry {
+    // base device
+    // Device Size. Time Between Blocks and Between Periods for initial speed is based on this device height. Adjust Time for different device heights.
+    // To adjust time: TimeForDeviceBaseHeight * CurrentDeviceHeight / DeviceBaseHeight
+    // To adjust speed: SpeedForDeviceBaseHeight * CurrentDeviceHeight / DeviceBaseHeight
+    static let DeviceBaseHeight: CGFloat = 667
+    
     // mr market
     static let MrMarketRelativeWidth: CGFloat = 1.0 / 5.0 // Relative to scene width
     static let MrMarketAspectRatio: CGFloat = 290.0 / 450.0
@@ -50,10 +56,10 @@ struct Geometry {
     static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
     // block item
-    static let BlockItemRelativeHeight: CGFloat = 0.80 // Relative to block height
+    static let BlockItemRelativeHeight: CGFloat = 0.9 // Relative to block height
     // block text
     static let BlockTextRelativeHeight: CGFloat = 0.6 // relative to block height
-    static let BlockTextRelativeWidth: CGFloat = 0.8 // of block width left after adding item image
+    static let BlockTextRelativeWidth: CGFloat = 0.85 // of block width left after adding item image
     static let BlockTextYOffset: CGFloat = -1.0 // From to Y origin
     static let BlockHorizontalSeparation: CGFloat = 1.0 // Space between blocks
     // block explosion
@@ -209,6 +215,7 @@ struct Color {
 struct FontSize {
     // block
     static let BlockPriceInitial: CGFloat = 10.0
+    static let BlockSmallestPriceText = "$9.9"
     static let BlockLargestPriceText = "$99.9"
     // get cash
     static let GetCashCounterIphone: CGFloat = 50
@@ -265,9 +272,6 @@ struct Time {
     // blocks
     static let BetweenBlocksForInitialSpeed: Double = 6.0   // Inside game must be divided by current physicsWorld speed and adjusted to device base height
     static let BetweenPeriodsForInitialSpeed: Double = 4.0 // Inside game must be divided by current physicsWorld speed and adjusted to device base height
-    // Device Size. Time Between Blocks and Between Periods for initial speed is based on this device height. Adjust Time for different device heights.
-    // To adjust: TimeForDeviceBaseHeight * CurrentDeviceHeight / DeviceBaseHeight
-    static let DeviceBaseHeight: CGFloat = 667
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
     // game over node
@@ -341,8 +345,8 @@ struct CompanyInfo {
 
 struct GameOption {
     // game level
-    static let GameLevelsPerUILevelInitial: Int = 3 // 4
-    static let GameLevelsPerUILevelIncrease: Int = 2 // increased every UI level // 2
+    static let GameLevelsPerUILevelInitial: Int = 4 // 4
+    static let GameLevelsPerUILevelIncrease: Int = 3 // increased every UI level // 2
     static let UILevelBonusInitial: Double = 100
     static let UILevelBonusIncrease: Double = 100
     // period variables
@@ -352,8 +356,8 @@ struct GameOption {
     static let NumberOfCompaniesInitial: Int = 2 // 2
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
-    static let SpeedInitial: CGFloat = 0.7 // 0.70
-    static let SpeedIncrease: CGFloat = 0.05 // 0.07
+    static let SpeedInitial: CGFloat = 0.70 // 0.70
+    static let SpeedIncrease: CGFloat = 0.08 // 0.05
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
