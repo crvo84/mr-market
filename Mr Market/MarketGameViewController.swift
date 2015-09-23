@@ -39,6 +39,8 @@ class MarketGameViewController: UIViewController, ADBannerViewDelegate
             scene.scaleMode = .AspectFill
             scene.marketGameViewController = self
             
+//            skView.showsFPS = true
+            
             if adBanner != nil {
                 scene.adBottomOffset = adBanner!.frame.height
             }

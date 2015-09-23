@@ -476,6 +476,12 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         node.runAction(shakeSequence, withKey: Shake.Key)
     }
     
+    private func shakeAllBlocks() {
+        for block in existingBlocks {
+            shakeNode(block)
+        }
+    }
+    
     private func explosion(position: CGPoint)
     {
         let emitterNode = SKEmitterNode(fileNamed: Filename.SparkEmitter)
@@ -486,11 +492,11 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         emitterNode!.position = position
         emitterNode!.zPosition = ZPosition.Explosion
         
-        let explodeAction = SKAction.runBlock { self.addChild(emitterNode!) }
-        let waitAction = SKAction.waitForDuration(Time.BlockExplosion)
-        let disappearAction = SKAction.runBlock { emitterNode!.removeFromParent() }
-        
-        runAction(SKAction.sequence([explodeAction, waitAction, disappearAction]))
+        self.addChild(emitterNode!)
+
+        runAction(SKAction.waitForDuration(Time.BlockExplosion)) { () -> Void in
+            emitterNode?.removeFromParent()
+        }
     }
     
     private func updateBlockColors() {
@@ -500,6 +506,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             }
         }
     }
+    
+    // TODO: change all blocks to white color
     
     // MARK: Physics contact
     func didBeginContact(contact: SKPhysicsContact) {
@@ -534,17 +542,22 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         
         if let blockToPurchase = landedBlock {
             if blockToPurchase.isDescending {
-                if blockToPurchase.position.y + blockToPurchase.size.height / 2.0 > size.height {
-                    gameOver()
-                    return
-                }
+                blockToPurchase.isDescending = false
+                
+                let blockY = blockToPurchase.position.y
+//                let blockHeight = blockToPurchase.size.height
+                
                 if game.portfolio.buyPrice(blockToPurchase.price) {
-                    blockToPurchase.isDescending = false
                     runAction(slamSoundAction)
                 } else {
                     runAction(popSoundAction)
                     explosion(blockToPurchase.position)
                     deleteBlock(blockToPurchase)
+                }
+                
+                if blockY >= size.height { // or blockY + blockHeight / 2.0 ?
+                    gameOver()
+                    return
                 }
             }
         }
@@ -621,7 +634,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             default:
                 break
             }
-        } else if !view!.paused {
+        } else if !view!.paused && !isGameOver {
             // Blocks must not have name
             if let body = physicsWorld.bodyAtPoint(location) {
                 if let blockNode = body.node as? Block {
@@ -641,7 +654,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func deleteBlock(block: Block) {
         if let index = existingBlocks.indexOf(block) {
-            if !isGameOver || ranOutOfCash || GameOption.GameOverRecoverOriginalInvestments {
+            if !isGameOver || ranOutOfCash || !GameOption.GameOverRecoverOriginalInvestments {
                 // If still playing or ran out of cash, block is sold at current value
                 game.portfolio.sellPrice(block.price)
             } else {
@@ -710,16 +723,20 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     private func gameOver()
     {
         removeAllActions()
-        shakeNode(mrMarket!)
-        shakeNode(pauseButtonNode)
-        shakeNode(scoreLabelNode)
+//        shakeNode(mrMarket!)
+//        shakeNode(pauseButtonNode)
+//        shakeNode(scoreLabelNode)
+        shakeAllBlocks()
         
         isGameOver = true
 
-        explodeAllBlocks()
+        explodeDescendingBlocks()
         backgroundMusicPlayer.stop()
         backgroundMusicPlayer.currentTime = 0
         runAction(gameOverSoundAction)
+        
+        // Sell all blocks actions
+        let sellAllBlocksAction = SKAction.sequence(sellAllBlocksActions())
         
         // Present game over node or scene
         let waitAction = SKAction.waitForDuration(Time.GameOverNodePresentation)
@@ -732,19 +749,11 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 
                 // new score
                 let newScore = self.game.cash
-//                let newScoreLevel = self.UILevel
-                
-//                // best level
-//                let bestLevel = defaults.integerForKey(UserDefaultsKey.BestLevel)
-//                if newScoreLevel > bestLevel {
-//                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestLevel)
-//                }
                 
                 // best score
                 var bestScore = defaults.doubleForKey(UserDefaultsKey.BestScore)
                 if newScore > bestScore {
                     defaults.setDouble(newScore, forKey: UserDefaultsKey.BestScore)
-//                    defaults.setInteger(newScoreLevel, forKey: UserDefaultsKey.BestScoreLevel)
                     bestScore = newScore
                 }
                 self.marketGameViewController!.reportScoreForCash(newScore)
@@ -759,17 +768,35 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 self.gameOverNode!.runAction(SKAction.fadeAlphaTo(1.0, duration: Time.GameOverNodeFadeIn))
             }
         }
-        runAction(SKAction.sequence([waitAction, presentGameOverScreenAction]))
+        
+        runAction(SKAction.sequence([sellAllBlocksAction, waitAction, presentGameOverScreenAction]))
     }
     
-    private func explodeAllBlocks() {
+    private func explodeDescendingBlocks() {
         for var i = existingBlocks.count - 1; i >= 0; i-- {
             let block = existingBlocks[i]
             if block.isDescending {
                 explosion(block.position)
+                deleteBlock(block)
             }
-            deleteBlock(block)
         }
+    }
+    
+    private func sellAllBlocksActions() -> [SKAction] {
+        var actions: [SKAction] = []
+        actions.append(SKAction.waitForDuration(Time.SellAllBlocksInitialWait))
+        for var i = existingBlocks.count - 1; i >= 0; i-- {
+            let block = existingBlocks[i]
+            if !block.isDescending {
+                actions.append(SKAction.runBlock {
+                    self.deleteBlock(block)
+                    self.runAction(self.moneySoundAction)
+                })
+                actions.append(SKAction.waitForDuration(Time.SellAllBlocksBetweenBlock))
+            }
+        }
+        actions.append(SKAction.waitForDuration(Time.SellAllBlocksFinalWait))
+        return actions
     }
     
     // MARK: Pause/Unpause

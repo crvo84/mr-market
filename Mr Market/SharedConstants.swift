@@ -52,7 +52,7 @@ struct Geometry {
     
     // block
     static let BlocksPerLine: CGFloat = 3.0
-    static let BlocksPerColumn: CGFloat = 9.5
+    static let BlocksPerColumn: CGFloat = 9.5 // x.5 so the last block has space for only half its height
     static let BlockRelativeCornerRadius: CGFloat = 0.05 // Relative to block width
     static let BlockBorderWidth: CGFloat = 4.0
     // block item
@@ -274,8 +274,12 @@ struct Time {
     static let BetweenPeriodsForInitialSpeed: Double = 4.0 // Inside game must be divided by current physicsWorld speed and adjusted to device base height
     static let BlockExplosion = 1.0
     static let BlockShrink = 0.02
+    // sell all blocks actions
+    static let SellAllBlocksBetweenBlock: Double = 0.12
+    static let SellAllBlocksInitialWait: Double = 1.6
+    static let SellAllBlocksFinalWait: Double = 0.0
     // game over node
-    static let GameOverNodePresentation = Time.BlockExplosion + 0.5
+    static let GameOverNodePresentation = 0.3
     static let GameOverNodeFadeIn = 0.3
     
     // get cash
@@ -324,9 +328,9 @@ struct ZPosition {
 
 struct Shake {
     static let Key = "shakeKey"
-    static let Movements: Int = 10 // Number of individual movements
-    static let Distance: Double = 150.0 // How big
-    static let Duration: Double = 0.50 // How long
+    static let Movements: Int = 10 // Number of individual movements (speed)
+    static let Distance: Double = 30.0 // How big
+    static let Duration: Double = 0.30 // How long
 }
 
 struct ActionKey {
@@ -358,7 +362,7 @@ struct GameOption {
     static let NumberOfCompaniesIncrease: Int = 1 // 1
     static let NumberOfCompaniesMax: Int = 5 // <= 0 for no maximum // 5
     static let SpeedInitial: CGFloat = 1.0 // 1.0
-    static let SpeedIncrease: CGFloat = 0.08 // 0.08
+    static let SpeedIncrease: CGFloat = 0.10 // 0.10
     static let TransactionAmountInitial: Double = 100.0 // 100
     static let TransactionAmountIncrease: Double = 0.0 // 0
     // initial setup
@@ -366,7 +370,7 @@ struct GameOption {
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true
-    static let GameOverRecoverOriginalInvestments: Bool = true // true
+    static let GameOverRecoverOriginalInvestments: Bool = false // true
 }
 
 struct MarketOption {

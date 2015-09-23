@@ -111,6 +111,7 @@ class Block: SKSpriteNode
         physicsBody?.restitution = Physics.BlockRestitution
         physicsBody?.categoryBitMask = Category.Block
         physicsBody?.contactTestBitMask = Category.Block | Category.Floor
+        physicsBody?.usesPreciseCollisionDetection = true
         
         zPosition = ZPosition.Block
     }

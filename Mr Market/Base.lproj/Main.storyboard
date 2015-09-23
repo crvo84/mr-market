@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dbB-kk-FeK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dbB-kk-FeK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -20,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez4-Mq-2yQ">
-                                <rect key="frame" x="16" y="540" width="52" height="52"/>
+                                <rect key="frame" x="20" y="540" width="52" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="G0H-pf-lfZ"/>
                                     <constraint firstAttribute="width" constant="52" id="Xew-rJ-VAJ"/>
@@ -35,7 +36,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWj-0a-FuR">
-                                <rect key="frame" x="445" y="547" width="139" height="45"/>
+                                <rect key="frame" x="441" y="547" width="139" height="45"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="28"/>
                                 <state key="normal" title="More games">
                                     <color key="titleColor" red="0.96862745098039216" green="0.66274509803921566" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,7 +85,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MR. MARKET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="k4s-64-CvO">
-                                <rect key="frame" x="40" y="28" width="520" height="51"/>
+                                <rect key="frame" x="44" y="28" width="512" height="51"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="44"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -167,7 +168,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s7V-Ai-cLP" userLabel="Home Button">
-                                <rect key="frame" x="16" y="28" width="52" height="52"/>
+                                <rect key="frame" x="20" y="28" width="52" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="52" id="LV6-yV-DkB"/>
                                     <constraint firstAttribute="height" constant="52" id="srA-FC-QWB"/>
@@ -285,7 +286,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KLz-6z-R7H">
-                                <rect key="frame" x="16" y="28" width="568" height="564"/>
+                                <rect key="frame" x="20" y="28" width="560" height="564"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -320,7 +321,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n17-Hn-Pnm" userLabel="Home Button">
-                                <rect key="frame" x="16" y="28" width="52" height="52"/>
+                                <rect key="frame" x="20" y="28" width="52" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Cdp-lc-WTS"/>
                                     <constraint firstAttribute="width" constant="52" id="nMe-Cb-KCQ"/>
@@ -331,7 +332,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFp-ZA-51G" userLabel="How To Play Button">
-                                <rect key="frame" x="528" y="28" width="56" height="56"/>
+                                <rect key="frame" x="524" y="28" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="KLH-cn-uHm"/>
                                     <constraint firstAttribute="height" constant="56" id="dzc-QD-xcS"/>
@@ -359,7 +360,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAy-Hj-zVi">
-                                <rect key="frame" x="570" y="570" width="22" height="22"/>
+                                <rect key="frame" x="566" y="570" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="eHZ-Oz-iNT"/>
                                     <constraint firstAttribute="height" constant="22" id="ybU-J2-FTE"/>
@@ -373,7 +374,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Based on &quot;The Intelligent Investor&quot; by B. Graham" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="qQu-3d-ZWM">
-                                <rect key="frame" x="16" y="571" width="546" height="21"/>
+                                <rect key="frame" x="20" y="571" width="538" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
