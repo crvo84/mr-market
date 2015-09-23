@@ -370,8 +370,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
             }))
         }
         counterActions.append(SKAction.runBlock({
-            self.stopGetCashCount(gameOver: true)
             self.ranOutOfCash = true
+            self.stopGetCashCount(gameOver: true)
             self.gameOver()
         }))
         getCashCounterAction = SKAction.sequence(counterActions)
@@ -428,7 +428,7 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
         getCashCounterBackground?.removeFromParent()
         // stop alert music
         alertBackgroundMusicPlayer.stop()
-        if isMusicOn && !gameOver {
+        if isMusicOn && !gameOver && !ranOutOfCash {
             backgroundMusicPlayer.play()
         }
         getCashLabelBackground = nil
@@ -722,6 +722,8 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
     
     private func gameOver()
     {
+        setAllBlocksDynamic(false)
+        
         removeAllActions()
 //        shakeNode(mrMarket!)
 //        shakeNode(pauseButtonNode)
@@ -779,6 +781,12 @@ class MarketGameScene: SKScene, SKPhysicsContactDelegate
                 explosion(block.position)
                 deleteBlock(block)
             }
+        }
+    }
+    
+    private func setAllBlocksDynamic(dynamic: Bool) {
+        for block in existingBlocks {
+            block.physicsBody?.dynamic = dynamic
         }
     }
     

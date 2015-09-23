@@ -370,7 +370,7 @@ struct GameOption {
     static let InitialMarketLevel: Int = 0 // 0
     // profit/loss
     static let UpdateAllPricesSimultaneously: Bool = true // true
-    static let GameOverRecoverOriginalInvestments: Bool = false // true
+    static let GameOverRecoverOriginalInvestments: Bool = false // false
 }
 
 struct MarketOption {
