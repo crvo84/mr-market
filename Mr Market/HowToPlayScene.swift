@@ -104,14 +104,14 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         exitButtonNode.zPosition = ZPosition.Button
         addChild(exitButtonNode)
         
-        // reload Button
-        let reloadButtonNode = SKSpriteNode(imageNamed: Filename.ReloadButton)
-        reloadButtonNode.size = CGSize(width: Geometry.TutorialReloadButtonSideSize, height: Geometry.TutorialReloadButtonSideSize)
-        reloadButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
-        reloadButtonNode.position = CGPoint(x: size.width - Geometry.TutorialReloadButtonRightOffset, y: size.height - Geometry.TutorialReloadButtonUpperOffset)
-        reloadButtonNode.name = NodeName.ReloadButton
-        reloadButtonNode.zPosition = ZPosition.Button
-        addChild(reloadButtonNode)
+//        // reload Button
+//        let reloadButtonNode = SKSpriteNode(imageNamed: Filename.ReloadButton)
+//        reloadButtonNode.size = CGSize(width: Geometry.TutorialReloadButtonSideSize, height: Geometry.TutorialReloadButtonSideSize)
+//        reloadButtonNode.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+//        reloadButtonNode.position = CGPoint(x: size.width - Geometry.TutorialReloadButtonRightOffset, y: size.height - Geometry.TutorialReloadButtonUpperOffset)
+//        reloadButtonNode.name = NodeName.ReloadButton
+//        reloadButtonNode.zPosition = ZPosition.Button
+//        addChild(reloadButtonNode)
     }
     
     // MARK: TUTORIAL
@@ -426,17 +426,7 @@ class HowToPlayScene: SKScene, SKPhysicsContactDelegate {
         let touchedNode = self.nodeAtPoint(location)
         if let name = touchedNode.name {
             switch name {
-                
-            case NodeName.ReloadButton:
-                // Create and configure new scene
-                let newHowToPlayScene = HowToPlayScene(size: size)
-                newHowToPlayScene.scaleMode = .AspectFill
-                newHowToPlayScene.howToPlayViewController = howToPlayViewController
-                newHowToPlayScene.adBottomOffset = adBottomOffset
-                // Transition
-                let newGameTransition = SKTransition.crossFadeWithDuration(0.5)
-                view?.presentScene(newHowToPlayScene, transition: newGameTransition)
-                
+
             case NodeName.QuitButton:
                 if howToPlayViewController != nil {
                     howToPlayViewController!.performSegueWithIdentifier(SegueId.QuitHowToPlay, sender: howToPlayViewController!)
