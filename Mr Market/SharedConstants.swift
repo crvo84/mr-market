@@ -215,8 +215,10 @@ struct Color {
 struct FontSize {
     // block
     static let BlockPriceInitial: CGFloat = 10.0
-    static let BlockSmallestPriceText = "$9.9"
-    static let BlockLargestPriceText = "$99.9"
+    static let Block2DigitsPriceText = "$9.9"
+    static let Block3DigitsPriceText = "$99.9"
+    static let Block4DigitsPriceText = "$999.9"
+    static let Block5DigitsPriceText = "$9999.9"
     // get cash
     static let GetCashCounterIphone: CGFloat = 50
     static let GetCashCounterIpad: CGFloat = 100

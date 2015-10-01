@@ -81,8 +81,23 @@ class Block: SKSpriteNode
         // always same size
         textNode = SKLabelNode(fontNamed: FontName.BlockText)
         textNode!.fontColor = textColor
-        textNode!.text = price.value >= 10.0 ? FontSize.BlockLargestPriceText : FontSize.BlockSmallestPriceText // provisional largest text for font size adjustment
         textNode!.fontSize = FontSize.BlockPriceInitial // font size before adjustment
+        
+        // provisional text for font size adjustment
+        var provisionalText = FontSize.Block2DigitsPriceText
+        if price.value >= 1000.0
+        {
+            provisionalText = FontSize.Block5DigitsPriceText
+        } else if price.value >= 100.0
+        {
+            provisionalText = FontSize.Block4DigitsPriceText
+        } else if price.value >= 10.0
+        {
+            provisionalText = FontSize.Block3DigitsPriceText
+        }
+
+        textNode!.text = provisionalText
+        
         adjustLabelFontSizeToFitRect(labelNode: textNode!, rect: textRect, centeredOnRect: false)
         textNode!.text = price.toString() // real text
         textNode!.horizontalAlignmentMode = .Left
